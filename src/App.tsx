@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Store from "./Redux/Store";
 import { AuthLayout, InstructorLayout, LearnerLayout, NotFound, ProtectedRoute } from "./Components";
 import { ForgetPassword, Login, Register, ResetPassword } from "./Pages";
+import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 // import LoadingComponent from "./Components/Loading/Loading";
 
 function App() {
@@ -22,6 +23,7 @@ const routes = createBrowserRouter([
       { path: "register", element: <Register /> },
       { path: "forget-password", element: <ForgetPassword /> },
       { path: "reset-password", element: <ResetPassword /> },
+      { path: "change-password", element: <ChangePassword/> },
     ],
   },
 

@@ -1,2 +1,7 @@
 @import "./variables.scss";
 @import "./responsive.scss";
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
