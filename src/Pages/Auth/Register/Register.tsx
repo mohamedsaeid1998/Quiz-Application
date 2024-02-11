@@ -1,6 +1,5 @@
-import React from "react";
 import "./Register.module.scss";
-import { background4, background5 } from "@/Assets/Images";
+import {background5 } from "@/Assets/Images";
 import {
   FaAddressCard,
   FaCheckCircle,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+
 const Register = () => {
   return (
     <>
@@ -102,7 +102,7 @@ const Register = () => {
 
                 <div className="role">
                   <label htmlFor="role" className="text-white font-semibold">
-                    Your role address
+                    Your role 
                   </label>
                   <div className="flex rounded-md mt-2 border-2 border-white">
                     <span className="flex items-center me-3 pl-3 text-white">
@@ -112,7 +112,7 @@ const Register = () => {
                       id="role"
                       className="border-none w-full p-2 text-slate-400  bg-transparent"
                     >
-                      <option selected className="text-slate-500" value="">
+                      <option  className="text-slate-500" defaultValue={""}>
                         Select your role
                       </option>
                       <option className="text-black" value="instructor">
