@@ -1,8 +1,8 @@
 import React from 'react'
-import './InstructorLayout.module.scss'
+import './MasterLayout.module.scss'
 import { Outlet } from 'react-router-dom'
 
-const InstructorLayout = () => {
+const MasterLayout = () => {
   return <>
     <div>
     <Outlet />
@@ -10,4 +10,4 @@ const InstructorLayout = () => {
   </>
 }
 
-export default InstructorLayout
+export default MasterLayout

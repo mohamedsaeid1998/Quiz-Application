@@ -1,8 +1,8 @@
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Store from "./Redux/Store";
-import { AuthLayout, InstructorLayout, LearnerLayout, NotFound, ProtectedRoute } from "./Components";
-import { ForgetPassword, Login, Register, ResetPassword } from "./Pages";
+import { AuthLayout, MasterLayout,ProtectedRoute } from "./Components";
+import { ForgetPassword, Login, NotFound, Register, ResetPassword } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import { ToastContainer } from "react-toastify";
 // import LoadingComponent from "./Components/Loading/Loading";
@@ -24,22 +24,8 @@ const routes = createBrowserRouter([
     ],
   },
 
-
     {
-      path: "learner",
-      element: (
-        <LearnerLayout />
-      ),
-      errorElement: <NotFound />,
-      children: [
-        // { index: true, element: <Landing /> },
-        // { path:'explore', element: <Explore /> },
-
-      ]
-    },
-
-    {
-      path: "dashboard",element:<InstructorLayout />,errorElement: <NotFound />,children: [
+      path: "dashboard",element:<MasterLayout />,errorElement: <NotFound />,children: [
         // {index: true, element:<Home/>},
         // { path: "users", element: <Users /> },
       ],
