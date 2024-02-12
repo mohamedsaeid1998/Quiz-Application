@@ -1,3 +1,5 @@
+/** @format */
+
 export { default as Login } from "./Auth/Login/Login";
 export { default as Register } from "./Auth/Register/Register";
 export { default as ResetPassword } from "./Auth/ResetPassword/ResetPassword";
@@ -7,3 +9,4 @@ export { default as Home } from "./Home/Home";
 export { default as Groups } from "./Groups/Groups";
 export { default as Quizzes } from "./Quizzes/Quizzes";
 export { default as Results } from "./Results/Results";
+export { default as Students } from "./Students/Students";

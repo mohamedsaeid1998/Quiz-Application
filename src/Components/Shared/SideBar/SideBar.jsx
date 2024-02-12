@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from "react";
 import {
   AiOutlineFieldTime,
@@ -43,6 +45,13 @@ export default function SideBar() {
             <MenuItem
               className="border-b border-black hover:bg-secondColor"
               icon={<PiUsersFourFill className="bg-secondColor text-[30px]" />}
+              component={<Link to="students" />}
+            >
+              {t("students")}
+            </MenuItem>
+            <MenuItem
+              className="border-b border-black hover:bg-secondColor"
+              icon={<PiUsersFourFill className="bg-secondColor text-[30px]" />}
               component={<Link to="groups" />}
             >
               {t("groups")}
@@ -54,7 +63,6 @@ export default function SideBar() {
               }
               component={<Link to="quizzes" />}
             >
-              {" "}
               {t("quizzes")}
             </MenuItem>
             <MenuItem

@@ -1,3 +1,5 @@
+/** @format */
+
 import { useTranslation } from "react-i18next";
 import image from "../../Assets/Images/quiz-img.png";
 import { FaArrowAltCircleRight } from "react-icons/fa";
