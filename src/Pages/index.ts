@@ -7,3 +7,4 @@ export { default as Home } from "./Home/Home";
 export { default as Groups } from "./Groups/Groups";
 export { default as Quizzes } from "./Quizzes/Quizzes";
 export { default as Results } from "./Results/Results";
+export { default as Help } from "./Help/Help";

@@ -1,9 +1,36 @@
+
+import { useAction } from "@/Utils/Hooks/UseActions";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import image from "../../Assets/Images/quiz-img.png";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import image from "../../Assets/Images/quiz-img.png";
+import { useDispatch } from "react-redux";
+import { GetAllQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
+  const [AllQuestionsData, setAllQuestionsData] = useState([])
+
+  const QuestionsData = useAction(GetAllQuestions())
+
+
+
+  const fetchData = async () => {
+    const data = await QuestionsData()
+    setAllQuestionsData(data)
+  }
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+  console.log(AllQuestionsData)
+
+
+
+
 
   return (
     <>
