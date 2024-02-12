@@ -5,3 +5,16 @@
 @import "./variables.scss";
 @import "./responsive.scss";
 
+// SideBar styles
+.sidebar-container .ps-sidebar-container {
+  background-color: #fff;
+  height: 100vh;
+  color: #000;
+}
+.ps-sidebar-root {
+  border: none !important;
+}
+
+.sidebar-container .ps-sidebar-container .ps-menu-button:hover {
+  background-color: inherit;
+}
