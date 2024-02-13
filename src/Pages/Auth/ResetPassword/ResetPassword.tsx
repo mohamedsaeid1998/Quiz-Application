@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ResetPassword.module.scss";
 import { background5 } from "@/Assets/Images";
 import {
@@ -7,9 +7,36 @@ import {
   FaKey,
 } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import baseUrl from "@/Utils/Custom/Custom";
+import { toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const ResetPassword = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      setIsLoading(true);
+      let response = await baseUrl.post(`/api/auth/reset-password`, data);
+      console.log(response);
+      setIsLoading(false);
+      toast.success(response.data.message);
+      navigate("/");
+    } catch (error: any) {
+      toast.error(error?.response.data.message);
+      console.log(error.response);
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <div className="bg-mainBg">
@@ -26,7 +53,7 @@ const ResetPassword = () => {
               <h2 className="text-mainColor font-semibold text-2xl my-3">
                 Reset password
               </h2>
-              <form>
+              <form  onSubmit={handleSubmit(onSubmit)}>
                 <div className="email mt-2">
                   <label htmlFor="email" className="text-white font-semibold">
                     Your email address
@@ -38,9 +65,19 @@ const ResetPassword = () => {
                     <input
                       type="email"
                       id="email"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2  rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your email"
+                      {...register("email", {
+                        required: true,
+                        pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                      })}
                     />
+                     {errors.email && errors.email.type === "required" && (
+                      <span className="text-red-600">email is required!!</span>
+                    )}
+                    {errors.email && errors.email.type === "pattern" && (
+                      <span className="text-red-600">invalid email!!</span>
+                    )}
                   </div>
                 </div>
                 <div className="OTP mt-2">
@@ -54,9 +91,15 @@ const ResetPassword = () => {
                     <input
                       type="text"
                       id="OTP"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your OTP"
+                      {...register("otp", {
+                        required: true,
+                      })}
                     />
+                     {errors.otp && errors.otp.type === "required" && (
+                    <span className="text-red-600">OTP is required!!</span>
+                  )}
                   </div>
                 </div>
                 <div className="password mt-2">
@@ -73,40 +116,38 @@ const ResetPassword = () => {
                     <input
                       type="password"
                       id="password"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your password"
+                      {...register("password", {
+                        required: true,
+                      })}
                     />
+                     {errors.password && errors.password.type === "required" && (
+                      <span className="text-red-600">
+                        password is required!!
+                      </span>
+                    )}
                   </div>
                 </div>
-                <div className="confirmPassword mt-2">
-                  <label
-                    htmlFor="confirmPassword"
-                    className="text-white font-semibold"
-                  >
-                    Confirm Password
-                  </label>
-                  <div className="flex items-center mt-2 rounded-md border-2 border-white">
-                    <span className="flex  items-center me-3 pl-3 text-white ">
-                      <FaKey />
-                    </span>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
-                      placeholder="Type your confirm password"
-                    />
-                  </div>
-                </div>
-
+              
                 <div>
-                  <button
+                <button
                     type="submit"
-                    className="bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"
+                    className={
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      (isLoading ? " disabled" : " ")
+                    }
                   >
-                    Reset
-                    <span>
-                      <FaCheckCircle className="mx-2 text-xl rounded-full" />
-                    </span>
+                    {isLoading == true ? (
+                      <TbFidgetSpinner className="animate-spin" />
+                    ) : (
+                      <>
+                       Reset
+                        <span>
+                          <FaCheckCircle className="mx-2 text-xl rounded-full" />
+                        </span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

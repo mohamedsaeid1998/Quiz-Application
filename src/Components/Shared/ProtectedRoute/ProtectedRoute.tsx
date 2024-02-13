@@ -1,10 +1,22 @@
-import React from 'react'
-import './ProtectedRoute.module.scss'
+import { ReactNode, useEffect } from "react";
+import "./ProtectedRoute.module.scss";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = () => {
-  return <>
-    <div>ProtectedRoute</div>
-  </>
+interface prop {
+  children: ReactNode;
 }
+const ProtectedRoute = ({ children }: prop) => {
+  let {userData} = useSelector((state:any)=>{
+    return state.authUser
+  })
+  // console.log(JSON.parse(userData));
 
-export default ProtectedRoute
+  if (JSON.parse(userData)?.accessToken) {
+      return children;
+  } else {
+    return <Navigate to={"/"} />;
+  }
+};
+
+export default ProtectedRoute;

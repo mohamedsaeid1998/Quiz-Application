@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ForgetPassword.module.scss";
 import { background5 } from "@/Assets/Images";
 import { FaCheckCircle, FaEnvelope } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import baseUrl from "@/Utils/Custom/Custom";
+import { toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const ForgetPassword = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      setIsLoading(true);
+      let response = await baseUrl.post(`/api/auth/forgot-password`, data);
+      console.log(response);
+      setIsLoading(false);
+      toast.success(response.data.message);
+      navigate("/reset-password");
+    } catch (error: any) {
+      toast.error(error?.response.data.message);
+      console.log(error.response);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="bg-mainBg">
@@ -22,7 +50,7 @@ const ForgetPassword = () => {
               <h2 className="text-mainColor font-semibold text-2xl my-3">
                 Forgot password
               </h2>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="email my-10">
                   <label htmlFor="email" className="text-white font-semibold">
                     Email address
@@ -34,20 +62,39 @@ const ForgetPassword = () => {
                     <input
                       type="email"
                       id="email"
-                      className="px-2  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2 outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your email"
+                      {...register("email", {
+                        required: true,
+                        pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                      })}
                     />
+                     {errors.email && errors.email.type === "required" && (
+                      <span className="text-danger">email is required!!</span>
+                    )}
+                    {errors.email && errors.email.type === "pattern" && (
+                      <span className="text-danger">invalid email!!</span>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center my-20">
-                  <button
+                <button
                     type="submit"
-                    className="bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"
+                    className={
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      (isLoading ? " disabled" : " ")
+                    }
                   >
-                    Send email
-                    <span>
-                      <FaCheckCircle className=" mx-2 text-xl rounded-full" />
-                    </span>
+                    {isLoading == true ? (
+                      <TbFidgetSpinner className="animate-spin" />
+                    ) : (
+                      <>
+                             Send email
+                        <span>
+                          <FaCheckCircle className="mx-2 text-xl rounded-full" />
+                        </span>
+                      </>
+                    )}
                   </button>
                 </div>
                  <div className="flex justify-end">

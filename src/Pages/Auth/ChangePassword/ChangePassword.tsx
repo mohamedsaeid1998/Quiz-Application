@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { background5 } from "@/Assets/Images";
 import { FaCheckCircle, FaKey } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import baseUrl from "@/Utils/Custom/Custom";
+import { toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 export default function ChangePassword() {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  
+
+  const onSubmit = async (data: any) => {
+    try {
+      setIsLoading(true);
+      let response = await baseUrl.post(`/api/auth/change-password`, data);
+      console.log(response.data.message);
+      setIsLoading(false);
+      toast.success(response.data.message);
+      // navigate("/dashboard");
+    } catch (error: any) {
+      toast.error(error?.response.data.message);
+      console.log(error?.response.data.message);
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <div className="bg-mainBg">
@@ -22,7 +51,7 @@ export default function ChangePassword() {
                 Change password
               </h2>
 
-              <form className="mt-3">
+              <form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="oldPassword mt-2">
                   <label
                     htmlFor="oldPassword"
@@ -37,9 +66,18 @@ export default function ChangePassword() {
                     <input
                       type="password"
                       id="oldPassword"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your old password"
+                      {...register("password", {
+                        required: true,
+                      })}
                     />
+                     {errors.password && errors.password.type === "required" && (
+                      <span className="text-red-600">password is required!!</span>
+                    )}
+                    {errors.password && errors.password.type === "pattern" && (
+                      <span className="text-red-600">invalid password!!</span>
+                    )}
                   </div>
                 </div>
                 <div className="newPassword mt-2">
@@ -56,41 +94,37 @@ export default function ChangePassword() {
                     <input
                       type="password"
                       id="newPassword"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                      className="px-2 rounded-r-md  outline-none flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your new password"
+                      {...register("password_new", {
+                        required: true,
+                      })}
                     />
+                    {errors.password_new&&errors.password_new.type==="required"&&(<span className="text-red-600">New password is required!!</span>)}
                   </div>
                 </div>
-                <div className="confirmNewPassword mt-2">
-                  <label
-                    htmlFor="confirmNewPassword"
-                    className="text-white font-semibold"
-                  >
-                    Confirm New Password
-                  </label>
-                  <div className="flex items-center mt-2 rounded-md border-2 border-white">
-                    <span className="flex  items-center me-3 pl-3 text-white ">
-                      <FaKey />
-                    </span>
-                    <input
-                      type="password"
-                      id="confirmNewPassword"
-                      className="px-2 rounded-r-md  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
-                      placeholder="Type your confirm password"
-                    />
-                  </div>
-                </div>
-
+                
                 <div className="my-4">
-                  <button
+
+                <button
                     type="submit"
-                    className="bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"
+                    className={
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      (isLoading ? " disabled" : " ")
+                    }
                   >
-                    Change
-                    <span>
-                      <FaCheckCircle className="mx-2 text-xl rounded-full" />
-                    </span>
+                    {isLoading == true ? (
+                      <TbFidgetSpinner className="animate-spin" />
+                    ) : (
+                      <>
+                        Change
+                        <span>
+                          <FaCheckCircle className="mx-2 text-xl rounded-full" />
+                        </span>
+                      </>
+                    )}
                   </button>
+
                 </div>
               </form>
             </div>
