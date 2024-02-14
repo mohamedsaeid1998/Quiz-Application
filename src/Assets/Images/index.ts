@@ -1,6 +1,4 @@
-import background1 from './bg1.png'
-import background2 from './bg2.png'
-import background3 from './bg3.png'
-import vite from './vite.svg'
+import background4 from './quiz.png'
+import background5 from './Login Image.png'
 
-export{background1,background2,background3,vite}
+export{background4,background5}

@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#1246AC'
+        primaryColor: '#1246AC',
+        mainBg:'rgba(13, 19, 33, 1)',
+        mainColor:'#C5D86D'
+
       },
       screens: {
         sm: '576px',
