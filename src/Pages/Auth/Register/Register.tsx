@@ -11,13 +11,16 @@ import {
 } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import baseUrl from "@/Utils/Custom/Custom";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAction from "@/Utils/Hooks/UseAction";
+import { RegisterData } from "@/Redux/Auth/RegisterSlice";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [passType, setPassType] = useState("password");
   const navigate = useNavigate();
 
   const {
@@ -26,20 +29,38 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  let Data = useAction(RegisterData);
   const onSubmit = async (data: any) => {
-    try {
-      setIsLoading(true);
-      let response = await baseUrl.post(`/api/auth/register`, data);
-      console.log(response.data.message);
-      setIsLoading(false);
-      toast.success(response.data.message);
-      navigate("/");
-    } catch (error: any) {
-      toast.error(error?.response?.data.message);
-      console.log(error?.response?.data.message);
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+     await Data(data)
+      .then((res) => {
+        if (res?.data?.message=="Record created successfully"){
+          toast.success(res.data.message);
+          console.log(res);
+          setIsLoading(false);
+          navigate("/");
+        }else {
+          if(typeof(res?.response?.data?.message)=="object")
+          {
+            toast.error(res?.response?.data?.message[0]);
+          }else{
+            toast.error(res?.response?.data?.message);
+          }
+        }
+      }).finally(() => {
+        setIsLoading(false);
+      })
+      
   };
+
+  useEffect(() => {
+    if (showPass) {
+      setPassType("text");
+      return;
+    }
+    setPassType("password");
+  }, [showPass]);
+  
   return (
     <>
       <div className="bg-mainBg">
@@ -221,7 +242,7 @@ const Register = () => {
                       <FaKey />
                     </span>
                     <input
-                      type="password"
+                      type={passType}
                       id="password"
                       className=" px-2 flex-1 outline-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your password"
@@ -235,18 +256,24 @@ const Register = () => {
                           </span>
                         )}
                   </div>
+                  <div className="form-group">
+                  <input
+                    className="mx-1"
+                    type="checkbox"
+                    name="passType"
+                    checked={showPass}
+                    onChange={(e) => {
+                      console.log(showPass);
+                      setShowPass((prev) => !prev);
+                    }}
+                  />
+                  <label className="text-orange-200" htmlFor="passType">
+                    {showPass ? "hide password" : "show password "}
+                  </label>
+                </div>
                 </div>
 
                 <div className="flex items-center">
-                  {/* <button
-                    type="submit"
-                    className="bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"
-                  >
-                    Sign Up
-                    <span>
-                      <FaCheckCircle className="mx-2 text-xl rounded-full" />
-                    </span>
-                  </button> */}
                    <button
                     type="submit"
                     className={

@@ -2,12 +2,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, ProtectedRoute } from "./Components";
 import {
   ForgetPassword,
+  Groups,
+  Home,
   Login,
   NotFound,
+  Quizzes,
   Register,
   ResetPassword,
+  Results,
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
+import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
@@ -27,21 +32,22 @@ function App() {
 
     {
       path: "dashboard",
-      element: 
-      <ProtectedRoute>
-        <MasterLayout />
-      </ProtectedRoute>,
+      element:  <ProtectedRoute><MasterLayout/></ProtectedRoute>  ,
       errorElement: <NotFound />,
-      // children: [
-      //   {index: true, element:<Home/>},
-      //   { path: "users", element: <Users /> },
-      // ],
+      children: [
+        { index: true, element: <Home /> },
+        { path: "home", element: <Home /> },
+        { path: "groups", element: <Groups /> },
+        { path: "quizzes", element: <Quizzes /> },
+        { path: "results", element: <Results /> },
+        { path: "help", element: <Help /> },
+      ],
     },
   ]);
 
   return (
     <>
-      <ToastContainer theme="dark" autoClose={2000} />
+      <ToastContainer theme="dark" autoClose={2000}/>
         <RouterProvider router={routes} />
     </>
   );

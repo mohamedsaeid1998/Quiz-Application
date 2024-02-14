@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import baseUrl from "@/Utils/Custom/Custom";
 import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAction from "@/Utils/Hooks/UseAction";
+import { ForgetData } from "@/Redux/Auth/ForgetSlice";
 
 const ForgetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,21 +21,26 @@ const ForgetPassword = () => {
     formState: { errors },
   } = useForm();
 
+  let Data = useAction(ForgetData);
   const onSubmit = async (data: any) => {
-    try {
-      setIsLoading(true);
-      let response = await baseUrl.post(`/api/auth/forgot-password`, data);
-      console.log(response);
-      setIsLoading(false);
-      toast.success(response.data.message);
-      navigate("/reset-password");
-    } catch (error: any) {
-      toast.error(error?.response.data.message);
-      console.log(error.response);
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+     await Data(data)
+      .then((res) => {
+        if (res?.data?.message){
+          toast.success(res.data.message);
+          console.log(res);
+          setIsLoading(false);
+          navigate("/reset-password");
+        }else {
+          if(typeof(res?.response?.data?.message)=="object")
+          {
+            toast.error(res?.response?.data?.message[0]);
+          }
+        }
+      }).finally(() => { 
+      setIsLoading(false)
+       })
   };
-
   return (
     <>
       <div className="bg-mainBg">

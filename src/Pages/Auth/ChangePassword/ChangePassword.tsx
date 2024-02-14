@@ -1,15 +1,18 @@
-import React, { useState } from "react";
 import { background5 } from "@/Assets/Images";
+import { ChangeData } from "@/Redux/Auth/ChangeSlice";
+import useAction from "@/Utils/Hooks/UseAction";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaCheckCircle, FaKey } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import baseUrl from "@/Utils/Custom/Custom";
-import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ChangePassword() {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [passType, setPassType] = useState("password");
   const navigate = useNavigate();
 
   const {
@@ -18,22 +21,34 @@ export default function ChangePassword() {
     formState: { errors },
   } = useForm();
 
-  
-
+  let Data = useAction(ChangeData);
   const onSubmit = async (data: any) => {
-    try {
-      setIsLoading(true);
-      let response = await baseUrl.post(`/api/auth/change-password`, data);
-      console.log(response.data.message);
-      setIsLoading(false);
-      toast.success(response.data.message);
-      // navigate("/dashboard");
-    } catch (error: any) {
-      toast.error(error?.response.data.message);
-      console.log(error?.response.data.message);
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+     await Data(data)
+      .then((res) => {
+        if (res?.data?.message){
+          toast.success(res.data.message);
+          console.log(res);
+          setIsLoading(false);
+          navigate("/");
+        }else {
+            toast.error(res?.response?.data?.message);
+        }
+      }).finally(() => { 
+          setIsLoading(false);
+
+       })
+      
   };
+
+  useEffect(() => {
+    if (showPass) {
+      setPassType("text");
+      return;
+    }
+    setPassType("password");
+  }, [showPass]);
+  
   return (
     <>
       <div className="bg-mainBg">
@@ -64,7 +79,7 @@ export default function ChangePassword() {
                       <FaKey />
                     </span>
                     <input
-                      type="password"
+                      type={passType}
                       id="oldPassword"
                       className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your old password"
@@ -92,7 +107,7 @@ export default function ChangePassword() {
                       <FaKey />
                     </span>
                     <input
-                      type="password"
+                      type={passType}
                       id="newPassword"
                       className="px-2 rounded-r-md  outline-none flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your new password"
@@ -102,6 +117,21 @@ export default function ChangePassword() {
                     />
                     {errors.password_new&&errors.password_new.type==="required"&&(<span className="text-red-600">New password is required!!</span>)}
                   </div>
+                </div>
+                <div className="form-group">
+                  <input
+                    className="mx-1"
+                    type="checkbox"
+                    name="passType"
+                    checked={showPass}
+                    onChange={(e) => {
+                      console.log(showPass);
+                      setShowPass((prev) => !prev);
+                    }}
+                  />
+                  <label className="text-orange-200" htmlFor="passType">
+                    {showPass ? "hide password" : "show password "}
+                  </label>
                 </div>
                 
                 <div className="my-4">

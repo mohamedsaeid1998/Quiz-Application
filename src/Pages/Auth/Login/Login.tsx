@@ -1,6 +1,8 @@
-import baseUrl from "@/Utils/Custom/Custom";
-import "./Login.module.scss";
 import { background5 } from "@/Assets/Images";
+import { LoginData } from "@/Redux/Auth/LoginSlice";
+import useAction from "@/Utils/Hooks/UseAction";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   FaCheckCircle,
   FaEnvelope,
@@ -9,42 +11,51 @@ import {
   FaUserTie,
 } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { Link,  useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setUserData } from "@/Redux/AuthSlice";
-import { useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "./Login.module.scss";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const [showPass, setShowPass] = useState(false);
+  const [passType, setPassType] = useState("password");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  let dispatch = useDispatch();
-
+  let Data = useAction(LoginData);
   const onSubmit = async (data: any) => {
-    try {
-      setIsLoading(true);
-      let response = await baseUrl.post(`/api/auth/login`, data);
-      console.log(response.data.message);
-      dispatch(setUserData(JSON.stringify(response.data.data)));
-      setIsLoading(false);
-      toast.success(response.data.message);
-      navigate("/dashboard");
-    } catch (error: any) {
-      toast.error(error?.response.data.message);
-      console.log(error?.response.data.message);
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+    await Data(data)
+      .then((res) => {
+        if (res?.data?.data?.accessToken) {
+          console.log(res);
+          localStorage.setItem("UserToken", res?.data.data.accessToken);
+          toast.success(res.data.message);
+          navigate("/dashboard");
+        } else {
+          if(typeof(res?.response?.data?.message)=="object")
+          {
+            toast.error(res?.response?.data?.message[0]);
+          }else{
+            toast.error(res?.response?.data?.message);
+          }
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-
+  useEffect(() => {
+    if (showPass) {
+      setPassType("text");
+      return;
+    }
+    setPassType("password");
+  }, [showPass]);
   return (
     <>
       <div className="bg-mainBg">
@@ -114,7 +125,7 @@ const Login = () => {
                       <FaKey />
                     </span>
                     <input
-                      type="password"
+                      type={passType}
                       id="password"
                       className="px-2 rounded-r-md  flex-1 outline-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your password"
@@ -122,19 +133,33 @@ const Login = () => {
                         required: true,
                       })}
                     />
-                  </div>
                     {errors.password && errors.password.type === "required" && (
                       <span className="text-red-600">
                         password is required!!
                       </span>
                     )}
+                  </div>
                 </div>
-
+                <div className="form-group">
+                  <input
+                    className="mx-1"
+                    type="checkbox"
+                    name="passType"
+                    checked={showPass}
+                    onChange={(e) => {
+                      console.log(showPass);
+                      setShowPass((prev) => !prev);
+                    }}
+                  />
+                  <label className="text-orange-200" htmlFor="passType">
+                    {showPass ? "hide password" : "show password "}
+                  </label>
+                </div>
                 <div className="flex items-center justify-between my-4">
                   <button
                     type="submit"
                     className={
-                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold" +
                       (isLoading ? " disabled" : " ")
                     }
                   >
@@ -161,7 +186,6 @@ const Login = () => {
                 </div>
               </form>
             </div>
-
             <div className="w-full hidden   lg:flex justify-end items-center">
               <div className="w-[90%] bg-[#FFEDDF] p-3 rounded-lg">
                 <img src={background5} className="w-full" alt="login-img" />
