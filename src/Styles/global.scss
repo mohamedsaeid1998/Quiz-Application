@@ -1,10 +1,14 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import "./variables.scss";
 @import "./responsive.scss";
-
+* {
+  box-sizing: border-box;
+}
 // SideBar styles
 .sidebar-container .ps-sidebar-container {
   background-color: #fff;

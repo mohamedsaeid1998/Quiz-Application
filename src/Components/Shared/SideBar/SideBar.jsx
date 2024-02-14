@@ -8,6 +8,8 @@ import {
   AiOutlineMenu,
 } from "react-icons/ai";
 import { IoMdHelpCircleOutline } from "react-icons/io";
+import { SiGoogleclassroom } from "react-icons/si";
+
 import { PiUsersFourFill } from "react-icons/pi";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,7 +46,9 @@ export default function SideBar() {
             </MenuItem>
             <MenuItem
               className="border-b border-black hover:bg-secondColor"
-              icon={<PiUsersFourFill className="bg-secondColor text-[30px]" />}
+              icon={
+                <SiGoogleclassroom className="bg-secondColor text-[30px]" />
+              }
               component={<Link to="students" />}
             >
               {t("students")}
