@@ -6,9 +6,8 @@ import "./Students.scss";
 import ModalComponent from "./ModalComponent";
 import image from "../../Assets/Images/quiz-img.png";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
-// import image from "../../Assets/Images/quiz-img.png";
-// import { FaArrowAltCircleRight } from "react-icons/fa";
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
   { id: 2, title: "Group2", content: "student2 " },
@@ -16,7 +15,9 @@ const groupStudents = [
   { id: 4, title: "Group4", content: "student4" },
   { id: 5, title: "Group5", content: "student5 " },
 ];
+
 const Students = () => {
+  const { register, handleSubmit } = useForm;
   const { t, i18n } = useTranslation();
   const [isActive, setIsActive] = React.useState(1);
   const handleActiveSection = (id) => {
@@ -25,11 +26,15 @@ const Students = () => {
   const checkActiveClass = (id, className) => {
     return isActive === id ? className : "";
   };
-
+  const modalData = {
+    modalTitle: "Add student",
+    labelName: "name",
+    labelPhone: "Phone",
+  };
   return (
     <>
       <div>
-        <ModalComponent />
+        <ModalComponent modalData={modalData} />
       </div>
 
       <div className="border p-4 border-[#ddd] rounded-[10px]">
@@ -41,7 +46,7 @@ const Students = () => {
             <button
               onClick={() => handleActiveSection(item.id)}
               type="button"
-              className={`border rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-500 hover:text-gray-100	  border-[#ddd] p-2 space-y-6  ${checkActiveClass(
+              className={`border border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-500 hover:text-gray-100	   p-2 space-y-6  ${checkActiveClass(
                 item.id,
                 "bg-slate-950	text-gray-100		font-medium		"
               )}`}

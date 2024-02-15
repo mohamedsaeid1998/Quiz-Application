@@ -17,7 +17,6 @@ import { useTranslation } from "react-i18next";
 
 export default function SideBar() {
   const { t, i18n } = useTranslation();
-  console.log(i18n.language);
   let [isCollapsed, setIsCollapsed] = useState(true);
   let navigate = useNavigate();
   const handleToggle = () => {
