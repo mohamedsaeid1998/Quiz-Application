@@ -1,10 +1,6 @@
 /** @format */
 
-import React from "react";
-import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
-import Store from "./Redux/Store";
 import { AuthLayout, MasterLayout, ProtectedRoute } from "./Components";
 import {
   ForgetPassword,
@@ -20,8 +16,8 @@ import {
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";
+import { ToastContainer } from "react-toastify";
 // import LoadingComponent from "./Components/Loading/Loading";
-
 function App() {
   const routes = createBrowserRouter([
     {
@@ -39,7 +35,11 @@ function App() {
 
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
@@ -55,9 +55,8 @@ function App() {
 
   return (
     <>
-      <Provider store={Store}>
-        <RouterProvider router={routes} />
-      </Provider>
+      <ToastContainer theme="dark" autoClose={2000} />
+      <RouterProvider router={routes} />
     </>
   );
 }
