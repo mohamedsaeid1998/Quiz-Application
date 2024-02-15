@@ -1,34 +1,33 @@
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const LoginData = createAsyncThunk(
-  "LoginSlice/LoginData",
+export const ChangeData = createAsyncThunk(
+  "ChangeSlice/ChangeData",
   async (data) => {
     try {
-      const response = await baseUrl.post(`/api/auth/login`, data);
-      console.log(response);
+      const response = await baseUrl.post(`/api/auth/change-password`, data);
       return response;
     } catch (error) {
-      return error
+      return error;
     }
   }
 );
 
 const initialState = { data: {}, isLoading: false, error: null };
 
-export const LoginSlice = createSlice({
-  name: "LoginSlice",
+export const ChangeSlice = createSlice({
+  name: "ChangeSlice",
   initialState,
   reducers: {},
   extraReducers:(builder)=> {
-     builder.addCase(LoginData.pending,(state)=>{
+     builder.addCase(ChangeData.pending,(state)=>{
         state.isLoading=true
      })
-     builder.addCase(LoginData.fulfilled,(state,action:PayloadAction<any>)=>{
+     builder.addCase(ChangeData.fulfilled,(state,action:PayloadAction<any>)=>{
         state.isLoading=false,
         state.data=action.payload;
      })
-     builder.addCase(LoginData.rejected,(state,action:PayloadAction<any>)=>{
+     builder.addCase(ChangeData.rejected,(state,action:PayloadAction<any>)=>{
         state.isLoading=false,
         state.error=action.payload.message
      })

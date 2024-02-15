@@ -9,7 +9,7 @@ import baseUrl from "@/Utils/Custom/Custom";
 import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAction from "@/Utils/Hooks/UseAction";
-import { ForgetData } from "@/Redux/Auth/ForgetSlice";
+import { ForgetData } from "@/Redux/Featuers/Auth/ForgetSlice";
 
 const ForgetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,22 +24,20 @@ const ForgetPassword = () => {
   let Data = useAction(ForgetData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-     await Data(data)
+    await Data(data)
       .then((res) => {
-        if (res?.data?.message){
+        if (res?.data?.message) {
           toast.success(res.data.message);
-          console.log(res);
           setIsLoading(false);
           navigate("/reset-password");
-        }else {
-          if(typeof(res?.response?.data?.message)=="object")
-          {
+        } else {
+          if (typeof (res?.response?.data?.message) == "object") {
             toast.error(res?.response?.data?.message[0]);
           }
         }
-      }).finally(() => { 
-      setIsLoading(false)
-       })
+      }).finally(() => {
+        setIsLoading(false)
+      })
   };
   return (
     <>
@@ -76,7 +74,7 @@ const ForgetPassword = () => {
                         pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
                       })}
                     />
-                     {errors.email && errors.email.type === "required" && (
+                    {errors.email && errors.email.type === "required" && (
                       <span className="text-danger">email is required!!</span>
                     )}
                     {errors.email && errors.email.type === "pattern" && (
@@ -85,10 +83,10 @@ const ForgetPassword = () => {
                   </div>
                 </div>
                 <div className="flex items-center my-20">
-                <button
+                  <button
                     type="submit"
                     className={
-                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold" +
                       (isLoading ? " disabled" : " ")
                     }
                   >
@@ -96,7 +94,7 @@ const ForgetPassword = () => {
                       <TbFidgetSpinner className="animate-spin" />
                     ) : (
                       <>
-                             Send email
+                        Send email
                         <span>
                           <FaCheckCircle className="mx-2 text-xl rounded-full" />
                         </span>
@@ -104,14 +102,14 @@ const ForgetPassword = () => {
                     )}
                   </button>
                 </div>
-                 <div className="flex justify-end">
-                 <p className="text-white font-semibold">
+                <div className="flex justify-end">
+                  <p className="text-white font-semibold">
                     Login?
                     <Link to="/" className="text-mainColor underline">
                       click here
                     </Link>
                   </p>
-                 </div>
+                </div>
               </form>
             </div>
             <div className="w-full hidden   lg:flex justify-end items-center">

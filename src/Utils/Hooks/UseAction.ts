@@ -2,11 +2,17 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
 
+interface IProps{
+  action?:any
+}
+interface IData{
+  data?:any
+}
 
-const useAction = (action: any) => {
+const useAction = (action: IProps) => {
   const dispatch = useDispatch();
   return useCallback(
-    async (data: any) => {
+    async (data: IData) => {
       const response = await dispatch(action(data));
       return response?.payload;
     },
@@ -15,18 +21,3 @@ const useAction = (action: any) => {
 };
 
 export default useAction;
-
-// import { useCallback } from "react";
-// import { useDispatch } from "react-redux";
-
-// const useAction = (action:any) => {
-//   const dispatch = useDispatch();
-//   const handleAction = useCallback(async (data:any) => {
-//     const response = await dispatch(action(data));
-//     return response?.payload;
-//   }, [dispatch, action]);
-
-//   return handleAction;
-// };
-
-// export default useAction;

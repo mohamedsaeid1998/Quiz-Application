@@ -12,10 +12,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 export default function SideBar() {
-  const { t, i18n } = useTranslation();
-  console.log(i18n.language);
-  let [isCollapsed, setIsCollapsed] = useState(true);
-  let navigate = useNavigate();
+  const { t, i18n } = useTranslation()
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const navigate = useNavigate();
   const handleToggle = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -37,7 +36,6 @@ export default function SideBar() {
               icon={<AiOutlineHome className="bg-secondColor text-[30px]" />}
               component={<Link to="home" />}
             >
-              {" "}
               {t("dashboard")}
             </MenuItem>
             <MenuItem
@@ -54,7 +52,6 @@ export default function SideBar() {
               }
               component={<Link to="quizzes" />}
             >
-              {" "}
               {t("quizzes")}
             </MenuItem>
             <MenuItem
@@ -64,7 +61,6 @@ export default function SideBar() {
               }
               component={<Link to="results" />}
             >
-              {" "}
               {t("results")}
             </MenuItem>
             <MenuItem
@@ -74,7 +70,6 @@ export default function SideBar() {
               }
               component={<Link to="help" />}
             >
-              {" "}
               {t("help")}
             </MenuItem>
           </Menu>

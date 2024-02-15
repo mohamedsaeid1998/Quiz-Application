@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAction from "@/Utils/Hooks/UseAction";
-import { ResetData } from "@/Redux/Auth/ResetSlice";
+import { ResetData } from "@/Redux/Featuers/Auth/ResetSlice";
 
 const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,18 +30,16 @@ const ResetPassword = () => {
   let Data = useAction(ResetData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-     await Data(data)
+    await Data(data)
       .then((res) => {
-        if (res?.data?.message){
+        if (res?.data?.message) {
           toast.success(res.data.message);
-          console.log(res);
           setIsLoading(false);
           navigate("/");
-        }else {
-          if(typeof(res?.response?.data?.message)=="object")
-          {
+        } else {
+          if (typeof (res?.response?.data?.message) == "object") {
             toast.error(res?.response?.data?.message[0]);
-          }else{
+          } else {
             toast.error(res?.response?.data?.message);
           }
         }
@@ -87,7 +85,7 @@ const ResetPassword = () => {
               <h2 className="text-mainColor font-semibold text-2xl my-3">
                 Reset password
               </h2>
-              <form  onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="email mt-2">
                   <label htmlFor="email" className="text-white font-semibold">
                     Your email address
@@ -106,7 +104,7 @@ const ResetPassword = () => {
                         pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
                       })}
                     />
-                     {errors.email && errors.email.type === "required" && (
+                    {errors.email && errors.email.type === "required" && (
                       <span className="text-red-600">email is required!!</span>
                     )}
                     {errors.email && errors.email.type === "pattern" && (
@@ -131,9 +129,9 @@ const ResetPassword = () => {
                         required: true,
                       })}
                     />
-                     {errors.otp && errors.otp.type === "required" && (
-                    <span className="text-red-600">OTP is required!!</span>
-                  )}
+                    {errors.otp && errors.otp.type === "required" && (
+                      <span className="text-red-600">OTP is required!!</span>
+                    )}
                   </div>
                 </div>
                 <div className="password mt-2">
@@ -156,7 +154,7 @@ const ResetPassword = () => {
                         required: true,
                       })}
                     />
-                     {errors.password && errors.password.type === "required" && (
+                    {errors.password && errors.password.type === "required" && (
                       <span className="text-red-600">
                         password is required!!
                       </span>
@@ -170,7 +168,6 @@ const ResetPassword = () => {
                     name="passType"
                     checked={showPass}
                     onChange={(e) => {
-                      console.log(showPass);
                       setShowPass((prev) => !prev);
                     }}
                   />
@@ -178,12 +175,12 @@ const ResetPassword = () => {
                     {showPass ? "hide password" : "show password "}
                   </label>
                 </div>
-              
+
                 <div>
-                <button
+                  <button
                     type="submit"
                     className={
-                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold" +
                       (isLoading ? " disabled" : " ")
                     }
                   >
@@ -191,7 +188,7 @@ const ResetPassword = () => {
                       <TbFidgetSpinner className="animate-spin" />
                     ) : (
                       <>
-                       Reset
+                        Reset
                         <span>
                           <FaCheckCircle className="mx-2 text-xl rounded-full" />
                         </span>
@@ -201,13 +198,13 @@ const ResetPassword = () => {
                 </div>
               </form>
             </div>
-        
+
             <div className="w-full hidden   lg:flex justify-end items-center">
               <div className="w-[90%] bg-[#FFEDDF] p-3 rounded-lg">
                 <img src={background5} className="w-full" alt="login-img" />
               </div>
             </div>
-        
+
           </div>
         </div>
       </div>

@@ -1,35 +1,33 @@
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const ForgetData = createAsyncThunk(
-  "ForgetSlice/ForgetData",
+export const LoginData = createAsyncThunk(
+  "LoginSlice/LoginData",
   async (data) => {
     try {
-      console.log(data);
-      const response = await baseUrl.post(`/api/auth/forgot-password`, data);
-      console.log(response);
+      const response = await baseUrl.post(`/api/auth/login`, data);
       return response;
     } catch (error) {
-      return error;
+      return error
     }
   }
 );
 
 const initialState = { data: {}, isLoading: false, error: null };
 
-export const ForgetSlice = createSlice({
-  name: "ForgetSlice",
+export const LoginSlice = createSlice({
+  name: "LoginSlice",
   initialState,
   reducers: {},
   extraReducers:(builder)=> {
-     builder.addCase(ForgetData.pending,(state)=>{
+     builder.addCase(LoginData.pending,(state)=>{
         state.isLoading=true
      })
-     builder.addCase(ForgetData.fulfilled,(state,action:PayloadAction<any>)=>{
+     builder.addCase(LoginData.fulfilled,(state,action:PayloadAction<any>)=>{
         state.isLoading=false,
         state.data=action.payload;
      })
-     builder.addCase(ForgetData.rejected,(state,action:PayloadAction<any>)=>{
+     builder.addCase(LoginData.rejected,(state,action:PayloadAction<any>)=>{
         state.isLoading=false,
         state.error=action.payload.message
      })

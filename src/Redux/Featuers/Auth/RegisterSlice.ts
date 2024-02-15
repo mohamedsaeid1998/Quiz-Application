@@ -5,9 +5,8 @@ export const RegisterData = createAsyncThunk(
   "RegisterSlice/RegisterData",
   async (data) => {
     try {
-      console.log(data);
+
       const response = await baseUrl.post(`/api/auth/register`, data);
-      console.log(response);
       return response;
     } catch (error) {
       return error;

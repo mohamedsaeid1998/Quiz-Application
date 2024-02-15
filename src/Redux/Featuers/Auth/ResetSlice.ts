@@ -5,9 +5,7 @@ export const ResetData = createAsyncThunk(
   "ResetSlice/ResetData",
   async (data) => {
     try {
-      console.log(data);
       const response = await baseUrl.post(`/api/auth/reset-password`, data);
-      console.log(response);
       return response;
     } catch (error) {
       return error;

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAction from "@/Utils/Hooks/UseAction";
-import { RegisterData } from "@/Redux/Auth/RegisterSlice";
+import { RegisterData } from "@/Redux/Featuers/Auth/RegisterSlice";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,25 +32,23 @@ const Register = () => {
   let Data = useAction(RegisterData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-     await Data(data)
+    await Data(data)
       .then((res) => {
-        if (res?.data?.message=="Record created successfully"){
+        if (res?.data?.message == "Record created successfully") {
           toast.success(res.data.message);
-          console.log(res);
           setIsLoading(false);
           navigate("/");
-        }else {
-          if(typeof(res?.response?.data?.message)=="object")
-          {
+        } else {
+          if (typeof (res?.response?.data?.message) == "object") {
             toast.error(res?.response?.data?.message[0]);
-          }else{
+          } else {
             toast.error(res?.response?.data?.message);
           }
         }
       }).finally(() => {
         setIsLoading(false);
       })
-      
+
   };
 
   useEffect(() => {
@@ -60,7 +58,7 @@ const Register = () => {
     }
     setPassType("password");
   }, [showPass]);
-  
+
   return (
     <>
       <div className="bg-mainBg">
@@ -117,7 +115,7 @@ const Register = () => {
                           },
                         })}
                       />
-                       {errors.first_name &&
+                      {errors.first_name &&
                         errors.first_name.type === "required" && (
                           <span className="text-red-600">
                             first name is required!!
@@ -211,7 +209,7 @@ const Register = () => {
                       id="role"
                       className="border-none  outline-none w-full p-2 text-slate-400  bg-transparent"
                       {...register("role", {
-                        required:true,
+                        required: true,
                       })}
                     >
                       <option className="text-slate-500" value={""}>
@@ -221,13 +219,13 @@ const Register = () => {
                         Instructor
                       </option>
                       <option className="text-black" value="Student">
-                      Student
+                        Student
                       </option>
                     </select>
                   </div>
                   {errors.role && errors.role.type === "required" && (
-                <span className="text-red-600">role is required!!</span>
-              )}
+                    <span className="text-red-600">role is required!!</span>
+                  )}
                 </div>
 
                 <div className="password ">
@@ -249,35 +247,34 @@ const Register = () => {
                       {...register("password", {
                         required: true,
                       })}
-                      />
-                      {errors.password && errors.password.type === "required" && (
-                          <span className="text-red-600">
-                            password is required!!
-                          </span>
-                        )}
+                    />
+                    {errors.password && errors.password.type === "required" && (
+                      <span className="text-red-600">
+                        password is required!!
+                      </span>
+                    )}
                   </div>
                   <div className="form-group">
-                  <input
-                    className="mx-1"
-                    type="checkbox"
-                    name="passType"
-                    checked={showPass}
-                    onChange={(e) => {
-                      console.log(showPass);
-                      setShowPass((prev) => !prev);
-                    }}
-                  />
-                  <label className="text-orange-200" htmlFor="passType">
-                    {showPass ? "hide password" : "show password "}
-                  </label>
-                </div>
+                    <input
+                      className="mx-1"
+                      type="checkbox"
+                      name="passType"
+                      checked={showPass}
+                      onChange={(e) => {
+                        setShowPass((prev) => !prev);
+                      }}
+                    />
+                    <label className="text-orange-200" htmlFor="passType">
+                      {showPass ? "hide password" : "show password "}
+                    </label>
+                  </div>
                 </div>
 
                 <div className="flex items-center">
-                   <button
+                  <button
                     type="submit"
                     className={
-                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold" +
                       (isLoading ? " disabled" : " ")
                     }
                   >
@@ -285,7 +282,7 @@ const Register = () => {
                       <TbFidgetSpinner className="animate-spin" />
                     ) : (
                       <>
-                          Sign Up
+                        Sign Up
                         <span>
                           <FaCheckCircle className="mx-2 text-xl rounded-full" />
                         </span>

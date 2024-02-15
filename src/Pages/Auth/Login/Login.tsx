@@ -1,5 +1,5 @@
 import { background5 } from "@/Assets/Images";
-import { LoginData } from "@/Redux/Auth/LoginSlice";
+import { LoginData } from "@/Redux/Featuers/Auth/LoginSlice";
 import useAction from "@/Utils/Hooks/UseAction";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,21 +26,22 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+
   let Data = useAction(LoginData);
+
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     await Data(data)
       .then((res) => {
         if (res?.data?.data?.accessToken) {
-          console.log(res);
           localStorage.setItem("UserToken", res?.data.data.accessToken);
           toast.success(res.data.message);
           navigate("/dashboard");
         } else {
-          if(typeof(res?.response?.data?.message)=="object")
-          {
+          if (typeof (res?.response?.data?.message) == "object") {
             toast.error(res?.response?.data?.message[0]);
-          }else{
+          } else {
             toast.error(res?.response?.data?.message);
           }
         }
@@ -147,7 +148,6 @@ const Login = () => {
                     name="passType"
                     checked={showPass}
                     onChange={(e) => {
-                      console.log(showPass);
                       setShowPass((prev) => !prev);
                     }}
                   />

@@ -1,5 +1,5 @@
 import { background5 } from "@/Assets/Images";
-import { ChangeData } from "@/Redux/Auth/ChangeSlice";
+import { ChangeData } from "@/Redux/Featuers/Auth/ChangeSlice";
 import useAction from "@/Utils/Hooks/UseAction";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,21 +24,20 @@ export default function ChangePassword() {
   let Data = useAction(ChangeData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-     await Data(data)
+    await Data(data)
       .then((res) => {
-        if (res?.data?.message){
+        if (res?.data?.message) {
           toast.success(res.data.message);
-          console.log(res);
           setIsLoading(false);
           navigate("/");
-        }else {
-            toast.error(res?.response?.data?.message);
+        } else {
+          toast.error(res?.response?.data?.message);
         }
-      }).finally(() => { 
-          setIsLoading(false);
+      }).finally(() => {
+        setIsLoading(false);
 
-       })
-      
+      })
+
   };
 
   useEffect(() => {
@@ -48,7 +47,7 @@ export default function ChangePassword() {
     }
     setPassType("password");
   }, [showPass]);
-  
+
   return (
     <>
       <div className="bg-mainBg">
@@ -87,7 +86,7 @@ export default function ChangePassword() {
                         required: true,
                       })}
                     />
-                     {errors.password && errors.password.type === "required" && (
+                    {errors.password && errors.password.type === "required" && (
                       <span className="text-red-600">password is required!!</span>
                     )}
                     {errors.password && errors.password.type === "pattern" && (
@@ -115,7 +114,7 @@ export default function ChangePassword() {
                         required: true,
                       })}
                     />
-                    {errors.password_new&&errors.password_new.type==="required"&&(<span className="text-red-600">New password is required!!</span>)}
+                    {errors.password_new && errors.password_new.type === "required" && (<span className="text-red-600">New password is required!!</span>)}
                   </div>
                 </div>
                 <div className="form-group">
@@ -125,7 +124,6 @@ export default function ChangePassword() {
                     name="passType"
                     checked={showPass}
                     onChange={(e) => {
-                      console.log(showPass);
                       setShowPass((prev) => !prev);
                     }}
                   />
@@ -133,13 +131,13 @@ export default function ChangePassword() {
                     {showPass ? "hide password" : "show password "}
                   </label>
                 </div>
-                
+
                 <div className="my-4">
 
-                <button
+                  <button
                     type="submit"
                     className={
-                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold"+
+                      "bg-slate-50 flex items-center justify-center transition duration-100 hover:bg-gray-800  text-slate-950  hover:text-slate-50  rounded-lg p-5 py-2 mt-3 font-bold" +
                       (isLoading ? " disabled" : " ")
                     }
                   >
