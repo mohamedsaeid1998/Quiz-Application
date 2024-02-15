@@ -55,31 +55,15 @@ const ResetPassword = () => {
     setPassType("password");
   }, [showPass]);
 
-  // const onSubmit = async (data: any) => {
-  //   try {
-  //     setIsLoading(true);
-  //     let response = await baseUrl.post(`/api/auth/reset-password`, data);
-  //     console.log(response);
-  //     setIsLoading(false);
-  //     toast.success(response.data.message);
-  //     navigate("/");
-  //   } catch (error: any) {
-  //     toast.error(error?.response.data.message);
-  //     console.log(error.response);
-  //     setIsLoading(false);
-  //   }
-  // };
   return (
     <>
       <div className="bg-mainBg">
         <div className="container mx-auto h-screen">
-          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-9">
+          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-5">
             <div className="p-11 sm:p-0">
               <Link to="/">
                 <div className="flex items-center text-white mb-8">
-                  <FaRegCircleXmark className="text-5xl" />
-                  <FaCheckCircle className="text-5xl" />
-                  <p className="text-2xl mx-1">| Quizwiz</p>
+                  <p className="text-2xl mx-1">Quizwiz</p>
                 </div>
               </Link>
               <h2 className="text-mainColor font-semibold text-2xl my-3">
@@ -100,16 +84,18 @@ const ResetPassword = () => {
                       className="px-2  rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your email"
                       {...register("email", {
-                        required: true,
-                        pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                        required: "email is required!!",
+                          pattern: {
+                            value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                            message:"invalid email!!"
+                          }
                       })}
                     />
-                    {errors.email && errors.email.type === "required" && (
-                      <span className="text-red-600">email is required!!</span>
-                    )}
-                    {errors.email && errors.email.type === "pattern" && (
-                      <span className="text-red-600">invalid email!!</span>
-                    )}
+                      {errors?.email ? 
+                        <span className="text-red-600">
+                          {errors?.email?.message}
+                        </span>:null
+                      }
                   </div>
                 </div>
                 <div className="OTP mt-2">
@@ -126,12 +112,18 @@ const ResetPassword = () => {
                       className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your OTP"
                       {...register("otp", {
-                        required: true,
+                        required: "OTP is required!!",
+                        pattern: {
+                          value: /^\d{6}$/,
+                          message: "Please enter a valid 6-digit OTP",
+                        },
                       })}
                     />
-                    {errors.otp && errors.otp.type === "required" && (
-                      <span className="text-red-600">OTP is required!!</span>
-                    )}
+                      {errors?.otp ? 
+                        <span className="text-red-600">
+                          {errors?.otp?.message}
+                        </span>:null
+                      }
                   </div>
                 </div>
                 <div className="password mt-2">
@@ -151,14 +143,14 @@ const ResetPassword = () => {
                       className="px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your password"
                       {...register("password", {
-                        required: true,
+                        required: "password is required!!",
                       })}
                     />
-                    {errors.password && errors.password.type === "required" && (
-                      <span className="text-red-600">
-                        password is required!!
-                      </span>
-                    )}
+                      {errors?.password ? 
+                        <span className="text-red-600">
+                          {errors?.password?.message}
+                        </span>:null
+                      }
                   </div>
                 </div>
                 <div className="form-group">
@@ -167,7 +159,7 @@ const ResetPassword = () => {
                     type="checkbox"
                     name="passType"
                     checked={showPass}
-                    onChange={(e) => {
+                    onChange={() => {
                       setShowPass((prev) => !prev);
                     }}
                   />

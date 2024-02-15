@@ -61,15 +61,13 @@ const Register = () => {
 
   return (
     <>
-      <div className="bg-mainBg">
-        <div className="container mx-auto h-screen ">
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 pt-9">
+      <div className="bg-mainBg  h-auto">
+        <div className="container mx-auto h-screen pb-5">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 pt-5">
             <div className="px-9 sm:p-0 ">
               <Link to="/">
                 <div className="flex items-center text-white mb-8">
-                  <FaRegCircleXmark className="text-5xl" />
-                  <FaCheckCircle className="text-5xl" />
-                  <p className="text-2xl mx-1">| Quizwiz</p>
+                  <p className="text-2xl mx-1">Quizwiz</p>
                 </div>
               </Link>
               <h2 className="text-mainColor font-semibold text-2xl my-3">
@@ -107,7 +105,7 @@ const Register = () => {
                         className=" px-2 outline-none flex-1 border-none bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Type your first name"
                         {...register("first_name", {
-                          required: true,
+                          required: "First name is required!!",
                           minLength: {
                             value: 2,
                             message:
@@ -115,18 +113,11 @@ const Register = () => {
                           },
                         })}
                       />
-                      {errors.first_name &&
-                        errors.first_name.type === "required" && (
-                          <span className="text-red-600">
-                            first name is required!!
-                          </span>
-                        )}
-                      {errors.first_name &&
-                        errors.first_name.type === "minLength" && (
-                          <span className="text-red-600">
-                            first name shouldn't be less than two character
-                          </span>
-                        )}
+                      {errors?.first_name ?
+                        <span className="text-red-600 text-xs">
+                          {errors?.first_name?.message}
+                        </span> : null
+                      }
                     </div>
                   </div>
                   <div className="lastName">
@@ -146,7 +137,7 @@ const Register = () => {
                         className=" px-2  outline-none   flex-1 border-none bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Type your last name"
                         {...register("last_name", {
-                          required: true,
+                          required: " Last name is required!!",
                           minLength: {
                             value: 2,
                             message:
@@ -154,18 +145,11 @@ const Register = () => {
                           },
                         })}
                       />
-                      {errors.last_name &&
-                        errors.last_name.type === "required" && (
-                          <span className="text-red-600">
-                            Last name is required!!
-                          </span>
-                        )}
-                      {errors.last_name &&
-                        errors.last_name.type === "minLength" && (
-                          <span className="text-red-600">
-                            last name shouldn't be less than two character
-                          </span>
-                        )}
+                      {errors?.last_name ?
+                        <span className="text-red-600 text-xs">
+                          {errors?.last_name?.message}
+                        </span> : null
+                      }
                     </div>
                   </div>
                 </div>
@@ -184,16 +168,18 @@ const Register = () => {
                       className=" px-2 rounded-r-md outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your email"
                       {...register("email", {
-                        required: true,
-                        pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                        required: "email is required!!",
+                        pattern: {
+                          value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                          message: "invalid email!!"
+                        }
                       })}
                     />
-                    {errors.email && errors.email.type === "required" && (
-                      <span className="text-red-600">email is required!!</span>
-                    )}
-                    {errors.email && errors.email.type === "pattern" && (
-                      <span className="text-red-600">invalid email!!</span>
-                    )}
+                    {errors?.email ?
+                      <span className="text-red-600">
+                        {errors?.email?.message}
+                      </span> : null
+                    }
                   </div>
                 </div>
 
@@ -209,7 +195,7 @@ const Register = () => {
                       id="role"
                       className="border-none  outline-none w-full p-2 text-slate-400  bg-transparent"
                       {...register("role", {
-                        required: true,
+                        required: "role is required!!",
                       })}
                     >
                       <option className="text-slate-500" value={""}>
@@ -223,9 +209,11 @@ const Register = () => {
                       </option>
                     </select>
                   </div>
-                  {errors.role && errors.role.type === "required" && (
-                    <span className="text-red-600">role is required!!</span>
-                  )}
+                  {errors?.role ?
+                    <span className="text-red-600">
+                      {errors?.role?.message}
+                    </span> : null
+                  }
                 </div>
 
                 <div className="password ">
@@ -245,14 +233,14 @@ const Register = () => {
                       className=" px-2 flex-1 outline-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your password"
                       {...register("password", {
-                        required: true,
+                        required: "password is required!!",
                       })}
                     />
-                    {errors.password && errors.password.type === "required" && (
+                    {errors?.password ?
                       <span className="text-red-600">
-                        password is required!!
-                      </span>
-                    )}
+                        {errors?.password?.message}
+                      </span> : null
+                    }
                   </div>
                   <div className="form-group">
                     <input
@@ -260,7 +248,7 @@ const Register = () => {
                       type="checkbox"
                       name="passType"
                       checked={showPass}
-                      onChange={(e) => {
+                      onChange={() => {
                         setShowPass((prev) => !prev);
                       }}
                     />

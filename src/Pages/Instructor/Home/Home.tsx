@@ -1,5 +1,5 @@
+import { quizImg } from "@/Assets/Images";
 import { useTranslation } from "react-i18next";
-import image from "../../Assets/Images/quiz-img.png";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
           <div className="cards-list px-4">
             <div className="card my-2 border  border-1 border-[#ddd] rounded-[10px]  w-full flex ">
               <div className="card-img">
-                <img src={image} alt="" />
+                <img src={quizImg} alt="quizImg" />
               </div>
               <div className="card-des w-[100%]  p-3">
                 <h1 className="font-bold">
@@ -36,7 +36,7 @@ export default function Home() {
             </div>
             <div className="card my-2 border border-1 border-[#ddd] rounded-[10px]  w-full flex ">
               <div className="card-img">
-                <img src={image} alt="" />
+                <img src={quizImg} alt="quizImg" />
               </div>
               <div className="card-des w-[100%]  p-3">
                 <h1 className="font-bold">
@@ -56,7 +56,7 @@ export default function Home() {
             </div>
             <div className="card my-2 border border-1 border-[#ddd] rounded-[10px]  w-full flex ">
               <div className="card-img">
-                <img src={image} alt="" />
+                <img src={quizImg} alt="quizImg" />
               </div>
               <div className="card-des w-[100%]  p-3">
                 <h1 className="font-bold">
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="cards-list px-4">
             <div className="card my-2 border border-1 border-[#ddd] rounded-[10px]  w-full flex ">
               <div className="card-img">
-                <img src={image} alt="" />
+                <img src={quizImg} alt="quizImg" />
               </div>
               <div className="card-des w-[100%] flex items-center justify-between  p-3">
                 <div>

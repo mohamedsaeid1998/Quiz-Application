@@ -52,7 +52,7 @@ export default function ChangePassword() {
     <>
       <div className="bg-mainBg">
         <div className="container mx-auto h-screen">
-          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-9">
+          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-5">
             <div className="p-11 sm:p-0">
               <Link to="/">
                 <div className="flex items-center text-white mb-8">

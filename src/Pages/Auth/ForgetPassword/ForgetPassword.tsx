@@ -27,13 +27,13 @@ const ForgetPassword = () => {
     await Data(data)
       .then((res) => {
         if (res?.data?.message) {
+          console.log(res);
           toast.success(res.data.message);
           setIsLoading(false);
           navigate("/reset-password");
         } else {
-          if (typeof (res?.response?.data?.message) == "object") {
-            toast.error(res?.response?.data?.message[0]);
-          }
+          console.log(res);
+          toast.error(res?.response?.data?.message);
         }
       }).finally(() => {
         setIsLoading(false)
@@ -43,13 +43,11 @@ const ForgetPassword = () => {
     <>
       <div className="bg-mainBg">
         <div className="container mx-auto h-screen">
-          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-9">
+          <div className="grid grid-cols-1  gap-4 lg:grid-cols-2 pt-5">
             <div className="px-9 sm:p-0">
               <Link to="/">
                 <div className="flex items-center text-white mb-8">
-                  <FaRegCircleXmark className="text-5xl" />
-                  <FaCheckCircle className="text-5xl" />
-                  <p className="text-2xl mx-1">| Quizwiz</p>
+                  <p className="text-2xl mx-1">Quizwiz</p>
                 </div>
               </Link>
               <h2 className="text-mainColor font-semibold text-2xl my-3">
@@ -70,16 +68,18 @@ const ForgetPassword = () => {
                       className="px-2 outline-none  flex-1 border-none  bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400  sm:text-sm sm:leading-6"
                       placeholder="Type your email"
                       {...register("email", {
-                        required: true,
-                        pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                        required: "email is required!!",
+                        pattern: {
+                          value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                          message: "invalid email!!"
+                        }
                       })}
                     />
-                    {errors.email && errors.email.type === "required" && (
-                      <span className="text-danger">email is required!!</span>
-                    )}
-                    {errors.email && errors.email.type === "pattern" && (
-                      <span className="text-danger">invalid email!!</span>
-                    )}
+                    {errors?.email ?
+                      <span className="text-red-600">
+                        {errors?.email?.message}
+                      </span> : null
+                    }
                   </div>
                 </div>
                 <div className="flex items-center my-20">

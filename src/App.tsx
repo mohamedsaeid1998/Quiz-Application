@@ -12,7 +12,7 @@ import {
   Results,
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
-import Help from "./Pages/Help/Help";
+import Help from "./Pages/Instructor/Help/Help";
 import { ToastContainer } from "react-toastify";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
