@@ -86,10 +86,6 @@ export default function Results() {
             </TableCell>
           </TableRow>
 
-         
-
-         
-
         </TableBody>
       </Table>
     </div>
