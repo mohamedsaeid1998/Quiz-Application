@@ -1,10 +1,13 @@
 /** @format */
 import { BankIcon, quizIcon } from "@/Assets/Images";
-import FormInput from "@/Components/Instructor/FormInput";
-import { FormSelect } from "@/Components/Shared/FormInput/FormInput";
-// import FormInput from "@/Components/Shared/FormInput/FormInput";
+import FormInput, {
+  FormDate,
+  FormSelect,
+  FormSelectCategories,
+} from "@/Components/Instructor/FormInput";
 import { Button, Modal } from "flowbite-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // import { FaCirclePlus } from "react-icons/fa6";
 
 const Quizzes = () => {
@@ -60,6 +63,10 @@ export const QuizzesBox = () => {
 };
 
 export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("quiz/edit");
+  };
   return (
     <>
       <div className="">
@@ -75,7 +82,7 @@ export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
           </Modal.Header>
           <Modal.Body>
             <FormInput label={"title"} classStyle="" />
-            <div className="flex justify-between">
+            <div className="flex justify-between w-100">
               <FormSelect
                 label={"Duration (in minutes)"}
                 maxNum={10}
@@ -92,16 +99,33 @@ export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
                 classStyle=""
               />
             </div>
-            <FormInput label={"Description"} />
-
+            <FormInput label={"Description"} classStyle="" />
+            <FormDate label={"schedule"} classStyle="" />
+            <div className="flex justify-between w-100">
+              <FormSelectCategories
+                categories={["beginner", "intermediate", "advanced"]}
+                label={"Category type"}
+                classStyle=""
+              />
+              <FormSelectCategories
+                label={"Group name"}
+                classStyle=""
+                categories={["FE", "BE"]}
+              />
+              <FormSelectCategories
+                label={"Difficulty level"}
+                classStyle=""
+                categories={["JSB"]}
+              />
+            </div>
             <Button
               className="hover:text-black hover:bg-gray-200 bg-black text-white border-2 border-[#000] transition-colors duration-300 ms-auto"
               color=""
+              onClick={handleClick}
             >
               Submits
             </Button>
           </Modal.Body>
-          {/* <Modal.Footer></Modal.Footer> */}
         </Modal>
       </div>
     </>
