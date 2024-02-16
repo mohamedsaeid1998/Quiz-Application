@@ -93,9 +93,9 @@ export default function SideBar() {
                 icon={
                   <AiOutlineFieldTime className="bg-secondColor text-[30px]" />
                 }
-                component={<Link to="quizzes" />}
+                component={<Link to="quiz" />}
               >
-                {t("quiz")}
+                {t("quizzes")}
               </MenuItem>
 
               {role === "Student" ? (

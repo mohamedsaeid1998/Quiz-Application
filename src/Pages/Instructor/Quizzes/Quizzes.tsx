@@ -1,5 +1,7 @@
 /** @format */
 import { BankIcon, quizIcon } from "@/Assets/Images";
+import FormInput from "@/Components/Instructor/FormInput";
+import { FormSelect } from "@/Components/Shared/FormInput/FormInput";
 // import FormInput from "@/Components/Shared/FormInput/FormInput";
 import { Button, Modal } from "flowbite-react";
 import React from "react";
@@ -68,11 +70,30 @@ export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
           onClose={() => setOpenModal(false)}
           // initialFocus={emailInputRef}
         >
-          <Modal.Header className="p-4">title</Modal.Header>
+          <Modal.Header className="p-4 capitalize">
+            set up a new quiz
+          </Modal.Header>
           <Modal.Body>
-            <FormInput label={"labelName"} />
+            <FormInput label={"title"} classStyle="" />
+            <div className="flex justify-between">
+              <FormSelect
+                label={"Duration (in minutes)"}
+                maxNum={10}
+                classStyle=""
+              />
+              <FormSelect
+                label={"No. of questions"}
+                maxNum={10}
+                classStyle=""
+              />
+              <FormSelect
+                label={"score per question"}
+                maxNum={10}
+                classStyle=""
+              />
+            </div>
+            <FormInput label={"Description"} />
 
-            <FormInput label={"labelPhone"} />
             <Button
               className="hover:text-black hover:bg-gray-200 bg-black text-white border-2 border-[#000] transition-colors duration-300 ms-auto"
               color=""

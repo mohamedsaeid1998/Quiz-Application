@@ -1,3 +1,5 @@
+/** @format */
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, ProtectedRoute } from "./Components";
 import {
@@ -34,13 +36,17 @@ function App() {
 
     {
       path: "dashboard",
-      element: <ProtectedRoute><MasterLayout /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
         { path: "home", element: <Home /> },
         { path: "groups", element: <Groups /> },
-        { path: "quizzes", element: <Quizzes /> },
+        { path: "quiz", element: <Quizzes /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
         { path: "students", element: <Students /> },
