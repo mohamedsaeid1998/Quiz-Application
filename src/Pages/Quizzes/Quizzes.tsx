@@ -77,7 +77,7 @@ export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
               className="hover:text-black hover:bg-gray-200 bg-black text-white border-2 border-[#000] transition-colors duration-300 ms-auto"
               color=""
             >
-              Submit
+              Submitsssssss
             </Button>
           </Modal.Body>
           {/* <Modal.Footer></Modal.Footer> */}
