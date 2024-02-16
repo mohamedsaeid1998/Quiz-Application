@@ -20,5 +20,6 @@
   "QuestionDesc": "وصف السؤال",
   "QuestionDifficultyLevel": "مستوى صعوبة السؤال",
   "Date": "التاريخ",
-  "Actions": "العمليات"
+  "Actions": "العمليات",
+  "SetUpAnewQuestion": "اضافة سؤال جديد"
 }

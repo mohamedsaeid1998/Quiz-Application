@@ -22,7 +22,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
         dir={i18n.language == "ar" ? "rtl" : "ltr"}
       >
         <Modal.Header>
-          <h2>Set up a new question</h2>
+          <h2>{t("SetUpAnewQuestion")}</h2>
         </Modal.Header>
         <Modal.Body className="bg-white">
           <form
