@@ -8,11 +8,11 @@ const MasterLayout = () => {
     <>
       <div className="flex gap-4">
         <div className="sidebar-container ">
-          <SideBar />
+          <SideBar/>
         </div>
         <div className="w-[100%] p-5">
-          <NavBar />
-          <Outlet />
+          <NavBar/>
+          <Outlet/>
         </div>
       </div>
     </>
