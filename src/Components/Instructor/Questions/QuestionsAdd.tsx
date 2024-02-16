@@ -15,7 +15,12 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
   };
   return (
     <>
-      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        dismissible
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        dir={i18n.language == "ar" ? "rtl" : "ltr"}
+      >
         <Modal.Header>
           <h2>Set up a new question</h2>
         </Modal.Header>
@@ -26,12 +31,14 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
           >
             <div className="flex flex-col my-3">
               <div className="flex-1 flex items-center border border-gray-300 rounded-md mb-3">
-                <h3 className="p-3 bg-secondColor rounded-l-md">Title:</h3>
+                <h3 className="p-3 bg-secondColor rounded-l-md">
+                  {t("Title")}:
+                </h3>
                 <input type="text" className="flex-1 border-0 outline-none" />
               </div>
               <div className="flex-1 flex items-center border border-gray-300 rounded-md mb-3">
                 <h3 className="p-3 bg-secondColor rounded-l-md">
-                  Description:
+                  {t("Description")}:
                 </h3>
                 <textarea className="flex-1 border-0 outline-none" rows={2} />
               </div>
@@ -59,7 +66,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
             <div className="flex flex-col md:flex-row justify-around gap-5 my-3">
               <div className="flex items-center border-[1px] border-[#ddd] border-solid rounded-[10px]">
                 <h3 className="flex-shrink-0 p-3 bg-secondColor m-0 rounded-l-[10px]">
-                  Right Answer:
+                  {t("RightAnswer")}:
                 </h3>
                 <input
                   type="text"
@@ -68,7 +75,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
               </div>
               <div className="flex items-center border-[1px] border-[#ddd] border-solid rounded-[10px]">
                 <h3 className="flex-shrink-0 p-3 bg-secondColor m-0 rounded-l-[10px]">
-                  Right Answer:
+                  {t("Categorytype")}:
                 </h3>
                 <select className="border-0 flex-1 h-[40px] outline-none">
                   <option value="A">Option A</option>

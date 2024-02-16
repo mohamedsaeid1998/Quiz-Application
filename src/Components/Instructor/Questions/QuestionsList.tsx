@@ -1,45 +1,48 @@
+import { useTranslation } from "react-i18next";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 
 export default function QuestionsList() {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className="w-[90%] m-auto">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-hidden">
-              <table className="min-w-full border  text-sm font-light dark:border-neutral-500">
-                <thead className="border-b font-medium bg-[#0D1321] text-white text-left">
+              <table className="min-w-full border  text-sm font-light dark:border-neutral-500 text-center">
+                <thead className="border-b font-medium bg-[#0D1321] text-white text-center ">
                   <tr>
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
-                      Question Title
+                      {t("QuestionTitle")}
                     </th>
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
-                      Question Desc
+                      {t("QuestionDesc")}
                     </th>
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
-                      Question difficulty level
+                      {t("QuestionDifficultyLevel")}
                     </th>
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
-                      Date
+                      {t("Date")}
                     </th>
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
-                      Actions
+                      {t("Actions")}
                     </th>
                   </tr>
                 </thead>

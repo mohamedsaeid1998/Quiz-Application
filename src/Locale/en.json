@@ -8,5 +8,17 @@
   "QuizDirectory": "Quiz Directory",
   "Top5Students": "Top 5 Students",
   "AllStudents": "All Students",
-  "Questions": "Questions"
+  "Questions": "Questions",
+  "BankOfQuestions": "Bank Of Questions",
+  "AddQuestion": "Add Question",
+  "Title": "Title",
+  "Description": "Description",
+  "RightAnswer": "Right Answer",
+  "Categorytype": "Category type",
+  "Create": "Create",
+  "QuestionTitle": "Question Title",
+  "QuestionDesc": "Question Desc",
+  "QuestionDifficultyLevel": "Question difficulty level",
+  "Date": "Date",
+  "Actions": "Actions"
 }

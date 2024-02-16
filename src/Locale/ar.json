@@ -8,5 +8,17 @@
   "QuizDirectory": "دليل الاختبارات ",
   "Top5Students": "أعلي 5 طلاب",
   "AllStudents": "جميع الطلاب",
-  "Questions": "الأسئلة"
+  "Questions": "الأسئلة",
+  "BankOfQuestions": "بنك الأسئلة",
+  "AddQuestion": "اضافة سؤال",
+  "Title": "السؤال",
+  "Description": "الوصف",
+  "RightAnswer": "الأجابة الصحيحة",
+  "Categorytype": "نوع الفئة",
+  "Create": "أنشاء",
+  "QuestionTitle": "عنوان السؤال",
+  "QuestionDesc": "وصف السؤال",
+  "QuestionDifficultyLevel": "مستوى صعوبة السؤال",
+  "Date": "التاريخ",
+  "Actions": "العمليات"
 }
