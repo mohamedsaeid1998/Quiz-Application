@@ -1,0 +1,13 @@
+{
+  "dashboard": "لوحة التحكم الرئيسية ",
+  "groups": "المجموعات",
+  "students": "الطلاب",
+
+  "quizzes": "الاختبارات",
+  "results": "النتائج",
+  "help": "المساعدة",
+  "UpcomingQuizzes": "الاختبارات القادمة",
+  "QuizDirectory": "دليل الاختبارات ",
+  "Top5Students": "أعلي 5 طلاب",
+  "AllStudents": "جميع الطلاب"
+}
