@@ -44,9 +44,9 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "home", element: <Home /> },
-        { path: "Students", element: <Students /> },
+        { path: "student", element: <Students /> },
         { path: "groups", element: <Groups /> },
-        { path: "quizzes", element: <Quizzes /> },
+        { path: "quiz", element: <Quizzes /> },
         { path: "results", element: <Results /> },
         { path: "help", element: <Help /> },
       ],

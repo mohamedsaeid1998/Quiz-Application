@@ -45,7 +45,7 @@ const ModalComponent = (modalData) => {
             Submit
           </Button>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        {/* <Modal.Footer></Modal.Footer> */}
       </Modal>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { SiGoogleclassroom } from "react-icons/si";
+import { PiStudentDuotone } from "react-icons/pi";
 
 import { PiUsersFourFill } from "react-icons/pi";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
@@ -44,10 +45,8 @@ export default function SideBar() {
             </MenuItem>
             <MenuItem
               className="border-b border-black hover:bg-secondColor"
-              icon={
-                <SiGoogleclassroom className="bg-secondColor text-[30px]" />
-              }
-              component={<Link to="students" />}
+              icon={<PiStudentDuotone className="bg-secondColor text-[30px]" />}
+              component={<Link to="student" />}
             >
               {t("students")}
             </MenuItem>
@@ -58,12 +57,13 @@ export default function SideBar() {
             >
               {t("groups")}
             </MenuItem>
+
             <MenuItem
               className="border-b border-black hover:bg-secondColor"
               icon={
                 <AiOutlineFieldTime className="bg-secondColor text-[30px]" />
               }
-              component={<Link to="quizzes" />}
+              component={<Link to="quiz" />}
             >
               {t("quizzes")}
             </MenuItem>
