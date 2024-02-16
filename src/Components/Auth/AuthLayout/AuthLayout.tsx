@@ -1,4 +1,3 @@
-import React from 'react'
 import './AuthLayout.module.scss'
 import { Outlet } from 'react-router-dom'
 
