@@ -6,10 +6,12 @@ import {
   Home,
   Login,
   NotFound,
+  Questions,
   Quizzes,
   Register,
   ResetPassword,
   Results,
+  Students,
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Instructor/Help/Help";
@@ -32,14 +34,16 @@ function App() {
 
     {
       path: "dashboard",
-      element:  <ProtectedRoute><MasterLayout/></ProtectedRoute>  ,
+      element: <ProtectedRoute><MasterLayout /></ProtectedRoute>,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
         { path: "home", element: <Home /> },
         { path: "groups", element: <Groups /> },
         { path: "quizzes", element: <Quizzes /> },
+        { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
+        { path: "students", element: <Students /> },
         { path: "help", element: <Help /> },
       ],
     },
@@ -47,8 +51,8 @@ function App() {
 
   return (
     <>
-      <ToastContainer theme="dark" autoClose={2000}/>
-        <RouterProvider router={routes} />
+      <ToastContainer theme="dark" autoClose={2000} />
+      <RouterProvider router={routes} />
     </>
   );
 }

@@ -21,10 +21,10 @@ const ForgetPassword = () => {
     formState: { errors },
   } = useForm();
 
-  let Data = useAction(ForgetData);
+  let RegistrationData = useAction(ForgetData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-    await Data(data)
+    await RegistrationData(data)
       .then((res) => {
         if (res?.data?.message) {
           console.log(res);

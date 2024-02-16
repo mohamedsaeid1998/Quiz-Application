@@ -28,14 +28,14 @@ const Login = () => {
   } = useForm();
 
 
-  let Data = useAction(LoginData);
+  let loginData = useAction(LoginData);
 
   const onSubmit = async (data: any) => {
     setIsLoading(true);
-    await Data(data)
+    await loginData(data)
       .then((res) => {
+        console.log(res);
         if (res?.data?.data?.accessToken) {
-          console.log(res);
           localStorage.setItem("UserToken", res?.data.data.accessToken);
           localStorage.setItem("UserRole", res?.data.data.profile.role);
           toast.success(res.data.message);
