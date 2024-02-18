@@ -1,19 +1,24 @@
-import { addQuestion } from "@/Redux/Featuers/Questions/AddQuestionsSlice";
 import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
+import { updateQuestions } from "@/Redux/Featuers/Questions/UpdateQuestionsSlice";
 import { Button, Modal } from "flowbite-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-export default function QuestionsAdd({ openModal, setOpenModal }) {
+export default function QuestionsEdit({
+  openModalEdit,
+  setOpenModalEdit,
+  getAllData,
+}) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-
+  console.log(getAllData);
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -29,29 +34,44 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
     delete data.B;
     delete data.C;
     delete data.D;
-
-    dispatch(addQuestion(data))
+    dispatch(updateQuestions({ id: getAllData._id, data }))
       .then(() => {
-        setOpenModal(false);
-        toast.success("Added Question successfully");
         dispatch(getQuestions());
-        reset();
+        setOpenModalEdit(false);
+        toast.success(t("updatedCategoriesSuccessfully"));
       })
       .catch((err) => {
         toast.error(err);
       });
   };
-
+  useEffect(() => {
+    setValue("title", getAllData.title);
+    setValue("description", getAllData.description);
+    setValue("options", getAllData.options);
+    setValue("A", getAllData?.options?.A);
+    setValue("B", getAllData?.options?.B);
+    setValue("C", getAllData?.options?.C);
+    setValue("D", getAllData?.options?.D);
+    setValue("answer", getAllData?.answer);
+    setValue("type", getAllData?.type);
+  }, [
+    getAllData?.answer,
+    getAllData.description,
+    getAllData.options,
+    getAllData.title,
+    getAllData?.type,
+    setValue,
+  ]);
   return (
     <>
       <Modal
         dismissible
-        show={openModal}
-        onClose={() => setOpenModal(false)}
+        show={openModalEdit}
+        onClose={() => setOpenModalEdit(false)}
         dir={i18n.language == "ar" ? "rtl" : "ltr"}
       >
         <Modal.Header>
-          <h2>{t("SetUpAnewQuestion")}</h2>
+          <h2>Update Question</h2>
         </Modal.Header>
         <Modal.Body className="bg-white">
           <form
@@ -181,7 +201,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
               </div>
             </div>
             <Button type="submit" color="gray" className="mx-auto">
-              {t("Create")}
+              {t("Edit")}
             </Button>
           </form>
         </Modal.Body>

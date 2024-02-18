@@ -14,6 +14,7 @@ import { LuLogOut } from "react-icons/lu";
 import { PiStudent, PiUsersFourFill } from "react-icons/pi";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
+
 export default function SideBar() {
   const { t, i18n } = useTranslation();
   const [isCollapsed, setIsCollapsed] = useState(true);
