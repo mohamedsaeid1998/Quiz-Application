@@ -1,11 +1,11 @@
 /** @format */
 
-import { MdOutlineSchedule } from "react-icons/md";
 // FormComponents.jsx
 import React, { forwardRef } from "react";
 
 const LabelForm = ({ label, deign }) => {
   return (
+    <div
       className={`bg-orange-100 w-40 text-center p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize ${deign} text-sm`}
       style={{ fontWeight: 700 }}
     >
