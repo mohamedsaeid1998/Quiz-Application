@@ -1,13 +1,77 @@
+import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
+import QuestionsDelete from "./QuestionsDelete";
+import QuestionsEdit from "./QuestionsEdit";
 
 export default function QuestionsList() {
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [getId, setGetId] = useState("");
+  const [getAllData, setGetAllData] = useState([]);
+  console.log(getAllData);
+
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const res = await dispatch(getQuestions());
+    setData(res.payload.data);
+  };
+  useEffect(() => {
+    getData();
+    dispatch(getQuestions());
+  }, [dispatch, getData]);
+  const list = data.map((question: any) => (
+    <tr key={question._id} className="border-b dark:border-neutral-500">
+      <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500">
+        {question?.title}
+      </td>
+      <td className="whitespace-nowrap border-r px-6 py-2 font-medium dark:border-neutral-500">
+        {question.description}
+      </td>
+      <td className="whitespace-nowrap border-r px-6 py-2 font-medium dark:border-neutral-500">
+        {question.difficulty}
+      </td>
+      {/* <td className="whitespace-nowrap border-r px-6 py-2 dark:border-neutral-500">
+        {question.difficulty}
+      </td> */}
+      <td className="whitespace-nowrap border-r px-6 py-2 dark:border-neutral-500 flex text-[30px] text-center text-[#FB7C19]">
+        <TbEdit
+          className=" cursor-pointer"
+          onClick={() => {
+            setOpenModalEdit(true);
+            setGetAllData(question);
+          }}
+        />
+        <RiDeleteBinLine
+          className="ml-5 cursor-pointer"
+          onClick={() => {
+            setOpenModalDelete(true);
+            setGetId(question._id);
+          }}
+        />
+      </td>
+    </tr>
+  ));
 
   return (
     <>
       <div className="w-[90%] m-auto">
+        <QuestionsDelete
+          openModalDelete={openModalDelete}
+          setOpenModalDelete={setOpenModalDelete}
+          id={getId}
+        />
+        <QuestionsEdit
+          openModalEdit={openModalEdit}
+          setOpenModalEdit={setOpenModalEdit}
+          getAllData={getAllData}
+        />
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-hidden">
@@ -32,12 +96,12 @@ export default function QuestionsList() {
                     >
                       {t("QuestionDifficultyLevel")}
                     </th>
-                    <th
+                    {/* <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
                     >
                       {t("Date")}
-                    </th>
+                    </th> */}
                     <th
                       scope="col"
                       className="border-r px-6 py-4 dark:border-neutral-500"
@@ -46,26 +110,7 @@ export default function QuestionsList() {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500">
-                      What is Html
-                    </td>
-                    <td className="whitespace-nowrap border-r px-6 py-2 font-medium dark:border-neutral-500">
-                      Lorem lorem ..
-                    </td>
-                    <td className="whitespace-nowrap border-r px-6 py-2 font-medium dark:border-neutral-500">
-                      Entry Level
-                    </td>
-                    <td className="whitespace-nowrap border-r px-6 py-2 dark:border-neutral-500">
-                      12 / 02 / 2023
-                    </td>
-                    <td className="whitespace-nowrap border-r px-6 py-2 dark:border-neutral-500 flex text-[30px] text-center text-[#FB7C19]">
-                      <TbEdit className=" cursor-pointer" />
-                      <RiDeleteBinLine className="ml-5 cursor-pointer" />
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody>{list}</tbody>
               </table>
             </div>
           </div>

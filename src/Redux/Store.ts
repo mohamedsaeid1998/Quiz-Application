@@ -1,10 +1,17 @@
+import { getQuestions } from "./Featuers/Questions/GetAllQuestionsSlice";
 /** @format */
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "./Featuers/Auth/AuthSlice";
+import { addQuestion } from "./Featuers/Questions/AddQuestionsSlice";
+import { deleteQuestion } from "./Featuers/Questions/DeleteQuestionsSlice";
+import { updateQuestions } from "./Featuers/Questions/UpdateQuestionsSlice";
 
 const Store = configureStore({
   reducer: {
     // authUser: authReducer,
+    getQuestions,
+    addQuestion,
+    deleteQuestion,
+    updateQuestions,
   },
 });
 

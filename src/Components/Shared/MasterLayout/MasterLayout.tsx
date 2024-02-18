@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import "./MasterLayout.module.scss";
-import SideBar from "../SideBar/SideBar";
 import NavBar from "../NavBar/NavBar";
 import { useTranslation } from "react-i18next";
+import SideBar from "../SideBar/SideBar";
 
 const MasterLayout = () => {
   const { t, i18n } = useTranslation();
