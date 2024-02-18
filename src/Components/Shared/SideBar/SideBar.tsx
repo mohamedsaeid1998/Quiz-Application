@@ -81,7 +81,7 @@ export default function SideBar() {
                   <MenuItem
                     className="border-b border-black hover:bg-secondColor"
                     icon={<PiStudent className="bg-secondColor text-[30px]" />}
-                    component={<Link to="students" />}
+                    component={<Link to="student" />}
                   >
                     {t("students")}
                   </MenuItem>
