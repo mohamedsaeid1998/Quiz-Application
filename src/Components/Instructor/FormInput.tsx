@@ -53,11 +53,11 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
     <div className="py-1">
       <div className="flex  rounded-xl border border-gray-300 overflow-hidden   m-2">
         <div
-          className={`bg-orange-100 md:w-56 text-center overflow-hidden p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
+          className={`text-sm font-medium bg-orange-100 md:w-56 text-center overflow-hidden p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
           // style={{ fontWeight: 700 }}
         >
           {label}
-        </div>{" "}
+        </div>
         <select
           ref={ref}
           {...rest}
@@ -77,8 +77,12 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
 const FormDate = forwardRef(({ label, ...rest }, ref) => {
   return (
     <div className="py-1">
-      <div className="flex   rounded-xl border border-gray-300  m-2">
-        <LabelForm label={label} />
+      <div className="flex   rounded-xl border border-gray-300  m-2 w-1/2">
+        <div
+          className={`bg-orange-100 font-medium w-40 md:w-40 text-center  p-1 rounded-xl border pl-5 text-sm border-orange-100 font-medium ps-0 capitalize `}
+        >
+          {label}
+        </div>
         <div className="flex items-center">
           <input
             ref={ref}
@@ -103,7 +107,7 @@ const FormSelectCategories = forwardRef(
   ({ label, categories, ...rest }, ref) => {
     return (
       <div className="py-1">
-        <div className="flex items-center justify-center rounded-xl border border-gray-300 tex-center m-2">
+        <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
           <div
             className={`bg-orange-100  w-full text-center overflow-hidden p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
           >
@@ -129,13 +133,43 @@ const FormSelectCategories = forwardRef(
     );
   }
 );
-
+const FormSelectGroups = () =>
+  forwardRef(({ label, groupsCollection, ...rest }, ref) => {
+    console.log(groupsCollection);
+    return (
+      <div className="py-1">
+        <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
+          <div
+            className={`bg-orange-100  w-full text-center overflow-hidden p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
+          >
+            {label}
+          </div>
+          <select
+            ref={ref}
+            {...rest}
+            className="m-auto text-center bg-white border-white rounded-xl pr-2 md:w-40 "
+          >
+            {groupsCollection?.map((groupName) => (
+              <option
+                // key={groupName._id + groupName.name}
+                value={groupName?._id}
+                className="tex-center flex justify-center"
+              >
+                {groupName?.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+    );
+  });
 const FormComponents = {
   FormInput,
   FormSelect,
   FormDate,
   FormSelectCategories,
   FormInputTextAria,
+  FormSelectGroups,
 };
 
 export default FormComponents;

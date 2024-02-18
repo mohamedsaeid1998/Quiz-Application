@@ -2,32 +2,43 @@
 
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 export const addQuizzesData = createAsyncThunk(
   "addQuizzesSlice/addQuizzesData",
   async (data) => {
     const token = localStorage.getItem("UserToken");
-    // console.log(data);
-    const addFormData = new FormData();
-    addFormData.append("title", data?.title);
-    addFormData.append("description", data?.description);
-    addFormData.append("group", data?.group);
-    addFormData.append("questions_number", data?.questions_number);
-    addFormData.append("difficulty", data?.difficulty);
-    addFormData.append("type", data?.type);
-    addFormData.append("schadule", `${data?.schadule}T${data?.time}`);
-    addFormData.append("duration", data?.duration);
-    addFormData.append("score_per_question", data?.score_per_question);
+
+    const dataCollection = {
+      title: data?.title,
+      description: data?.description,
+      group: data?.group,
+      questions_number: data?.questions_number,
+      difficulty: data?.difficulty,
+      type: data?.type,
+      schadule: `${data?.schadule}T${data?.time}`,
+      duration: data?.duration,
+      score_per_question: data?.score_per_question,
+      // time: "14:10",
+    };
     try {
-      const response = await baseUrl.post(`/api/quiz`, addFormData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.post(
+        `https://upskilling-egypt.com:3005/api/quiz`,
+        dataCollection,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
       const serializedHeaders = {
         contentLength: response.headers["content-length"],
         contentType: response.headers["content-type"],
       };
-      console.log(response);
+      toast.success("Quiz added successfully");
       return { data: response.data, headers: serializedHeaders };
     } catch (error) {
+      toast.error("Failed to add quiz");
       return error;
     }
   }
@@ -46,15 +57,18 @@ const addQuizzesSlice = createSlice({
     builder.addCase(
       addQuizzesData.fulfilled,
       (state, action: PayloadAction<any>) => {
-        (state.isLoading = false), (state.data = action.payload);
+        state.isLoading = false;
+        state.data = action.payload;
       }
     );
     builder.addCase(
       addQuizzesData.rejected,
       (state, action: PayloadAction<any>) => {
-        (state.isLoading = false), (state.error = action.payload.message);
+        state.isLoading = false;
+        state.error = action.payload.message;
       }
     );
   },
 });
+
 export default addQuizzesSlice.reducer;
