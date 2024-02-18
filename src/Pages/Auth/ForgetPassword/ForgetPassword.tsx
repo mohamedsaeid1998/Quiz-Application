@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import "./ForgetPassword.module.scss";
 import { background5 } from "@/Assets/Images";
@@ -35,9 +37,10 @@ const ForgetPassword = () => {
           console.log(res);
           toast.error(res?.response?.data?.message);
         }
-      }).finally(() => {
-        setIsLoading(false)
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return (
     <>
@@ -71,15 +74,15 @@ const ForgetPassword = () => {
                         required: "email is required!!",
                         pattern: {
                           value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                          message: "invalid email!!"
-                        }
+                          message: "invalid email!!",
+                        },
                       })}
                     />
-                    {errors?.email ?
+                    {errors?.email ? (
                       <span className="text-red-600">
                         {errors?.email?.message}
-                      </span> : null
-                    }
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="flex items-center my-20">

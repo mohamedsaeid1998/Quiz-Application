@@ -1,14 +1,20 @@
 /** @format */
+
 import { BankIcon, quizIcon } from "@/Assets/Images";
-import FormInput, {
+import {
+  FormInput,
   FormDate,
   FormSelect,
   FormSelectCategories,
 } from "@/Components/Instructor/FormInput";
+import { getAllData } from "@/Redux/Featuers/Groups/getDataSlice";
+// import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { Button, Modal } from "flowbite-react";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { FaCirclePlus } from "react-icons/fa6";
+import SetNewQuizModal from "./QuizzesModal";
 
 const Quizzes = () => {
   return (
@@ -44,7 +50,7 @@ export const QuizzesBox = () => {
             alt="quiz icon for set up a new quiz"
           />
         </div>
-        <div className="my-2 font-bold text-xl leading-tight ">
+        <div className="my-2 font-bold text-xl leading-tight capitalize">
           set up a new quiz
         </div>
       </div>
@@ -59,75 +65,5 @@ export const QuizzesBox = () => {
         <div>Question Bank</div>
       </div>
     </div>
-  );
-};
-
-export const SetNewQuizModal = ({ openModal, setOpenModal }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("quiz/edit");
-  };
-  return (
-    <>
-      <div className="">
-        <Modal
-          show={openModal}
-          size="3xl"
-          popup
-          onClose={() => setOpenModal(false)}
-          // initialFocus={emailInputRef}
-        >
-          <Modal.Header className="p-4 capitalize">
-            set up a new quiz
-          </Modal.Header>
-          <Modal.Body>
-            <FormInput label={"title"} classStyle="" />
-            <div className="flex justify-between w-100">
-              <FormSelect
-                label={"Duration (in minutes)"}
-                maxNum={10}
-                classStyle=""
-              />
-              <FormSelect
-                label={"No. of questions"}
-                maxNum={10}
-                classStyle=""
-              />
-              <FormSelect
-                label={"score per question"}
-                maxNum={10}
-                classStyle=""
-              />
-            </div>
-            <FormInput label={"Description"} classStyle="" />
-            <FormDate label={"schedule"} classStyle="" />
-            <div className="flex justify-between w-100">
-              <FormSelectCategories
-                categories={["beginner", "intermediate", "advanced"]}
-                label={"Category type"}
-                classStyle=""
-              />
-              <FormSelectCategories
-                label={"Group name"}
-                classStyle=""
-                categories={["FE", "BE"]}
-              />
-              <FormSelectCategories
-                label={"Difficulty level"}
-                classStyle=""
-                categories={["JSB"]}
-              />
-            </div>
-            <Button
-              className="hover:text-black hover:bg-gray-200 bg-black text-white border-2 border-[#000] transition-colors duration-300 ms-auto"
-              color=""
-              onClick={handleClick}
-            >
-              Submits
-            </Button>
-          </Modal.Body>
-        </Modal>
-      </div>
-    </>
   );
 };

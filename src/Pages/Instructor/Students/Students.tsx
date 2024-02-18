@@ -1,3 +1,4 @@
+/** @format */
 
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -15,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
+import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
@@ -43,7 +45,7 @@ const Students = () => {
     labelName: "name",
     labelPhone: "Phone",
   };
-  let fetchData = useAction(getStudentData);
+  const fetchData = useAction(getStudentData);
   const fetchStudentData = async () => {
     setIsLoading(true);
     try {
@@ -75,9 +77,9 @@ const Students = () => {
                 type="button"
                 className={`border  border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-500 hover:text-gray-100	   p-2 space-y-6 
                  ${checkActiveClass(
-                  item?.group?.name,
-                  "bg-slate-950	text-gray-100		font-medium		"
-                )}
+                   item?.group?.name,
+                   "bg-slate-950	text-gray-100		font-medium		"
+                 )}
                 `}
               >
                 {item?.group?.name}
@@ -147,13 +149,10 @@ const Students = () => {
 export default Students;
 export const Delete = ({ id, getData }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const { pathname } = useLocation();
-  const currentUrl = pathname.split("/").pop();
+
+  const currentUrl = useCurrentUrl();
   const dispatch = useDispatch();
 
-  // const handleDelete = () => {
-  //   dispatch(deleteItem(id, currentUrl));
-  // };
   const handleDelete = React.useCallback(async () => {
     setIsLoading(true);
     try {

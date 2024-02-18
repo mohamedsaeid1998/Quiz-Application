@@ -1,3 +1,5 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,4 +19,7 @@
 
 .sidebar-container .ps-sidebar-container .ps-menu-button:hover {
   background-color: inherit;
+}
+.design {
+  width: 20rem !important;
 }

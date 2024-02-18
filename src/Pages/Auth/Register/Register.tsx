@@ -1,3 +1,5 @@
+/** @format */
+
 import { useForm } from "react-hook-form";
 import "./Register.module.scss";
 import { background5 } from "@/Assets/Images";
@@ -39,16 +41,16 @@ const Register = () => {
           setIsLoading(false);
           navigate("/");
         } else {
-          if (typeof (res?.response?.data?.message) == "object") {
+          if (typeof res?.response?.data?.message == "object") {
             toast.error(res?.response?.data?.message[0]);
           } else {
             toast.error(res?.response?.data?.message);
           }
         }
-      }).finally(() => {
-        setIsLoading(false);
       })
-
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -113,11 +115,11 @@ const Register = () => {
                           },
                         })}
                       />
-                      {errors?.first_name ?
+                      {errors?.first_name ? (
                         <span className="text-red-600 text-xs">
                           {errors?.first_name?.message}
-                        </span> : null
-                      }
+                        </span>
+                      ) : null}
                     </div>
                   </div>
                   <div className="lastName">
@@ -145,11 +147,11 @@ const Register = () => {
                           },
                         })}
                       />
-                      {errors?.last_name ?
+                      {errors?.last_name ? (
                         <span className="text-red-600 text-xs">
                           {errors?.last_name?.message}
-                        </span> : null
-                      }
+                        </span>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -171,15 +173,15 @@ const Register = () => {
                         required: "email is required!!",
                         pattern: {
                           value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                          message: "invalid email!!"
-                        }
+                          message: "invalid email!!",
+                        },
                       })}
                     />
-                    {errors?.email ?
+                    {errors?.email ? (
                       <span className="text-red-600">
                         {errors?.email?.message}
-                      </span> : null
-                    }
+                      </span>
+                    ) : null}
                   </div>
                 </div>
 
@@ -209,11 +211,11 @@ const Register = () => {
                       </option>
                     </select>
                   </div>
-                  {errors?.role ?
+                  {errors?.role ? (
                     <span className="text-red-600">
                       {errors?.role?.message}
-                    </span> : null
-                  }
+                    </span>
+                  ) : null}
                 </div>
 
                 <div className="password ">
@@ -236,11 +238,11 @@ const Register = () => {
                         required: "password is required!!",
                       })}
                     />
-                    {errors?.password ?
+                    {errors?.password ? (
                       <span className="text-red-600">
                         {errors?.password?.message}
-                      </span> : null
-                    }
+                      </span>
+                    ) : null}
                   </div>
                   <div className="form-group">
                     <input
