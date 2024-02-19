@@ -7,7 +7,37 @@
   display: block;
 }
 .studentGroupBtn {
-  transition: all 0.5s ease-out;
+  &:hover {
+    background-color: white;
+    box-shadow: rgba(165, 165, 165, 0.663) 0px -50px 36px -28px inset;
+    transform: scaleX(1.2);
+    font-weight: 600;
+    transition: box-shadow 1s ease, transform 1s ease, font-weight 0.3s ease;
+  }
+
+  transition: box-shadow 1s ease, transform 1s ease;
+  // @keyframes shadowAnimation {
+  //   0% {
+  //     box-shadow: rgba(227, 227, 227, 0.663) 0px -50px 36px -28px inset;
+  //   }
+  //   50% {
+  //     box-shadow: rgba(180, 180, 180, 0.663) 0px -50px 36px -28px inset;
+  //   }
+  //   100% {
+  //     box-shadow: rgba(165, 165, 165, 0.663) 0px -50px 36px -28px inset;
+  //   }
+  // }
+  // @keyframes fontWidthAnimation  {
+  //   0% {
+  //     transform: scaleX(1);
+  //   }
+  //   50% {
+  //     transform: scaleX(1.2);
+  //   }
+  //   100% {
+  //     transform: scaleX(1);
+  //   }
+  // }
 }
 .studentIconCard {
   transition: all 0.3s ease-out;

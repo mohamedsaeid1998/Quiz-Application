@@ -14,7 +14,7 @@ const ModalSection = ({ openModal, setOpenModal, children }) => {
     >
       <Modal.Header className="p-4 capitalize">set up a new quiz</Modal.Header>
       <Modal.Body>{children}</Modal.Body>
-      <Modal.Footer></Modal.Footer>
+      {/* <Modal.Footer></Modal.Footer> */}
     </Modal>
   );
 };

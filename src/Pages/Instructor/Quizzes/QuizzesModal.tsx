@@ -1,14 +1,13 @@
 /** @format */
 
 // SetNewQuizModal.jsx
-import React, { useRef } from "react";
-import { Button, Modal } from "flowbite-react";
 import FormComponents from "@/Components/Instructor/FormInput";
+import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
+import { addQuizzesData } from "@/Redux/Featuers/Quizzes/addQuizzesSlice";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addQuizzesData } from "@/Redux/Featuers/Quizzes/addQuizzesSlice";
-import { getAllData } from "@/Redux/Featuers/Groups/getDataSlice";
-
+import "../Students/Students.scss";
 const {
   FormInput,
   FormSelect,
@@ -42,7 +41,7 @@ const SetNewQuizModal = () => {
     setLoading(true);
     try {
       // @ts-ignore
-      const element = await dispatch(getAllData());
+      const element = await dispatch(getQuizzesData());
       // @ts-ignore
       setGroups(element.payload?.data);
       console.log(element);
@@ -177,7 +176,7 @@ const SetNewQuizModal = () => {
       </div>
       <button
         type="submit"
-        className={`border block ms-auto border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-800 hover:text-gray-100	 transition-all duration-500 ease-out  p-2 space-y-6  `}
+        className={`studentGroupBtn block m-auto w-1/2 my-2 p-2 space-y-6 border  border-[#ddd] rounded-[2rem] px-5 bg-slate-800   text-gray-100 hover:text-slate-800	 transition-all duration-500 ease-out  `}
       >
         Submit
       </button>
