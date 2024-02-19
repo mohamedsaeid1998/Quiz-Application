@@ -14,6 +14,7 @@ import { LuLogOut } from "react-icons/lu";
 import { PiStudent, PiUsersFourFill } from "react-icons/pi";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
+
 export default function SideBar() {
   const { t, i18n } = useTranslation();
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -81,7 +82,7 @@ export default function SideBar() {
                   <MenuItem
                     className="border-b border-black hover:bg-secondColor"
                     icon={<PiStudent className="bg-secondColor text-[30px]" />}
-                    component={<Link to="students" />}
+                    component={<Link to="student" />}
                   >
                     {t("students")}
                   </MenuItem>
