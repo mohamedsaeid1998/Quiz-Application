@@ -22,7 +22,7 @@ export default function NavBar() {
           {i18n.language == "ar" ? (
             <Button
               label="2"
-              className="text-black mx-2"
+              className="mx-2"
               onClick={() => {
                 i18n.changeLanguage("en");
               }}
@@ -32,7 +32,7 @@ export default function NavBar() {
           ) : (
             <Button
               label="2"
-              className="text-black mx-2"
+              className="mx-2"
               onClick={() => {
                 i18n.changeLanguage("ar");
               }}

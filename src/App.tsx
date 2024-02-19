@@ -12,6 +12,7 @@ import {
   Quizzes,
   Register,
   ResetPassword,
+  ResultFinal,
   Results,
   Students,
 } from "./Pages";
@@ -52,6 +53,7 @@ function App() {
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
         { path: "student", element: <Students /> },
+        { path: "results-final", element: <ResultFinal /> },
         { path: "help", element: <Help /> },
       ],
     },
