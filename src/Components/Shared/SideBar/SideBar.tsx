@@ -124,6 +124,7 @@ export default function SideBar() {
               icon={
                 <IoIosUnlock className="bg-secondColor text-[30px]" />
               }
+              component={<Link to="/change-password" />}
             >
               {t("changePassword")}
             </MenuItem>
