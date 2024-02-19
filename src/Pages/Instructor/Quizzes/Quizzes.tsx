@@ -94,7 +94,7 @@ export const QuizzesComponent = () => {
       const element = await dispatch(getAllQuizzesData());
       // @ts-ignore
       setQuizzes(element.payload?.data);
-      console.log(element.payload?.data);
+      // console.log(element.payload?.data);
     } catch (error) {
       console.error("Error get groups:", error);
       // setGroups([]);

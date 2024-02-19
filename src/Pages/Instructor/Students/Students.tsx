@@ -17,6 +17,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
+import useUniqueValues from "@/Utils/Hooks/useUniqueValues";
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
@@ -34,6 +35,7 @@ const Students = () => {
   const [showMore, setShowMore] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [groups, setGroups] = React.useState([]);
+
   const handleActiveSection = (id) => {
     setIsActive(id);
   };
@@ -73,6 +75,7 @@ const Students = () => {
     ];
     return setGroups(uniqueGroups);
   };
+
   return (
     <>
       <div className="border p-4 border-[#ddd] rounded-[10px]">
