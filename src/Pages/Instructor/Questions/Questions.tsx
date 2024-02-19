@@ -1,3 +1,5 @@
+/** @format */
+
 import QuestionsAdd from "@/Components/Instructor/Questions/QuestionsAdd";
 import QuestionsList from "@/Components/Instructor/Questions/QuestionsList";
 import { t } from "i18next";
@@ -12,7 +14,7 @@ export default function Questions() {
 
   return (
     <>
-      <div className=" border-2 p-[20px] h-[100%]">
+      {/* <div className=" border-2 p-[20px] h-[100%]">
         <QuestionsAdd openModal={openModal} setOpenModal={setOpenModal} />
 
         <div className="flex flex-col md:flex-row justify-between my-3">
@@ -26,7 +28,7 @@ export default function Questions() {
           </button>
         </div>
         <QuestionsList />
-      </div>
+      </div> */}
     </>
   );
 }

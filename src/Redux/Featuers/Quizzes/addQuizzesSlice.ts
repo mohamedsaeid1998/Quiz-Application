@@ -20,7 +20,6 @@ export const addQuizzesData = createAsyncThunk(
       schadule: `${data?.schadule}T${data?.time}`,
       duration: data?.duration,
       score_per_question: data?.score_per_question,
-      // time: "14:10",
     };
     try {
       const response = await axios.post(

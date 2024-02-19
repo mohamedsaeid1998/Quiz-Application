@@ -1,3 +1,5 @@
+/** @format */
+
 import baseUrl from "@/Utils/Custom/Custom";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
@@ -21,7 +23,11 @@ export const getQuestions: any = createAsyncThunk(
           pageNumber: 1,
         },
       });
-      return data;
+      const serializedHeaders = {
+        contentLength: response.headers["content-length"],
+        contentType: response.headers["content-type"],
+      };
+      return { data: response.data, headers: serializedHeaders };
     } catch (error) {
       return rejectWithValue("Error from server");
     }
