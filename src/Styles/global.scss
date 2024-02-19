@@ -103,3 +103,14 @@
     transform: translateX(100px) scale(0.3);
   }
 }
+.modalBtn {
+  &:hover {
+    background-color: white;
+    box-shadow: rgba(165, 165, 165, 0.663) 0px -50px 36px -28px inset;
+    transform: scaleX(1.2);
+    font-weight: 600;
+    transition: box-shadow 1s ease, transform 1s ease, font-weight 0.3s ease;
+  }
+
+  transition: box-shadow 1s ease, transform 1s ease;
+}

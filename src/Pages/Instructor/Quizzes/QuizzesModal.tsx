@@ -174,12 +174,6 @@ const SetNewQuizModal = () => {
           </div>
         </div>
       </div>
-      <button
-        type="submit"
-        className={`studentGroupBtn block m-auto w-1/2 my-2 p-2 space-y-6 border  border-[#ddd] rounded-[2rem] px-5 bg-slate-800   text-gray-100 hover:text-slate-800	 transition-all duration-500 ease-out  `}
-      >
-        Submit
-      </button>
     </form>
   );
 };
