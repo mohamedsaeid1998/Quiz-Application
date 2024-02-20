@@ -27,6 +27,8 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   const handleSubmitData = async (data) => {
     try {
       const res = await dispatch(addQuizzesData(data));
+      console.log(res?.payload?.data);
+
       setOpenModal(false);
     } catch (error) {
       console.error("Error creating FormData:", error);
@@ -40,7 +42,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
       const element = await dispatch(getQuizzesData());
       // @ts-ignore
       setGroups(element.payload?.data);
-      console.log(element);
     } catch (error) {
       console.error("Error get groups:", error);
       // setGroups([]);

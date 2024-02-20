@@ -77,25 +77,21 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
 const FormDate = forwardRef(({ label, ...rest }, ref) => {
   return (
     <div className="py-1">
-      <div className="flex   rounded-xl border border-gray-300  m-2 w-1/2">
-        <div
-          className={`bg-orange-100 font-medium w-40 md:w-40 text-center  p-1 rounded-xl border pl-5 text-sm border-orange-100 font-medium ps-0 capitalize `}
-        >
-          {label}
-        </div>
-        <div className="flex items-center">
+      {/* <div className="flex   rounded-xl border border-gray-300  m-2 w-1/2"> */}
+      <div className="flex ">
+        <div className="w-full flex justify-between-auto">
           <input
-            ref={ref}
             {...rest}
             type="date"
-            className="bg-white border-white rounded-xl pr-2 h-full"
+            className="bg-white border-white  pr-2 h-full text-xl "
             style={{ width: "auto" }}
           />
           <input
             type="time"
+            {...rest}
             name="time"
             style={{ marginRight: "10px", width: "auto" }}
-            className="bg-white border-white rounded-xl pr-2 h-full"
+            className="bg-white border-white  pr-2 h-full ms-auto text-xl"
           />
         </div>
       </div>
@@ -163,6 +159,36 @@ const FormSelectGroups = () =>
       </div>
     );
   });
+
+const FromSelectInput = forwardRef(
+  ({ label, maxNum, defaultValues, ...rest }, ref) => {
+    const options = Array.from({ length: maxNum }, (_, index) => index + 1);
+
+    return (
+      <>
+        {/* <div className="flex  rounded-xl border border-gray-300 overflow-hidden   m-2"> */}
+        <div className="flex  leading-loose my-2 justify-between rounded-md border border-gray-300 w-80 m-2 text-xl">
+          <div className="bg-orange-100 w-2/3 rounded-md border pl-5 border-orange-100 ">
+            {label}
+          </div>
+          <div className="bg-white w-1/3  border-white rounded-md pr-2 ">
+            <select
+              ref={ref}
+              {...rest}
+              className="text-black border-white  pr-2 w-full text-center "
+            >
+              {options.map((option) => (
+                <option key={option} value={defaultValues}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </>
+    );
+  }
+);
 const FormComponents = {
   FormInput,
   FormSelect,
@@ -170,6 +196,7 @@ const FormComponents = {
   FormSelectCategories,
   FormInputTextAria,
   FormSelectGroups,
+  FromSelectInput,
 };
 
 export default FormComponents;

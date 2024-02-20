@@ -18,7 +18,7 @@ const Store = configureStore({
     getDataSLice,
     addQuizzesSlice,
     getQuizzeSlice,
-    getQuestions,
+    // getQuestions,
     addQuestion,
     deleteQuestion,
     updateQuestions,

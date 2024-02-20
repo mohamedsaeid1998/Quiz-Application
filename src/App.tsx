@@ -49,7 +49,7 @@ function App() {
         { path: "home", element: <Home /> },
         { path: "groups", element: <Groups /> },
         { path: "quiz", element: <Quizzes /> },
-        { path: "quiz/quiz/edit", element: <EditQuiz /> },
+        { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
         { path: "student", element: <Students /> },
