@@ -24,7 +24,7 @@ export const getStudentData = createAsyncThunk(
 
 const initialState = { data: {}, isLoading: false, error: null };
 
-export const setStudent = createSlice({
+const setStudent = createSlice({
   name: "setStudent",
   initialState,
   reducers: {},
@@ -46,3 +46,4 @@ export const setStudent = createSlice({
     );
   },
 });
+export default setStudent.reducer;

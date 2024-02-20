@@ -1,20 +1,20 @@
+/** @format */
 
-import React from "react";
-import { useTranslation } from "react-i18next";
-import "./Students.scss";
-import ModalComponent from "./ModalComponent";
 import image from "@/Assets/Images/quiz-img.png";
-import { FaArrowAltCircleRight } from "react-icons/fa";
-import { useForm } from "react-hook-form";
 import useAction from "@/Utils/Hooks/UseAction";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
+import "./Students.scss";
 
-import { useLocation } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
-import { TbFidgetSpinner } from "react-icons/tb";
+import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
 import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
+import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import "../../../Styles/global.scss";
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
@@ -31,6 +31,7 @@ const Students = () => {
   const [studentData, setStudentData] = React.useState(null);
   const [showMore, setShowMore] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [groups, setGroups] = React.useState([]);
 
   const handleActiveSection = (id) => {
     setIsActive(id);
@@ -43,12 +44,13 @@ const Students = () => {
     labelName: "name",
     labelPhone: "Phone",
   };
-  let fetchData = useAction(getStudentData);
+  const fetchData = useAction(getStudentData);
   const fetchStudentData = async () => {
     setIsLoading(true);
     try {
       const data = await fetchData();
       setStudentData(data.data);
+      removeDuplicated(data.data);
     } catch (error) {
       console.error("Error fetching student data:", error);
     } finally {
@@ -58,29 +60,37 @@ const Students = () => {
   React.useEffect(() => {
     fetchStudentData();
   }, []);
-  const visibleStudents = showMore ? studentData : studentData?.slice(0, 3);
-  // const visibleStudents = studentData?.slice(0, 3);
+
+  const visibleStudents = showMore ? groups : groups?.slice(0, 3);
+  const removeDuplicated = async (data) => {
+    const uniqueGroups = await [
+      ...new Set(
+        data
+          .map((item) => item?.group?.name)
+          .filter((name) => typeof name === "string" && name.trim() !== "")
+      ),
+    ];
+    return setGroups(uniqueGroups);
+  };
 
   return (
     <>
       <div className="border p-4 border-[#ddd] rounded-[10px]">
-        <div>
-          <h1 className="font-medium text-xl capitalize ">Students list</h1>
-        </div>
+        <h1 className="font-medium text-xl capitalize ">Students list</h1>
         <div className="py-4 gap-3 flex-initial justify-between  md:space-x-6  max-sm:text-[.8em] base:text-[1rem] max-sm:space-y-2  ">
           {visibleStudents?.map((item) => (
-            <div key={item._id} className="py-2 inline-block	">
+            <div key={item} className="py-2 inline-block	">
               <button
-                onClick={() => handleActiveSection(item.group.name)}
+                onClick={() => handleActiveSection(item)}
                 type="button"
                 className={`border  border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-500 hover:text-gray-100	   p-2 space-y-6 
                  ${checkActiveClass(
-                  item?.group?.name,
-                  "bg-slate-950	text-gray-100		font-medium		"
-                )}
+                   item,
+                   "bg-slate-950	text-gray-100		font-medium		"
+                 )}
                 `}
               >
-                {item?.group?.name}
+                {item}
               </button>
             </div>
           ))}
@@ -101,44 +111,42 @@ const Students = () => {
             </button>
           )}
         </div>
-        <div>
-          <div className="	flex flex-wrap justify-start ">
-            {isLoading ? (
-              <TbFidgetSpinner className="animate-spin" />
-            ) : (
-              studentData?.map((item) => (
-                <div
-                  key={item._id}
-                  className={`cards-list px-4 max-md:w-full w-1/2 panel ${checkActiveClass(
-                    item?.group?.name,
-                    "active"
-                  )}`}
-                >
-                  <div className="card my-2 border border-1 border-[#ddd] rounded-[10px]  w-full flex ">
-                    <div className="card-img">
-                      <img className="studentCarImg" src={image} alt="" />
+        <div className="	flex flex-wrap justify-start ">
+          {isLoading ? (
+            <TbFidgetSpinner className="animate-spin" />
+          ) : (
+            studentData?.map((item) => (
+              <div
+                key={item._id}
+                className={`cards-list px-4 max-md:w-full w-1/2 panel ${checkActiveClass(
+                  item?.group?.name,
+                  "active"
+                )}`}
+              >
+                <div className="card my-2 border border-1 border-[#ddd] rounded-[10px]  w-full flex ">
+                  <div className="card-img">
+                    <img className="studentCarImg" src={image} alt="" />
+                  </div>
+                  <div className="card-des w-[100%]  p-3">
+                    <h3 className="font-bold capitalize">
+                      {item.first_name + " " + item.last_name}
+                    </h3>
+                    <div className="text-[#777]">
+                      <span>12 / 03 / 2023</span> | <span>09:00 AM</span>
                     </div>
-                    <div className="card-des w-[100%]  p-3">
-                      <h3 className="font-bold capitalize">
-                        {item.first_name + " " + item.last_name}
-                      </h3>
-                      <div className="text-[#777]">
-                        <span>12 / 03 / 2023</span> | <span>09:00 AM</span>
-                      </div>
-                      <div className="flex justify-end	 items-center gap-2 cursor-pointer studentIconCard ">
-                        <form onSubmit={handleSubmit()}>
-                          <Delete id={item._id} getData={fetchStudentData} />
-                        </form>
-                        <span>
-                          <FaArrowAltCircleRight className="text-black	 ms-auto " />
-                        </span>
-                      </div>
+                    <div className="flex justify-end	 items-center gap-2 cursor-pointer studentIconCard ">
+                      <form onSubmit={handleSubmit()}>
+                        <Delete id={item._id} getData={fetchStudentData} />
+                      </form>
+                      <span>
+                        <FaArrowAltCircleRight className="text-black	 ms-auto " />
+                      </span>
                     </div>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>
@@ -147,13 +155,13 @@ const Students = () => {
 export default Students;
 export const Delete = ({ id, getData }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const { pathname } = useLocation();
-  const currentUrl = pathname.split("/").pop();
+  const [openModal, setOpenModal] = React.useState(false);
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
+  const currentUrl = useCurrentUrl();
   const dispatch = useDispatch();
 
-  // const handleDelete = () => {
-  //   dispatch(deleteItem(id, currentUrl));
-  // };
   const handleDelete = React.useCallback(async () => {
     setIsLoading(true);
     try {
@@ -167,7 +175,20 @@ export const Delete = ({ id, getData }) => {
   }, [dispatch, getData, id, currentUrl]);
   return (
     <span>
-      <MdDeleteOutline className="" onClick={() => handleDelete(id)} />
+      <MdDeleteOutline className="" onClick={toggleModal} />
+      <ModalDeleteSection
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        toggleModal={toggleModal}
+        textBtn="Delete"
+        modalTitle="Delete Student"
+        handleFunction={handleDelete}
+      >
+        <p className="font-medium my-3 text-base pt-2 capitalize">
+          are you sure you want to delete this item ? if you are sure just click
+          on delete it
+        </p>
+      </ModalDeleteSection>
     </span>
   );
 };

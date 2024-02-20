@@ -1,12 +1,13 @@
+/** @format */
+
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-
-interface IProps{
-  action?:any
+interface IProps {
+  action?: any;
 }
-interface IData{
-  data?:any
+interface IData {
+  data?: any;
 }
 
 const useAction = (action: IProps) => {

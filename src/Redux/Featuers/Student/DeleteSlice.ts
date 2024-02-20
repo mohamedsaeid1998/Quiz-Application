@@ -10,7 +10,6 @@ export const deleteItem = createAsyncThunk(
 
     const { rejectWithValue } = thunkAPI;
     try {
-      console.log(id, currentUrl);
       const response = await baseUrl.delete(`/api/${currentUrl}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });

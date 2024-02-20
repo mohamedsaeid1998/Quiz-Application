@@ -1,3 +1,5 @@
+/** @format */
+
 import { Outlet } from "react-router-dom";
 import "./MasterLayout.module.scss";
 

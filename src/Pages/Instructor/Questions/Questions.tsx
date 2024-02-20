@@ -1,3 +1,5 @@
+/** @format */
+
 import QuestionsAdd from "@/Components/Instructor/Questions/QuestionsAdd";
 import QuestionsList from "@/Components/Instructor/Questions/QuestionsList";
 import { t } from "i18next";
@@ -7,12 +9,14 @@ import { FaPlusCircle } from "react-icons/fa";
 
 export default function Questions() {
   const [openModal, setOpenModal] = useState(false);
+
   const { t, i18n } = useTranslation();
 
   return (
     <>
-      <div className=" border-2 p-[20px] h-[80vh]">
+      {/* <div className=" border-2 p-[20px] h-[100%]">
         <QuestionsAdd openModal={openModal} setOpenModal={setOpenModal} />
+
         <div className="flex flex-col md:flex-row justify-between my-3">
           <h2 className="text-[20px] font-bold">{t("BankOfQuestions")}</h2>
           <button
@@ -24,7 +28,7 @@ export default function Questions() {
           </button>
         </div>
         <QuestionsList />
-      </div>
+      </div> */}
     </>
   );
 }
