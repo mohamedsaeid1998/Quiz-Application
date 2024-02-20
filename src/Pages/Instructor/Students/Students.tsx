@@ -1,23 +1,20 @@
 /** @format */
 
-import React from "react";
-import { useTranslation } from "react-i18next";
-import "./Students.scss";
-import ModalComponent from "./ModalComponent";
 import image from "@/Assets/Images/quiz-img.png";
-import { FaArrowAltCircleRight } from "react-icons/fa";
-import { useForm } from "react-hook-form";
 import useAction from "@/Utils/Hooks/UseAction";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
+import "./Students.scss";
 
-import { useLocation } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
-import { TbFidgetSpinner } from "react-icons/tb";
+import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
 import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
-import useUniqueValues from "@/Utils/Hooks/useUniqueValues";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import "../../../Styles/global.scss";
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
@@ -158,7 +155,10 @@ const Students = () => {
 export default Students;
 export const Delete = ({ id, getData }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-
+  const [openModal, setOpenModal] = React.useState(false);
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
   const currentUrl = useCurrentUrl();
   const dispatch = useDispatch();
 
@@ -175,7 +175,20 @@ export const Delete = ({ id, getData }) => {
   }, [dispatch, getData, id, currentUrl]);
   return (
     <span>
-      <MdDeleteOutline className="" onClick={() => handleDelete(id)} />
+      <MdDeleteOutline className="" onClick={toggleModal} />
+      <ModalDeleteSection
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        toggleModal={toggleModal}
+        textBtn="Delete"
+        modalTitle="Delete Student"
+        handleFunction={handleDelete}
+      >
+        <p className="font-medium my-3 text-base pt-2 capitalize">
+          are you sure you want to delete this item ? if you are sure just click
+          on delete it
+        </p>
+      </ModalDeleteSection>
     </span>
   );
 };

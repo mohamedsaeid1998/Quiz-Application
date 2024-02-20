@@ -1,18 +1,17 @@
 /** @format */
 
-import React, { Children } from "react";
 import { Modal } from "flowbite-react";
-import "../../../Styles/global.scss";
-const ModalSection = ({
+import React from "react";
+
+const ModalDeleteSection = ({
   openModal,
   setOpenModal,
-  design,
+
   textBtn,
   children,
   modalTitle,
-  handleSubmit,
+  ...res
 }) => {
-  // onClose={() => setOpenModal(false)}
   return (
     <Modal
       show={openModal}
@@ -22,12 +21,13 @@ const ModalSection = ({
     >
       <Modal.Header className="p-4 capitalize">{modalTitle}</Modal.Header>
       <Modal.Body>
-        <form onSubmit={handleSubmit}>
+        <form>
           {children}
-          <div className="py-2 ">
+          <div className="">
             <button
+              onClick={res}
               type="submit"
-              className={` ${design} block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
+              className={` modalDeleteBtn block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
             >
               {textBtn}
             </button>
@@ -38,4 +38,4 @@ const ModalSection = ({
   );
 };
 
-export default ModalSection;
+export default ModalDeleteSection;

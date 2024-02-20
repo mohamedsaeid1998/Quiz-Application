@@ -1,16 +1,27 @@
 /** @format */
 
 import { BankIcon, allquizzes, quizIcon } from "@/Assets/Images";
+import {
+  FormInput,
+  FormDate,
+  FormSelect,
+  FormSelectCategories,
+} from "@/Components/Instructor/FormInput";
+import { getAllData } from "@/Redux/Featuers/Groups/getDataSlice";
 // import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
-import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
-import { getAllQuizzesData } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
+import { Button, Modal } from "flowbite-react";
 import React from "react";
-import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SetNewQuizModal from "./QuizzesModal";
+import { getAllQuizzesData } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 
 const Quizzes = () => {
   const [openModal, setOpenModal] = React.useState(false);
+
   const toggleModal = () => {
     setOpenModal(!openModal);
   };
@@ -21,13 +32,12 @@ const Quizzes = () => {
       <div className="flex w-full justify-between py-4">
         {/* */}
         {/* <div className=" "> */}
-        <ModalSection
+
+        <SetNewQuizModal
+          toggleModal={toggleModal}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          toggleModal={toggleModal}
-        >
-          <SetNewQuizModal />
-        </ModalSection>
+        />
         {/* </div> */}
 
         <div className=" w-3/6">

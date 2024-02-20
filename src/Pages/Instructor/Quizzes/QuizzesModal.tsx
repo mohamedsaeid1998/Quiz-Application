@@ -2,6 +2,7 @@
 
 // SetNewQuizModal.jsx
 import FormComponents from "@/Components/Instructor/FormInput";
+import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
 import { addQuizzesData } from "@/Redux/Featuers/Quizzes/addQuizzesSlice";
 import React from "react";
@@ -17,16 +18,11 @@ const {
   FormSelectGroups,
 } = FormComponents;
 
-const SetNewQuizModal = () => {
+const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   const [groups, setGroups] = React.useState([]);
   const [loading, setLoading] = React.useState(null);
   const dispatch = useDispatch();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
 
   const handleSubmitData = async (data) => {
     try {
@@ -57,7 +53,14 @@ const SetNewQuizModal = () => {
     getAllgroups();
   }, []);
   return (
-    <form onSubmit={handleSubmit(handleSubmitData)}>
+    <ModalSection
+      openModal={openModal}
+      setOpenModal={setOpenModal}
+      toggleModal={toggleModal}
+      design="modalBtn"
+      textBtn="submit"
+      handleSubmit={handleSubmit(handleSubmitData)}
+    >
       <FormInput
         label="Title"
         // ref={titleRef}
@@ -174,7 +177,7 @@ const SetNewQuizModal = () => {
           </div>
         </div>
       </div>
-    </form>
+    </ModalSection>
   );
 };
 
