@@ -1,24 +1,13 @@
 /** @format */
 
 import { BankIcon, allquizzes, quizIcon } from "@/Assets/Images";
-import {
-  FormInput,
-  FormDate,
-  FormSelect,
-  FormSelectCategories,
-} from "@/Components/Instructor/FormInput";
-import { getAllData } from "@/Redux/Featuers/Groups/getDataSlice";
 // import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
-import { Button, Modal } from "flowbite-react";
+import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SetNewQuizModal from "./QuizzesModal";
-import { getAllQuizzesData } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
-import { FaArrowAltCircleRight } from "react-icons/fa";
-import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
-import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
 
 const Quizzes = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -99,7 +88,6 @@ export const QuizzesComponent = () => {
       console.log(element.payload?.data);
     } catch (error) {
       console.error("Error get groups:", error);
-      // setGroups([]);
     } finally {
       setLoading(false);
     }
@@ -118,7 +106,7 @@ export const QuizzesComponent = () => {
       <div className="card my-2 border border-1 border-[#ddd] rounded-[10px] w-full flex flex-col p-4">
         <h2 className="font-medium text-xl capitalize">Upcoming quizzes</h2>
 
-        {incomingQuizzes?.length > 1 &&
+        {incomingQuizzes?.length >= 0 &&
           incomingQuizzes?.map((item) => {
             return (
               <div className="flex cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-4">

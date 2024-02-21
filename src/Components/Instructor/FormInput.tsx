@@ -64,7 +64,7 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
           className="text-black border-white  pr-2 w-1/3 text-center "
         >
           {options.map((option) => (
-            <option key={option} value={1}>
+            <option key={option} value={option}>
               {option}
             </option>
           ))}
