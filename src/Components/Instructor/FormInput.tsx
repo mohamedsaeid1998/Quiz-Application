@@ -74,21 +74,25 @@ export const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
   );
 });
 
-const FormDate = forwardRef(({ label, ...rest }, ref) => {
+const FormDate = forwardRef(({ label, register }, ref) => {
   return (
-    <div className="py-1">
+    <div className="pt-3">
       {/* <div className="flex   rounded-xl border border-gray-300  m-2 w-1/2"> */}
-      <div className="flex ">
+      <div className="flex m-2  ">
         <div className="w-full flex justify-between-auto">
           <input
-            {...rest}
+            {...register("schadule", {
+              required: "Enter your group name",
+            })}
             type="date"
             className="bg-white border-white  pr-2 h-full text-xl "
             style={{ width: "auto" }}
           />
           <input
             type="time"
-            {...rest}
+            {...register("time", {
+              required: "Enter your group name",
+            })}
             name="time"
             style={{ marginRight: "10px", width: "auto" }}
             className="bg-white border-white  pr-2 h-full ms-auto text-xl"

@@ -2,6 +2,7 @@
 
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -11,20 +12,36 @@ export interface Props {
 
 export const editQuizzes = createAsyncThunk<any, void>(
   "editQuizzesSlice/editQuizzes",
-  async (quizId, thunkAPI) => {
-    const token = localStorage.getItem("authToken");
-    const { rejectWithValue } = thunkAPI;
+  async (data) => {
+    const dataCollection = {
+      title: data?.title,
+      description: data?.description,
+      score_per_question: data?.score_per_question,
+      duration: data?.duration,
+      schadule: `${data?.schadule}T${data?.time}`,
+    };
+    const token = localStorage.getItem("UserToken");
+
     try {
-      const response = await baseUrl.get(`/api/quiz/${quizId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await baseUrl.put(
+        `/api/quiz/65d54c08ef9b2594e368948c`,
+        dataCollection,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const serializedHeaders = {
         contentLength: response.headers["content-length"],
         contentType: response.headers["content-type"],
       };
+      toast.success("edd Quiz successfully");
+
       return { data: response.data, headers: serializedHeaders };
     } catch (error) {
-      rejectWithValue(error);
+      console.log(error);
+      // rejectWithValue(error);
     }
   }
 );
