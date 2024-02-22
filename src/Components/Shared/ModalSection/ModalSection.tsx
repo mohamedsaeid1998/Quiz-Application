@@ -3,6 +3,18 @@
 import React, { Children } from "react";
 import { Modal } from "flowbite-react";
 import "../../../Styles/global.scss";
+
+interface IProps {
+  openModal: any
+  setOpenModal: any
+  design?: any
+  textBtn: any
+  children: any
+  modalTitle: any
+  handleSubmit: any
+}
+
+
 const ModalSection = ({
   openModal,
   setOpenModal,
@@ -11,7 +23,7 @@ const ModalSection = ({
   children,
   modalTitle,
   handleSubmit,
-}) => {
+}:IProps) => {
   // onClose={() => setOpenModal(false)}
   return (
     <Modal

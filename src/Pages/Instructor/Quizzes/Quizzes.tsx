@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import SetNewQuizModal from "./QuizzesModal";
 import { getAllQuizzesData } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 
 const Quizzes = () => {
   const [openModal, setOpenModal] = React.useState(false);

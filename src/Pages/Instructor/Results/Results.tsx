@@ -1,6 +1,6 @@
 import { LoadingSpinner } from "@/Components";
 import { ResultsData } from "@/Redux/Featuers/Results/ResultSlice";
-import UseActionGet from "@/Utils/Hooks/UseActionGit";
+import UseActionGet from "@/Utils/Hooks/UseActionGet";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
