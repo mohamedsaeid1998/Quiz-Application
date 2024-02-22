@@ -27,6 +27,8 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   const handleSubmitData = async (data) => {
     try {
       const res = await dispatch(addQuizzesData(data));
+      console.log(res?.payload?.data);
+
       setOpenModal(false);
     } catch (error) {
       console.error("Error creating FormData:", error);
@@ -40,7 +42,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
       const element = await dispatch(getQuizzesData());
       // @ts-ignore
       setGroups(element.payload?.data);
-      console.log(element);
     } catch (error) {
       console.error("Error get groups:", error);
       // setGroups([]);
@@ -71,14 +72,14 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
         <FormSelect
           label="Duration"
           //   ref={durationRef}
-          maxNum={1}
+          maxNum={15}
           design="w-full"
           {...register("duration", { required: "Enter your group name" })}
         />
         <FormSelect
           label="questions"
           //   ref={questionsRef}
-          maxNum={1}
+          maxNum={15}
           {...register("questions_number", {
             required: "Enter your group name",
           })}
@@ -86,7 +87,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
         <FormSelect
           label="Score"
           //   ref={scoreRef}
-          maxNum={1}
+          maxNum={15}
           {...register("score_per_question", {
             required: "Enter your group name",
           })}

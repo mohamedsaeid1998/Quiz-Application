@@ -1,37 +1,40 @@
 /** @format */
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { getAllGroupsData } from "@/Redux/Featuers/Groups/getGroupsData";
 import UseActionGet from "@/Utils/Hooks/UseActionGet";
-import { log } from "console";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import { useForm } from "react-hook-form";
 import { FormInput, FormSelect } from "@/Components/Instructor/FormInput";
-import { Label, Select } from 'flowbite-react';
+import { Select } from 'flowbite-react';
 import useAction from "@/Utils/Hooks/UseAction";
 import { createNewGroup } from "@/Redux/Featuers/Groups/addNewGroupSlice";
 import { deleteGroup } from "@/Redux/Featuers/Groups/deleteGroupSlice";
+import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
+import { toast } from "react-toastify";
 
-// const {
-//   FormInput,
-//   FormSelect,
-//   FormDate,
-//   FormSelectCategories,
-//   FormInputTextAria,
-//   FormSelectGroups,
-// } = FormComponents;
+
 const Groups = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [itemId, setItemId] = useState(0);
+
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+
+  const toggleModalDelete = (id: any) => {
+    setOpenModalDelete(!openModalDelete);
+    setItemId(id)
+  };
+
   const [openModal, setOpenModal] = useState(false);
   const [groupsData, setGroupsData] = useState([]);
   const [studentsData, setStudentsData] = useState([]);
   const toggleModal = () => {
     setOpenModal(!openModal);
   };
+
   const {
     register,
     handleSubmit,
@@ -81,11 +84,17 @@ const Groups = () => {
   //! **************************  Delete Group   **************************
 
   const deleteGroupData = async (id: any) => {
+
     setIsLoading(true);
     await RemoveGroup(id)
       .then((res) => {
         console.log(res);
-
+        toggleModalDelete(0)
+        if (res?.data?.message === "Record deleted successfully") {
+          toast.success(res?.data?.message);
+        } else {
+          toast.error(res?.response?.data?.message);
+        }
         handleGetGroupsData()
       })
       .finally(() => {
@@ -102,6 +111,11 @@ const Groups = () => {
       .then((res) => {
         console.log(res);
         toggleModal()
+        if (res?.data?.message === "Record created successfully") {
+          toast.success(res?.data?.message);
+        } else {
+          toast.error(res?.response?.data?.message);
+        }
         handleGetGroupsData()
       })
       .finally(() => {
@@ -116,7 +130,7 @@ const Groups = () => {
 
         <ModalSection textBtn="Submit" modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal }} >
           <FormInput
-            label="Group Name"
+            label="Set up a new Group"
             // ref={titleRef}
             deign=""
             {...register("name", { required: "Enter your group name" })}
@@ -151,6 +165,12 @@ const Groups = () => {
 
 
         </ModalSection>
+        <ModalDeleteSection textBtn="Submit" modalTitle="Delete Group" handleFunction={() => deleteGroupData(itemId)}  {...{ openModalDelete, setOpenModalDelete }}>
+          <p className="font-medium my-3 text-base pt-2 capitalize">
+            are you sure you want to delete this Group ? if you are sure just click
+            on delete it
+          </p>
+        </ModalDeleteSection>
         <div className="container">
 
           <div className=" my-4 flex justify-end">
@@ -178,15 +198,12 @@ const Groups = () => {
 
                 <div className=" flex gap-2">
                   <button><FaRegEdit size={22} /></button>
-                  <button onClick={() => deleteGroupData(_id)}><MdOutlineDeleteOutline size={25} /></button>
+                  <button onClick={() => toggleModalDelete(_id)}><MdOutlineDeleteOutline size={25} /></button>
                 </div>
 
               </div>
 
               )}
-
-
-
 
             </div>
           </div>
