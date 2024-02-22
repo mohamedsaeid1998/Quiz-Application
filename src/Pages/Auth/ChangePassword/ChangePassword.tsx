@@ -1,3 +1,5 @@
+/** @format */
+
 import { background5 } from "@/Assets/Images";
 import { ChangeData } from "@/Redux/Featuers/Auth/ChangeSlice";
 import useAction from "@/Utils/Hooks/UseAction";
@@ -33,11 +35,10 @@ export default function ChangePassword() {
         } else {
           toast.error(res?.response?.data?.message);
         }
-      }).finally(() => {
-        setIsLoading(false);
-
       })
-
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -87,7 +88,9 @@ export default function ChangePassword() {
                       })}
                     />
                     {errors.password && errors.password.type === "required" && (
-                      <span className="text-red-600">password is required!!</span>
+                      <span className="text-red-600">
+                        password is required!!
+                      </span>
                     )}
                     {errors.password && errors.password.type === "pattern" && (
                       <span className="text-red-600">invalid password!!</span>
@@ -114,7 +117,12 @@ export default function ChangePassword() {
                         required: true,
                       })}
                     />
-                    {errors.password_new && errors.password_new.type === "required" && (<span className="text-red-600">New password is required!!</span>)}
+                    {errors.password_new &&
+                      errors.password_new.type === "required" && (
+                        <span className="text-red-600">
+                          New password is required!!
+                        </span>
+                      )}
                   </div>
                 </div>
                 <div className="form-group">
@@ -133,7 +141,6 @@ export default function ChangePassword() {
                 </div>
 
                 <div className="my-4">
-
                   <button
                     type="submit"
                     className={
@@ -152,7 +159,6 @@ export default function ChangePassword() {
                       </>
                     )}
                   </button>
-
                 </div>
               </form>
             </div>

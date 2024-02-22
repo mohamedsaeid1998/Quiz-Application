@@ -1,3 +1,5 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,10 +20,13 @@
 .sidebar-container .ps-sidebar-container .ps-menu-button:hover {
   background-color: inherit;
 }
+.design {
+  width: 20rem !important;
+}
 
 
 
-.loader{
+.loader {
   position: relative;
   font-size: 48px;
   letter-spacing: 2px;
@@ -44,7 +49,9 @@
 }
 
 @keyframes motion {
-  0%, 50%, 100% {
+  0%,
+  50%,
+  100% {
     transform: translateX(0) scale(1);
   }
   25% {

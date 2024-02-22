@@ -1,11 +1,9 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import "./ResetPassword.module.scss";
 import { background5 } from "@/Assets/Images";
-import {
-  FaCheckCircle,
-  FaEnvelope,
-  FaKey,
-} from "react-icons/fa";
+import { FaCheckCircle, FaEnvelope, FaKey } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -26,7 +24,6 @@ const ResetPassword = () => {
     formState: { errors },
   } = useForm();
 
-
   let Data = useAction(ResetData);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
@@ -37,15 +34,16 @@ const ResetPassword = () => {
           setIsLoading(false);
           navigate("/");
         } else {
-          if (typeof (res?.response?.data?.message) == "object") {
+          if (typeof res?.response?.data?.message == "object") {
             toast.error(res?.response?.data?.message[0]);
           } else {
             toast.error(res?.response?.data?.message);
           }
         }
-      }).finally(() => {
-        setIsLoading(false);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   useEffect(() => {
     if (showPass) {
@@ -85,17 +83,17 @@ const ResetPassword = () => {
                       placeholder="Type your email"
                       {...register("email", {
                         required: "email is required!!",
-                          pattern: {
-                            value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                            message:"invalid email!!"
-                          }
+                        pattern: {
+                          value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                          message: "invalid email!!",
+                        },
                       })}
                     />
-                      {errors?.email ? 
-                        <span className="text-red-600">
-                          {errors?.email?.message}
-                        </span>:null
-                      }
+                    {errors?.email ? (
+                      <span className="text-red-600">
+                        {errors?.email?.message}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="OTP mt-2">
@@ -119,11 +117,11 @@ const ResetPassword = () => {
                         },
                       })}
                     />
-                      {errors?.otp ? 
-                        <span className="text-red-600">
-                          {errors?.otp?.message}
-                        </span>:null
-                      }
+                    {errors?.otp ? (
+                      <span className="text-red-600">
+                        {errors?.otp?.message}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="password mt-2">
@@ -146,11 +144,11 @@ const ResetPassword = () => {
                         required: "password is required!!",
                       })}
                     />
-                      {errors?.password ? 
-                        <span className="text-red-600">
-                          {errors?.password?.message}
-                        </span>:null
-                      }
+                    {errors?.password ? (
+                      <span className="text-red-600">
+                        {errors?.password?.message}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="form-group">
@@ -196,7 +194,6 @@ const ResetPassword = () => {
                 <img src={background5} className="w-full" alt="login-img" />
               </div>
             </div>
-
           </div>
         </div>
       </div>

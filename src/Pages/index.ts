@@ -9,11 +9,11 @@ export { default as NotFound } from "./NotFound/NotFound";
 
 
 
-export { default as Home } from "./Instructor/Home/Home";
-export { default as Groups } from "./Instructor/Groups/Groups";
-export { default as Quizzes } from "./Instructor/Quizzes/Quizzes";
-export { default as Questions } from "./Instructor/Questions/Questions";
-export { default as Results } from "./Instructor/Results/Results";
-export { default as ResultFinal } from "./Instructor/ResultFinal/ResultFinal";
-export { default as Students } from "./Instructor/Students/Students";
+export { default as Home } from "./Home/Home";
+export { default as Groups } from "./Groups/Groups";
+export { default as Quizzes } from "./Quizzes/Quizzes";
+export { default as Questions } from "./Questions/Questions";
+export { default as Results } from "./Results/Results";
+export { default as ResultFinal } from "./ResultFinal/ResultFinal";
+export { default as Students } from "./Students/Students";
 

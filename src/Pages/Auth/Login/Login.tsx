@@ -1,3 +1,5 @@
+/** @format */
+
 import { background5 } from "@/Assets/Images";
 import { LoginData } from "@/Redux/Featuers/Auth/LoginSlice";
 import useAction from "@/Utils/Hooks/UseAction";
@@ -27,7 +29,6 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-
   let loginData = useAction(LoginData);
 
   const onSubmit = async (data: any) => {
@@ -41,7 +42,7 @@ const Login = () => {
           toast.success(res.data.message);
           navigate("/dashboard");
         } else {
-          if (typeof (res?.response?.data?.message) == "object") {
+          if (typeof res?.response?.data?.message == "object") {
             toast.error(res?.response?.data?.message[0]);
           } else {
             toast.error(res?.response?.data?.message);
@@ -105,15 +106,15 @@ const Login = () => {
                         required: "email is required!!",
                         pattern: {
                           value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                          message: "invalid email!!"
-                        }
+                          message: "invalid email!!",
+                        },
                       })}
                     />
-                    {errors?.email ?
+                    {errors?.email ? (
                       <span className="text-red-600">
                         {errors?.email?.message}
-                      </span> : null
-                    }
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="my-4">
@@ -136,11 +137,11 @@ const Login = () => {
                         required: "password is required!!",
                       })}
                     />
-                    {errors?.password ?
+                    {errors?.password ? (
                       <span className="text-red-600">
                         {errors?.password?.message}
-                      </span> : null
-                    }
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="form-group">

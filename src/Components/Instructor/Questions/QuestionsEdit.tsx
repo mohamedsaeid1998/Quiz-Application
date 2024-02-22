@@ -1,19 +1,24 @@
-import { addQuestion } from "@/Redux/Featuers/Questions/AddQuestionsSlice";
 import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
+import { updateQuestions } from "@/Redux/Featuers/Questions/UpdateQuestionsSlice";
 import { Button, Modal } from "flowbite-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-export default function QuestionsAdd({ openModal, setOpenModal }) {
+export default function QuestionsEdit({
+  openModalEdit,
+  setOpenModalEdit,
+  getAllData,
+}) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-
+  console.log(getAllData);
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -29,29 +34,44 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
     delete data.B;
     delete data.C;
     delete data.D;
-
-    dispatch(addQuestion(data))
+    dispatch(updateQuestions({ id: getAllData._id, data }))
       .then(() => {
-        setOpenModal(false);
-        toast.success("Added Question successfully");
         dispatch(getQuestions());
-        reset();
+        setOpenModalEdit(false);
+        toast.success(t("updatedCategoriesSuccessfully"));
       })
       .catch((err) => {
         toast.error(err);
       });
   };
-
+  useEffect(() => {
+    setValue("title", getAllData.title);
+    setValue("description", getAllData.description);
+    setValue("options", getAllData.options);
+    setValue("A", getAllData?.options?.A);
+    setValue("B", getAllData?.options?.B);
+    setValue("C", getAllData?.options?.C);
+    setValue("D", getAllData?.options?.D);
+    setValue("answer", getAllData?.answer);
+    setValue("type", getAllData?.type);
+  }, [
+    getAllData?.answer,
+    getAllData.description,
+    getAllData.options,
+    getAllData.title,
+    getAllData?.type,
+    setValue,
+  ]);
   return (
     <>
       <Modal
         dismissible
-        show={openModal}
-        onClose={() => setOpenModal(false)}
+        show={openModalEdit}
+        onClose={() => setOpenModalEdit(false)}
         dir={i18n.language == "ar" ? "rtl" : "ltr"}
       >
         <Modal.Header>
-          <h2>{t("SetUpAnewQuestion")}</h2>
+          <h2>Update Question</h2>
         </Modal.Header>
         <Modal.Body className="bg-white">
           <form
@@ -72,7 +92,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.title && errors.title.type === "required" && (
-                <span className="text-red-500">Title is required</span>
+                <span className="text-danger">Title is required</span>
               )}
               <div className="flex-1 flex items-center border border-gray-300 rounded-md mb-3">
                 <h3 className="p-3 bg-secondColor rounded-l-md">
@@ -87,7 +107,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.description && errors.description.type === "required" && (
-                <span className="text-red-500">Title is required</span>
+                <span className="text-danger">Title is required</span>
               )}
             </div>
             <div className="flex flex-col md:flex-row md:gap-4 my-3">
@@ -102,7 +122,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.A && errors.A.type === "required" && (
-                <span className="text-red-500">A is required</span>
+                <span className="text-danger">A is required</span>
               )}
               <div className="flex-1 flex items-center border border-gray-300 rounded-md mb-3 md:mb-0">
                 <h3 className="p-3 bg-secondColor rounded-l-md">B:</h3>
@@ -115,7 +135,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.B && errors.B.type === "required" && (
-                <span className="text-red-500">B is required</span>
+                <span className="text-danger">B is required</span>
               )}
             </div>
             <div className="flex flex-col md:flex-row md:gap-4 my-3">
@@ -130,7 +150,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.C && errors.C.type === "required" && (
-                <span className="text-red-500">C is required</span>
+                <span className="text-danger">C is required</span>
               )}
               <div className="flex-1 flex items-center border border-gray-300 rounded-md mb-3 md:mb-0">
                 <h3 className="p-3 bg-secondColor rounded-l-md">D:</h3>
@@ -143,7 +163,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.D && errors.D.type === "required" && (
-                <span className="text-red-500">D is required</span>
+                <span className="text-danger">D is required</span>
               )}
             </div>
             <div className="flex flex-col md:flex-row justify-around gap-5 my-3">
@@ -160,7 +180,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                 />
               </div>
               {errors.answer && errors.answer.type === "required" && (
-                <span className="text-red-500">answer is required</span>
+                <span className="text-danger">answer is required</span>
               )}
               <div className="flex items-center border-[1px] border-[#ddd] border-solid rounded-[10px]">
                 <h3 className="flex-shrink-0 p-3 bg-secondColor m-0 rounded-l-[10px]">
@@ -173,7 +193,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
                   })}
                 >
                   {errors.type && errors.type.type === "required" && (
-                    <span className="text-red-500">type is required</span>
+                    <span className="text-danger">type is required</span>
                   )}
                   <option value="FE">FE</option>
                   <option value="BE">BE</option>
@@ -181,7 +201,7 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
               </div>
             </div>
             <Button type="submit" color="gray" className="mx-auto">
-              {t("Create")}
+              {t("Edit")}
             </Button>
           </form>
         </Modal.Body>

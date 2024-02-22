@@ -1,3 +1,5 @@
+/** @format */
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, ProtectedRoute } from "./Components";
 import {
@@ -15,8 +17,9 @@ import {
   Students,
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
-import Help from "./Pages/Instructor/Help/Help";
+import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
+import EditQuiz from "./Pages/Quizzes/EditQuiz";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([
@@ -35,17 +38,22 @@ function App() {
 
     {
       path: "dashboard",
-      element: <ProtectedRoute><MasterLayout /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
         { path: "home", element: <Home /> },
         { path: "groups", element: <Groups /> },
-        { path: "quizzes", element: <Quizzes /> },
+        { path: "quiz", element: <Quizzes /> },
+        { path: "quiz/quiz/edit", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
-        { path: "results-final", element: <ResultFinal/> },
-        { path: "students", element: <Students /> },
+        { path: "student", element: <Students /> },
+        { path: "results-final", element: <ResultFinal /> },
         { path: "help", element: <Help /> },
       ],
     },
