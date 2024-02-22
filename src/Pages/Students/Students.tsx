@@ -14,7 +14,7 @@ import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch } from "react-redux";
-import "../../../Styles/global.scss";
+
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },

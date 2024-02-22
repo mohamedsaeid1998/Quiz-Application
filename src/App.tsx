@@ -17,9 +17,9 @@ import {
   Students,
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
-import Help from "./Pages/Instructor/Help/Help";
+import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
-import EditQuiz from "./Pages/Instructor/Quizzes/EditQuiz";
+import EditQuiz from "./Pages/Quizzes/EditQuiz";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([

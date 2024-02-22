@@ -14,7 +14,7 @@ export default function Questions() {
 
   return (
     <>
-      {/* <div className=" border-2 p-[20px] h-[100%]">
+      <div className=" border-2 p-[20px] h-[100%]">
         <QuestionsAdd openModal={openModal} setOpenModal={setOpenModal} />
 
         <div className="flex flex-col md:flex-row justify-between my-3">
@@ -28,7 +28,7 @@ export default function Questions() {
           </button>
         </div>
         <QuestionsList />
-      </div> */}
+      </div>
     </>
   );
 }

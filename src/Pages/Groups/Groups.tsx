@@ -84,7 +84,6 @@ const Groups = () => {
   //! **************************  Delete Group   **************************
 
   const deleteGroupData = async (id: any) => {
-
     setIsLoading(true);
     await RemoveGroup(id)
       .then((res) => {
@@ -127,8 +126,7 @@ const Groups = () => {
   return (
     <>
       <main>
-
-        <ModalSection textBtn="Submit" modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal }} >
+        <ModalSection textBtn="Submit" modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal, isLoading }} >
           <FormInput
             label="Set up a new Group"
             // ref={titleRef}
@@ -165,7 +163,7 @@ const Groups = () => {
 
 
         </ModalSection>
-        <ModalDeleteSection textBtn="Submit" modalTitle="Delete Group" handleFunction={() => deleteGroupData(itemId)}  {...{ openModalDelete, setOpenModalDelete }}>
+        <ModalDeleteSection textBtn="Submit" modalTitle="Delete Group" handleFunction={() => deleteGroupData(itemId)}  {...{ openModalDelete, setOpenModalDelete, isLoading }}>
           <p className="font-medium my-3 text-base pt-2 capitalize">
             are you sure you want to delete this Group ? if you are sure just click
             on delete it

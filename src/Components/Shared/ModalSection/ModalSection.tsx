@@ -3,6 +3,7 @@
 import React, { Children } from "react";
 import { Modal } from "flowbite-react";
 import "../../../Styles/global.scss";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 interface IProps {
   openModal: any
@@ -11,6 +12,7 @@ interface IProps {
   textBtn: any
   children: any
   modalTitle: any
+  isLoading: any
   handleSubmit: any
 }
 
@@ -22,8 +24,9 @@ const ModalSection = ({
   textBtn,
   children,
   modalTitle,
+  isLoading,
   handleSubmit,
-}:IProps) => {
+}: IProps) => {
   // onClose={() => setOpenModal(false)}
   return (
     <Modal
@@ -37,12 +40,21 @@ const ModalSection = ({
         <form onSubmit={handleSubmit}>
           {children}
           <div className="py-2 ">
-            <button
-              type="text"
-              className={` ${design} block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
-            >
-              {textBtn}
-            </button>
+            {isLoading ?
+              <button
+                disabled={isLoading}
+                type="button"
+                className="flex items-center justify-center m-auto w-40 p-2 space-y-6 border border-[#ddd] rounded-[2rem]  text-gray-100	"
+              >
+                <TbFidgetSpinner className="animate-spin" size={20} />
+              </button> :
+              <button
+                type="submit"
+                className={` ${design} block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
+              >
+                {textBtn}
+              </button>}
+
           </div>
         </form>
       </Modal.Body>

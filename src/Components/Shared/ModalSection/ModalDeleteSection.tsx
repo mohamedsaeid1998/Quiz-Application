@@ -1,5 +1,6 @@
 
 import { Modal } from "flowbite-react";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 
 interface IProps {
@@ -8,6 +9,7 @@ interface IProps {
   textBtn: any
   children: any
   modalTitle: any
+  isLoading: any
   handleFunction: any
 }
 
@@ -17,6 +19,7 @@ const ModalDeleteSection = ({
   textBtn,
   children,
   modalTitle,
+  isLoading,
   handleFunction
 }: IProps) => {
   return (
@@ -31,13 +34,22 @@ const ModalDeleteSection = ({
 
         {children}
         <div className="">
-          <button
-            onClick={handleFunction}
-            type="submit"
-            className={` modalDeleteBtn block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
-          >
-            {textBtn}
-          </button>
+
+          {isLoading ?
+            <button
+              disabled={isLoading}
+              type="button"
+              className="modalDeleteBtn flex justify-center m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100	"
+            >
+              <TbFidgetSpinner className="animate-spin" size={20} />
+            </button> : <button
+              onClick={handleFunction}
+              type="submit"
+              className={` modalDeleteBtn block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
+            >
+              {textBtn}
+            </button>}
+
         </div>
 
       </Modal.Body>
@@ -46,3 +58,5 @@ const ModalDeleteSection = ({
 };
 
 export default ModalDeleteSection;
+
+

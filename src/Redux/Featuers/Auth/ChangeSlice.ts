@@ -4,8 +4,13 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const ChangeData = createAsyncThunk(
   "ChangeSlice/ChangeData",
   async (data) => {
+    const token = localStorage.getItem("UserToken");
     try {
-      const response = await baseUrl.post(`/api/auth/change-password`, data);
+      const response = await baseUrl.post(`/api/auth/change-password`, data,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response;
     } catch (error) {
       return error;
