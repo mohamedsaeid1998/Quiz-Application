@@ -34,11 +34,10 @@ export const addQuizzesData = createAsyncThunk(
         contentLength: response.headers["content-length"],
         contentType: response.headers["content-type"],
       };
-      toast.success("Quiz added successfully");
+      toast.success(response?.data?.message);
       return { data: response.data, headers: serializedHeaders };
     } catch (error) {
-      toast.error("Failed to add quiz");
-      return error;
+      return toast.error(error?.response?.data?.message);
     }
   }
 );
