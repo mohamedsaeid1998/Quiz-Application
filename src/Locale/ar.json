@@ -34,6 +34,12 @@
   "Student name":"اسم الطالب",
   "Score":"الدرجة",
   "Average":"المتوسط",
-  "Time submitted":"وقت الانهاء"
+  "Time submitted":"وقت الانهاء",
+  "GroupsList":"قائمة المجموعات",
+  "AddGroup":"اضافة مجموعه",
+  "SetUpAnewQuiz": "انشي اختبار جديد",
+  "QuestionBank": "الأسئلة",
+  "Upcomingquizzes": "الاختبارات القادمة"
+
   
 }

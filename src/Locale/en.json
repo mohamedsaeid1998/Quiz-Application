@@ -34,5 +34,12 @@
   "Student name":"Student name",
   "Score":"Score",
   "Average":"Average",
-  "Time submitted":"Time submitted"
+  "Time submitted":"Time submitted",
+  "GroupsList": "Groups List",
+  "AddGroup": "Add Group",
+  "SetUpAnewQuiz": "Set up a new quiz",
+  "QuestionBank": "Question Bank",
+  "Upcomingquizzes": "Upcoming Quizzes"
+
+  
 }

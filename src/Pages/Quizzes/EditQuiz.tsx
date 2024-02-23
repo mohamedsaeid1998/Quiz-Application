@@ -1,14 +1,17 @@
 /** @format */
-
+import { LoadingSpinner } from "@/Components";
 import FormComponents from "@/Components/Instructor/FormInput";
 import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
 import { editQuizzes } from "@/Redux/Featuers/Quizzes/editQuizSlice";
 import { getQuizById } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
 import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
+import { Button } from "flowbite-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 const { FormInput, FormSelect, FormDate, FromSelectInput } = FormComponents;
 const EditQuiz = (props) => {
   const { handleSubmit, register, setValue } = useForm();
@@ -60,18 +63,13 @@ const EditQuiz = (props) => {
   }, [quizData, setValue]);
 
   const submitData = (data) => {
-    // const formData = new FormData();
-    // formData.append("description", data["description"]);
-    // // formData.append("questions_number", data["questions_number"]);
-    // formData.append("score_per_question", data["score_per_question"]);
-    // formData.append("title", data["title"]);
     handleEdit(data);
   };
   const handleEdit = async (data) => {
     setLoading(true);
 
     try {
-      const element = await dispatch(editQuizzes(data));
+      const element = await dispatch(editQuizzes(quizId, data));
       // toast.success(element?.payload?.message);
     } catch (error) {
       console.log(error);

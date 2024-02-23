@@ -56,11 +56,11 @@ export default function Home() {
         <div className="  border border-[#ddd] rounded-[10px]">
           <div className="flex justify-between p-4  ">
             <h3>{t("UpcomingQuizzes")}</h3>
-            <h6>{t("QuizDirectory")}</h6>
+            <Link to={"/dashboard/quiz"}>{t("QuizDirectory")}</Link>
           </div>
           <div className="cards-list px-4">
-            {fiveQuizzesData.map(({ title, difficulty, description, code, schadule, createdAt }) =>
-              <div className="card my-2 border  border-1 border-[#ddd] rounded-[10px]  w-full flex ">
+            {fiveQuizzesData.map(({ _id, title, schadule, createdAt, participants }) =>
+              <div key={_id} className="card my-2 border  border-1 border-[#ddd] rounded-[10px]  w-full flex ">
                 <div className="card-img">
                   <img src={quizImg} alt="quizImg" />
                 </div>
@@ -69,10 +69,10 @@ export default function Home() {
                     {title}
                   </h1>
                   <div className="text-[#777]">
-                    <span>{moment(createdAt).format("Do MMM YY")}</span> | <span>{moment(schadule).format("Do MMM YY")}</span>
+                    <span>{moment(createdAt).format("Do MMM YY")}</span> | <span>{moment(schadule).format("HH:mmA")}</span>
                   </div>
                   <div className="flex justify-between">
-                    <h2>No. of student’s enrolled: 32</h2>
+                    <h2>No. of student’s enrolled: {participants}</h2>
                     <div className="flex items-center gap-2 cursor-pointer ">
                       <h6>Open</h6>
                       <FaArrowAltCircleRight className="text-mainColor " />
