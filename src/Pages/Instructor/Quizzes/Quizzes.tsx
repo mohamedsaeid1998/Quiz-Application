@@ -11,6 +11,7 @@ import SetNewQuizModal from "./QuizzesModal";
 import "../../../Styles/global.scss";
 import { MdOutlineClass } from "react-icons/md";
 import { Table } from "flowbite-react";
+import { getCompletedQuizzesData } from "@/Redux/Featuers/Quizzes/getCompletedQuizzes";
 const Quizzes = () => {
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -121,7 +122,6 @@ export const QuizzesCards = () => {
     getIncomingQuizzes();
   }, []);
   const moveToEdit = (quizId) => {
-    console.log(quizId);
     navigate(`/dashboard/quiz/edit/${quizId}`, { state: { itemId: quizId } });
   };
 
@@ -129,8 +129,45 @@ export const QuizzesCards = () => {
     <>
       <div className="card my-2 border border-1 border-[#ddd] rounded-[10px] flex flex-col p-4">
         <h2 className="font-medium text-xl capitalize">Upcoming quizzes</h2>
-
-        {incomingQuizzes?.length >= 0 &&
+        {!loading ? (
+          incomingQuizzes?.slice(0, 2).map((item) => (
+            <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden">
+              <div className="card-img bg-orange-100 px-2">
+                <img className="studentCarImg w-full" src={allquizzes} alt="" />
+              </div>
+              <div className="card-des w-full p-3">
+                <h3 className="font-bold capitalize">{item.title}</h3>
+                <div className="text-[#777]">
+                  <span>12 / 03 / 2023</span> | <span>09:00 AM</span>
+                </div>
+                <div className="flex justify-between items-center gap-2 cursor-pointer studentIconCard">
+                  No. of student’s enrolled: {item?.participants}
+                  <span>
+                    <FaArrowAltCircleRight
+                      className="text-black ms-auto "
+                      onClick={() => moveToEdit(item?._id)}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="flex items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
+            <div className="card-img bg-orange-100 px-2 w-1/4">
+              {/* Placeholder for image */}
+              <div className="animate-pulse w-full h-32"></div>
+            </div>
+            <div className="card-des w-full p-3">
+              {/* Placeholder for title */}
+              {/* Placeholder for date and time */}
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+            </div>
+          </div>
+        )}
+        {/* {incomingQuizzes?.length >= 0 &&
           incomingQuizzes?.slice(0, 2).map((item) => {
             return (
               <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden">
@@ -158,21 +195,35 @@ export const QuizzesCards = () => {
                 </div>
               </div>
             );
-          })}
+          })} */}
       </div>
     </>
   );
 };
 const CompletedQuizzes = () => {
+  const [compQuizzes, setCompQuizzes] = React.useState();
+  const [loading, setLoading] = React.useState(null);
+  const dispatch = useDispatch();
+  const getIncomingQuizzes = React.useCallback(async () => {
+    setLoading(true);
+    try {
+      const element = await dispatch(getCompletedQuizzesData());
+      setCompQuizzes(element.payload?.data);
+    } catch (error) {
+      console.error("Error get groups:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch]);
+  React.useEffect(() => {
+    // getAllQuizzes();
+    getIncomingQuizzes();
+  }, []);
   return (
     <>
       <section className=" w-full my-2 border border-1 border-[#ddd] rounded-[10px] flex flex-col p-4">
-        <h2>Completed Quizzes</h2>
-        {/* <table class="border-separate border border-slate-400 ...">
-    <tr>
-      <th class="border border-slate-300 ...">State</th>
-      <th class="border border-slate-300 ...">City</th>
-    </tr> */}
+        <h2 className="py-3">Completed Quizzes</h2>
+
         <div className="overflow-x-auto">
           <Table className="border-separate border border-slate-400 ...">
             <Table.Head className="text-center text-white">
@@ -180,30 +231,63 @@ const CompletedQuizzes = () => {
                 Title
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Group name
+                Status
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                No. of persons in group
+                Enrolled
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Date
+                Schedule
+              </Table.HeadCell>
+              <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
+                Closed
               </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-blue-50">
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
-                  {'Apple MacBook Pro 17"'}
-                </Table.Cell>
-                <Table.Cell className="border border-slate-300 ...">
-                  Sliver
-                </Table.Cell>
-                <Table.Cell className="border border-slate-300 ...">
-                  Laptop
-                </Table.Cell>
-                <Table.Cell className="border border-slate-300 ...">
-                  $2999
-                </Table.Cell>
-              </Table.Row>
+              {compQuizzes?.length >= 0 ? (
+                compQuizzes.map((item) => (
+                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-blue-50">
+                    {/* Title Cell */}
+                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
+                      {item?.title}
+                    </Table.Cell>
+                    {/* Status Cell */}
+                    <Table.Cell className="border border-slate-300 ...">
+                      {item?.status}
+                    </Table.Cell>
+                    {/* Enrolled Cell */}
+                    <Table.Cell className="border border-slate-300 ...">
+                      {item?.participants}
+                    </Table.Cell>
+                    {/* Schedule Cell */}
+                    <Table.Cell className="border border-slate-300 ...">
+                      {item?.schadule.split("T").join(" ").split(":00.000Z")}
+                    </Table.Cell>
+                    <Table.Cell className="border border-slate-300 ...">
+                      {item?.closed_at.split("T")[0]}
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              ) : (
+                // Skeleton for no data
+                <>
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
+                    Loading...
+                  </Table.Cell>
+                  <Table.Cell className="border border-slate-300 ...">
+                    Loading...
+                  </Table.Cell>
+                  <Table.Cell className="border border-slate-300 ...">
+                    Loading...
+                  </Table.Cell>
+                  <Table.Cell className="border border-slate-300 ...">
+                    Loading...
+                  </Table.Cell>
+                  <Table.Cell className="border border-slate-300 ...">
+                    Loading...
+                  </Table.Cell>
+                </>
+              )}
             </Table.Body>
           </Table>
         </div>

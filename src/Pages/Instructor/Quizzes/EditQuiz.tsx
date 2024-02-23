@@ -64,18 +64,13 @@ const EditQuiz = (props) => {
   }, [quizData, setValue]);
 
   const submitData = (data) => {
-    // const formData = new FormData();
-    // formData.append("description", data["description"]);
-    // // formData.append("questions_number", data["questions_number"]);
-    // formData.append("score_per_question", data["score_per_question"]);
-    // formData.append("title", data["title"]);
     handleEdit(data);
   };
   const handleEdit = async (data) => {
     setLoading(true);
 
     try {
-      const element = await dispatch(editQuizzes(data));
+      const element = await dispatch(editQuizzes(quizId, data));
       // toast.success(element?.payload?.message);
     } catch (error) {
       console.log(error);
