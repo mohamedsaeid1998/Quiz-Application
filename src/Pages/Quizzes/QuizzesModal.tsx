@@ -10,9 +10,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import "../Students/Students.scss";
 import { ImPower } from "react-icons/im";
-import { IoMdCopy } from "react-icons/io";
 
 import { toast } from "react-toastify";
+import { IoMdCopy } from "react-icons/io";
 const {
   FormInput,
   FormSelect,
@@ -27,27 +27,14 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   const [loading, setLoading] = React.useState(null);
   const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
-  const [currentDateModal, setCurrentDateModal] = React.useState(null);
   const dispatch = useDispatch();
-  const currentDate = new Date().toISOString().split("T")[0];
-  const currentTime = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  console.log(currentTime);
   const {
     handleSubmit,
     register,
     reset,
     setValue,
     formState: { isSubmitSuccessful },
-  } = useForm({
-    defaultValues: {
-      schadule: currentDate,
-      time: currentTime,
-    },
-  });
+  } = useForm();
 
   const handleSubmitData = async (data) => {
     setLoading(true);
@@ -56,41 +43,42 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
       if (element?.payload?.data) {
         setShowCode(true);
         setQuizCode(element?.payload?.data?.data.code);
-        // console.log(element?.payload?.data?.data.code);
       } else {
         console.log("false submit ");
         setOpenModal(true);
       }
 
+      if (isSubmitSuccessful) {
+        setOpenModal(openModal);
+      }
       reset();
     } catch (error) {
       setOpenModal(true);
 
       setLoading(false);
+    }
+  };
+
+  
+  const getAllgroups = async () => {
+    setLoading(true);
+    const currentDate = new Date().toISOString().split('T')[0];
+    const currentTime = new Date();
+    const hours = String(currentTime.getHours()).padStart(2, '0');
+    const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+    const currentTimeModal = `${hours}:${minutes}`;
+  
+    try {
+      const element = await dispatch(getQuizzesData());
+      setGroups(element.payload?.data);
+      setValue("schadule", currentDate);
+      setValue("time", currentTimeModal);
+    } catch (error) {
+      toast.error("Error get groups:", error);
     } finally {
       setLoading(false);
     }
   };
-
-  const getAllgroups = React.useCallback(async () => {
-    setValue("schadule", currentDate);
-    // setValue("time", currentTime);
-
-    setLoading(true);
-    try {
-      // @ts-ignore
-      const element = await dispatch(getQuizzesData());
-      // @ts-ignore
-      setGroups(element.payload?.data);
-    } catch (error) {
-      console.error("Error get groups:", error);
-      // setGroups([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch]);
-
-  // console.log(currentDate);
   React.useEffect(() => {
     getAllgroups();
   }, []);
@@ -104,8 +92,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
           design="modalBtn"
           textBtn="submit"
           handleSubmit={handleSubmit(handleSubmitData)}
-          loading={loading}
-          // currentDate={currentDate}
         >
           <FormInput
             label="Title"
@@ -160,7 +146,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
                     {...register("schadule", {
                       required: "Enter your group name",
                     })}
-                    defaultDate={currentDate}
                     type="date"
                     className="bg-white border-white rounded-xl pr-2 me-3 h-full"
                     style={{ width: "auto" }}
@@ -168,7 +153,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
                   <input
                     type="time"
                     //   ref={timeRef}
-                    defaultDate={currentDate}
                     {...register("time", {
                       required: "Enter your group name",
                     })}
@@ -202,7 +186,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
               groupsCollection={groups}
               {...register("group", { required: "Enter your group name" })}
             /> */}
-
             <div className="py-1">
               <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
                 <div
@@ -228,15 +211,15 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
           </div>
         </ModalSection>
       ) : (
+       
         <CopyModal
-          showCode={showCode}
-          setShowCode={setShowCode}
-          toggleModal={toggleModal}
-          handleSubmitData={handleSubmitData}
-          quizCode={quizCode}
-          setOpenModal={setOpenModal}
-        />
-      )}
+        showCode={showCode}
+        setShowCode={setShowCode}
+        toggleModal={toggleModal}
+        handleSubmitData={handleSubmitData}
+        quizCode={quizCode}
+        setOpenModal={setOpenModal}
+      />      )}
     </>
   );
 };

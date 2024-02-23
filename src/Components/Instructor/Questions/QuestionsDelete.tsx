@@ -1,4 +1,5 @@
 import { deleteQuestion } from "@/Redux/Featuers/Questions/DeleteQuestionsSlice";
+import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
 import { Modal } from "flowbite-react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,7 @@ export default function QuestionsDelete({
     dispatch(deleteQuestion(id)).then(() => {
       setOpenModalDelete(false);
       toast.success(t("QuestionDeletedSuccessfully"));
+      dispatch(getQuestions())
     });
   };
 

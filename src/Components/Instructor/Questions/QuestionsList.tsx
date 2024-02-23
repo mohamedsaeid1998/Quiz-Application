@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import QuestionsDelete from "./QuestionsDelete";
 import QuestionsEdit from "./QuestionsEdit";
 
@@ -20,15 +20,16 @@ export default function QuestionsList() {
 
   const getData = async () => {
     const res = await dispatch(getQuestions());
+    console.log(res);
+
     setData(res.payload.data);
   };
   useEffect(() => {
     getData();
-    dispatch(getQuestions());
-  }, [dispatch, getData]);
-  const list = data.map((question: any) => (
-    <tr key={question._id} className="border-b dark:border-neutral-500">
-      <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500">
+  }, [dispatch]);
+  const list = data?.map((question: any) => (
+    <tr key={question._id} className="border-b dark:border-neutral-500 ">
+      <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500 ">
         {question?.title}
       </td>
       <td className="whitespace-nowrap border-r px-6 py-2 font-medium dark:border-neutral-500">

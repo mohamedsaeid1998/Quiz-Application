@@ -4,11 +4,11 @@ import { BankIcon, allquizzes, quizIcon } from "@/Assets/Images";
 // import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
 import React from "react";
-import { FaArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowAltCircleRight, FaRegEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SetNewQuizModal from "./QuizzesModal";
-import "../../../Styles/global.scss";
+import "../../Styles/global.scss";
 import { MdOutlineClass } from "react-icons/md";
 import { Table } from "flowbite-react";
 import { getCompletedQuizzesData } from "@/Redux/Featuers/Quizzes/getCompletedQuizzes";
@@ -138,15 +138,17 @@ export const QuizzesCards = () => {
               <div className="card-des w-full p-3">
                 <h3 className="font-bold capitalize">{item.title}</h3>
                 <div className="text-[#777]">
-                  <span> {item?.schadule.}</span> | <span>09:00 AM</span>
+                  <span>12 / 03 / 2023</span> | <span>09:00 AM</span>
                 </div>
-                <div className="flex justify-between items-center gap-2 cursor-pointer studentIconCard">
+                <div className="flex justify-between items-center gap-2 cursor-pointer ">
                   No. of student’s enrolled: {item?.participants}
                   <span>
-                    <FaArrowAltCircleRight
-                      className="text-black ms-auto "
+                    <FaRegEdit
+                      className="text-black ms-auto studentIconCard"
+                      size={22}
                       onClick={() => moveToEdit(item?._id)}
                     />
+
                   </span>
                 </div>
               </div>

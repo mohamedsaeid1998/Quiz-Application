@@ -25,5 +25,14 @@
   "QuestionDifficultyLevel": "Question difficulty level",
   "Date": "Date",
   "Actions": "Actions",
-  "SetUpAnewQuestion": "Set up a new question"
+  "SetUpAnewQuestion": "Set up a new question",
+  "Group name":"Group name",
+  "No.of persons in group":"No.of persons in group",
+  "Participants":"Participants",
+  "Completed Quizzes":"Completed Quizzes",
+  "Results":"Results",
+  "Student name":"Student name",
+  "Score":"Score",
+  "Average":"Average",
+  "Time submitted":"Time submitted"
 }

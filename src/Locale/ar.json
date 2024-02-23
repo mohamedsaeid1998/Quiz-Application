@@ -25,5 +25,15 @@
   "QuestionDifficultyLevel": "مستوى صعوبة السؤال",
   "Date": "التاريخ",
   "Actions": "العمليات",
-  "SetUpAnewQuestion": "اضافة سؤال جديد"
+  "SetUpAnewQuestion": "اضافة سؤال جديد",
+  "Group name":"اسم الجروب",
+  "No.of persons in group":"عدد الاشخاص في الجروب",
+  "Participants":"المشتركين",
+  "Completed Quizzes":"الاختبارات المكتملة",
+  "Results":"النتائج",
+  "Student name":"اسم الطالب",
+  "Score":"الدرجة",
+  "Average":"المتوسط",
+  "Time submitted":"وقت الانهاء"
+  
 }

@@ -14,7 +14,7 @@ const LabelForm = ({ label, deign }) => {
   );
 };
 
-const FormInput = forwardRef(({ label, ...rest }, ref) => {
+export const FormInput = forwardRef(({ label, ...rest }, ref) => {
   return (
     <div className="py-1">
       <div className="flex rounded-xl border border-gray-300  m-2 overflow-hidden  ">
@@ -46,7 +46,7 @@ const FormInputTextAria = forwardRef(({ label, ...rest }, ref) => {
     </div>
   );
 });
-const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
+export const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
   const options = Array.from({ length: maxNum }, (_, index) => index + 1);
 
   return (

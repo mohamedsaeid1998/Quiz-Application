@@ -14,7 +14,7 @@ export const getQuestions: any = createAsyncThunk(
   async (__, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const data = await baseUrl.get(`/api/question`, {
+      const response = await baseUrl.get(`/api/question`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("UserToken")}`,
         },

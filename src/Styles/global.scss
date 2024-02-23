@@ -113,11 +113,17 @@
     box-shadow: rgba(79, 0, 0, 0.663) 0px -50px 36px -28px inset;
     transform: scaleX(1.01);
     font-weight: 500;
-    transition: box-shadow 1s ease, transform 1s ease, background-color 1s,
-      color 1s ease, font-weight 0.3s ease;
+    transition:
+      box-shadow 1s ease,
+      transform 1s ease,
+      background-color 1s,
+      color 1s ease,
+      font-weight 0.3s ease;
   }
 
-  transition: box-shadow 1s ease, transform 1s ease;
+  transition:
+    box-shadow 1s ease,
+    transform 1s ease;
 }
 .modalBtn {
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
@@ -128,11 +134,24 @@
     box-shadow: rgba(165, 165, 165, 0.663) 0px -50px 36px -28px inset;
     transform: scaleX(1.01);
     font-weight: 500;
-    transition: box-shadow 1s ease, transform 1s ease, background-color 1s,
-      color 1s ease, font-weight 0.3s ease;
+    transition:
+      box-shadow 1s ease,
+      transform 1s ease,
+      background-color 1s,
+      color 1s ease,
+      font-weight 0.3s ease;
   }
 
-  transition: box-shadow 1s ease, transform 1s ease;
+  transition:
+    box-shadow 1s ease,
+    transform 1s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark\:bg-gray-700 {
+    --tw-bg-opacity: 1;
+    // background-color: white !important;
+  }
 }
 .quizBox {
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));

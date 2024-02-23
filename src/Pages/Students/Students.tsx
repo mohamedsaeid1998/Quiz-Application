@@ -14,7 +14,7 @@ import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch } from "react-redux";
-import "../../../Styles/global.scss";
+
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },
@@ -155,9 +155,9 @@ const Students = () => {
 export default Students;
 export const Delete = ({ id, getData }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModalDelete, setOpenModalDelete] = React.useState(false);
   const toggleModal = () => {
-    setOpenModal(!openModal);
+    setOpenModalDelete(!openModalDelete);
   };
   const currentUrl = useCurrentUrl();
   const dispatch = useDispatch();
@@ -177,8 +177,8 @@ export const Delete = ({ id, getData }) => {
     <span>
       <MdDeleteOutline className="" onClick={toggleModal} />
       <ModalDeleteSection
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+        openModalDelete={openModalDelete}
+        setOpenModalDelete={setOpenModalDelete}
         toggleModal={toggleModal}
         textBtn="Delete"
         modalTitle="Delete Student"

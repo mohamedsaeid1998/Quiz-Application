@@ -14,7 +14,7 @@ export default function Questions() {
 
   return (
     <>
-      {/* <div className=" border-2 p-[20px] h-[100%]">
+      <div className=" border-2 p-[20px] h-[100%]">
         <QuestionsAdd openModal={openModal} setOpenModal={setOpenModal} />
 
         <div className="flex flex-col md:flex-row justify-between my-3">
@@ -23,12 +23,12 @@ export default function Questions() {
             className="btn flex items-center border-2 border-[#0D1321] border-solid p-2 rounded-[10px] mt-2 md:mt-0"
             onClick={() => setOpenModal(true)}
           >
-            <FaPlusCircle className="mx-3 text-[20px] " />
+            <FaPlusCircle className="mx-3 text-[20px]" />
             {t("AddQuestion")}
           </button>
         </div>
         <QuestionsList />
-      </div> */}
+      </div>
     </>
   );
 }
