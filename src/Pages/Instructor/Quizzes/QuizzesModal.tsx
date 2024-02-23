@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import "../Students/Students.scss";
 import { ImPower } from "react-icons/im";
+import { IoMdCopy } from "react-icons/io";
 
 import { toast } from "react-toastify";
 const {
@@ -24,15 +25,29 @@ const {
 const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   const [groups, setGroups] = React.useState([]);
   const [loading, setLoading] = React.useState(null);
-  const [showCode, setShowCode] = React.useState(true);
+  const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
+  const [currentDateModal, setCurrentDateModal] = React.useState(null);
   const dispatch = useDispatch();
+  const currentDate = new Date().toISOString().split("T")[0];
+  const currentTime = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  console.log(currentTime);
   const {
     handleSubmit,
     register,
     reset,
+    setValue,
     formState: { isSubmitSuccessful },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      schadule: currentDate,
+      time: currentTime,
+    },
+  });
 
   const handleSubmitData = async (data) => {
     setLoading(true);
@@ -41,24 +56,26 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
       if (element?.payload?.data) {
         setShowCode(true);
         setQuizCode(element?.payload?.data?.data.code);
-        console.log(element?.payload?.data?.data.code);
+        // console.log(element?.payload?.data?.data.code);
       } else {
         console.log("false submit ");
         setOpenModal(true);
       }
 
-      if (isSubmitSuccessful) {
-        setOpenModal(openModal);
-      }
-      // reset();
+      reset();
     } catch (error) {
       setOpenModal(true);
 
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };
 
   const getAllgroups = React.useCallback(async () => {
+    setValue("schadule", currentDate);
+    // setValue("time", currentTime);
+
     setLoading(true);
     try {
       // @ts-ignore
@@ -73,6 +90,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
     }
   }, [dispatch]);
 
+  // console.log(currentDate);
   React.useEffect(() => {
     getAllgroups();
   }, []);
@@ -86,6 +104,8 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
           design="modalBtn"
           textBtn="submit"
           handleSubmit={handleSubmit(handleSubmitData)}
+          loading={loading}
+          // currentDate={currentDate}
         >
           <FormInput
             label="Title"
@@ -140,6 +160,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
                     {...register("schadule", {
                       required: "Enter your group name",
                     })}
+                    defaultDate={currentDate}
                     type="date"
                     className="bg-white border-white rounded-xl pr-2 me-3 h-full"
                     style={{ width: "auto" }}
@@ -147,6 +168,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
                   <input
                     type="time"
                     //   ref={timeRef}
+                    defaultDate={currentDate}
                     {...register("time", {
                       required: "Enter your group name",
                     })}
@@ -180,6 +202,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
               groupsCollection={groups}
               {...register("group", { required: "Enter your group name" })}
             /> */}
+
             <div className="py-1">
               <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
                 <div
@@ -205,44 +228,86 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
           </div>
         </ModalSection>
       ) : (
-        <ModalSection
-          openModal={showCode}
-          setOpenModal={setShowCode}
+        <CopyModal
+          showCode={showCode}
+          setShowCode={setShowCode}
           toggleModal={toggleModal}
-          design="modalBtn"
-          textBtn="submit"
-          handleSubmit={handleSubmit(handleSubmitData)}
-        >
-          <div className="flex justify-center items-center flex-col">
-            <div className="codeIcon">
-              <ImPower
-                className="bg-dark"
-                style={{ fontSize: "4em", color: "yellow" }}
-              />
-            </div>
-            <p className="capitalize font-bold text-lg">
-              Quiz was created successfully
-            </p>
-
-            <div className="py-1">
-              <div className="flex  justify-between font-bold text-lg rounded-xl border border-gray-300 w-7/12 2 m-2">
-                <div className="flex items-center justify-between w-full">
-                  <div
-                    className={`bg-orange-100 md:w-40 text-center  p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
-                  >
-                    code :
-                  </div>
-                  <p className="capitalize font-bold text-lg">
-                    {quizCode}dddddddd
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ModalSection>
+          handleSubmitData={handleSubmitData}
+          quizCode={quizCode}
+          setOpenModal={setOpenModal}
+        />
       )}
     </>
   );
 };
+const CopyModal = ({
+  showCode,
+  setShowCode,
+  toggleModal,
+  setOpenModal,
+  handleSubmitData,
+  quizCode,
+}) => {
+  const textRef = React.useRef(null);
 
+  const handleCopy = () => {
+    if (textRef.current) {
+      const textToCopy = textRef?.current?.textContent;
+      navigator.clipboard.writeText(textToCopy);
+      toast.success(`Copy Code ${textToCopy}`);
+      setShowCode(false);
+      setOpenModal(false);
+    } else {
+      toast.error("Failed To Code");
+    }
+  };
+
+  return (
+    <ModalSection
+      openModal={showCode}
+      setOpenModal={setShowCode}
+      toggleModal={toggleModal}
+      design="modalBtn hidden"
+      textBtn="close"
+
+      // handleSubmit={handleSubmit(handleSubmitData)}
+    >
+      <div className="flex justify-center items-center flex-col py-2">
+        <div className="codeIcon ">
+          <ImPower
+            className="bg-dark"
+            style={{ fontSize: "4em", color: "yellow" }}
+          />
+        </div>
+        <p className="capitalize font-bold text-lg mt-5 mb-4">
+          Quiz was created successfully
+        </p>
+
+        <div
+          className="flex  justify-between font-bold text-lg rounded-xl border border-gray-300 text-slate-800 "
+          onClick={handleCopy}
+        >
+          <div className="flex items-center  w-80">
+            <div
+              className={`bg-orange-100 w-1/2 text-center text-xl font-bold p-3 rounded-xl border pl-5 border-orange-100  ps-0 capitalize `}
+            >
+              code:
+            </div>
+            <div className=" flex w-1/2 items-center font-bold  justify-between text-lg p-2">
+              <p className="capitalize font-bold text-lg " ref={textRef}>
+                {quizCode}
+              </p>
+              <p
+                className="ms-auto "
+                style={{ fontSize: "2em", color: "white" }}
+              >
+                <IoMdCopy style={{ color: "#172554" }} />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ModalSection>
+  );
+};
 export default SetNewQuizModal;

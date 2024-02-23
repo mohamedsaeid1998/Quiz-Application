@@ -75,6 +75,7 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
 });
 
 const FormDate = forwardRef(({ label, register }, ref) => {
+  // console.log(currentDate, currentTime);
   return (
     <div className="pt-3">
       {/* <div className="flex   rounded-xl border border-gray-300  m-2 w-1/2"> */}
@@ -84,11 +85,13 @@ const FormDate = forwardRef(({ label, register }, ref) => {
             {...register("schadule", {
               required: "Enter your group name",
             })}
+            // defaultValue={currentDate}
             type="date"
             className="bg-white border-white  pr-2 h-full text-xl "
             style={{ width: "auto" }}
           />
           <input
+            // defaultValue={currentTime}
             type="time"
             {...register("time", {
               required: "Enter your group name",
