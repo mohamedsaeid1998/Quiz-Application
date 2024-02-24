@@ -2,13 +2,13 @@
 
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-export const getQuizzesData = createAsyncThunk(
-  "getDataSLice/getQuizzesData",
+export const getIncomingQuizzesData = createAsyncThunk(
+  "getQuizzesSlice/getIncomingQuizzesData",
   async () => {
     const token = localStorage.getItem("UserToken");
 
     try {
-      const response = await baseUrl.get(`/api/group`, {
+      const response = await baseUrl.get(`/api/quiz/incomming`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const serializedHeaders = {
@@ -24,26 +24,26 @@ export const getQuizzesData = createAsyncThunk(
 
 const initialState = { data: {}, isLoading: false, error: null };
 
-const getDataSLice = createSlice({
-  name: "getDataSLice",
+const getQuizzeSlice = createSlice({
+  name: "getQuizzeSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getQuizzesData.pending, (state) => {
+    builder.addCase(getIncomingQuizzesData.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
-      getQuizzesData.fulfilled,
+      getIncomingQuizzesData.fulfilled,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.data = action.payload);
       }
     );
     builder.addCase(
-      getQuizzesData.rejected,
+      getIncomingQuizzesData.rejected,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.error = action.payload.message);
       }
     );
   },
 });
-export default getDataSLice.reducer;
+export default getQuizzeSlice.reducer;

@@ -1,3 +1,5 @@
+/** @format */
+
 import { addQuestion } from "@/Redux/Featuers/Questions/AddQuestionsSlice";
 import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
 import { Button, Modal } from "flowbite-react";

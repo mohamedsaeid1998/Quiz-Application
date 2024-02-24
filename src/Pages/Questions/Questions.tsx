@@ -1,3 +1,5 @@
+/** @format */
+
 import QuestionsAdd from "@/Components/Instructor/Questions/QuestionsAdd";
 import QuestionsList from "@/Components/Instructor/Questions/QuestionsList";
 import { t } from "i18next";

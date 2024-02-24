@@ -11,17 +11,18 @@ import { addQuestion } from "./Featuers/Questions/AddQuestionsSlice";
 import { deleteQuestion } from "./Featuers/Questions/DeleteQuestionsSlice";
 import { updateQuestions } from "./Featuers/Questions/UpdateQuestionsSlice";
 import getQuizzeSlice from "./Featuers/Quizzes/getQuizzeSlice";
-
+import editQuizzesSlice from "./Featuers/Quizzes/editQuizSlice";
 const Store = configureStore({
   reducer: {
     // authUser: authReducer,
     getDataSLice,
     addQuizzesSlice,
     getQuizzeSlice,
-    getQuestions,
+    // getQuestions,
     addQuestion,
     deleteQuestion,
     updateQuestions,
+    editQuizzesSlice,
   },
 });
 

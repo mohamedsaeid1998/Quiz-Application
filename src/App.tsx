@@ -20,6 +20,7 @@ import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
 import EditQuiz from "./Pages/Quizzes/EditQuiz";
+import QuizQuestions from "./Pages/QuizQuestions/QuizQuestions";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([
@@ -49,11 +50,12 @@ function App() {
         { path: "home", element: <Home /> },
         { path: "groups", element: <Groups /> },
         { path: "quiz", element: <Quizzes /> },
-        { path: "quiz/quiz/edit", element: <EditQuiz /> },
+        { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
         { path: "student", element: <Students /> },
         { path: "results-final", element: <ResultFinal /> },
+        { path: "quiz-questions/:id", element: <QuizQuestions/> },
         { path: "help", element: <Help /> },
       ],
     },

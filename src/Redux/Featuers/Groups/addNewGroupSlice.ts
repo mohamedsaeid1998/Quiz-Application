@@ -1,13 +1,13 @@
-/** @format */
 
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-export const getAllJoinData = createAsyncThunk(
-  "getJoinSlice/getAllJoinData",
+export const createNewGroup = createAsyncThunk(
+  "addNewGroupSlice/createNewGroup",
   async (data) => {
     const token = localStorage.getItem("UserToken");
+
     try {
-      const response = await baseUrl.post(`/api/quiz/join`,data, {
+      const response = await baseUrl.post(`/api/group`, data,{
         headers: { Authorization: `Bearer ${token}` },
       });
       const serializedHeaders = {
@@ -22,26 +22,27 @@ export const getAllJoinData = createAsyncThunk(
 );
 
 const initialState = { data: {}, isLoading: false, error: null };
-const getJoinSlice = createSlice({
-  name: "getJoinSlice",
+
+const addNewGroupSlice = createSlice({
+  name: "addNewGroupSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllJoinData.pending, (state) => {
+    builder.addCase(createNewGroup.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
-      getAllJoinData.fulfilled,
+      createNewGroup.fulfilled,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.data = action.payload);
       }
     );
     builder.addCase(
-      getAllJoinData.rejected,
+      createNewGroup.rejected,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.error = action.payload.message);
       }
     );
   },
 });
-export default getJoinSlice.reducer;
+export default addNewGroupSlice.reducer;
