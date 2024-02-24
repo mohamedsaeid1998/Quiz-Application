@@ -12,6 +12,9 @@ import "../../Styles/global.scss";
 import { MdOutlineClass } from "react-icons/md";
 import { Table } from "flowbite-react";
 import { getCompletedQuizzesData } from "@/Redux/Featuers/Quizzes/getCompletedQuizzes";
+import { ViewQuizzesDetails } from "../Home/Home";
+import { LiaEyeSolid } from "react-icons/lia";
+import "../../Styles/global.scss"
 const Quizzes = () => {
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -21,19 +24,13 @@ const Quizzes = () => {
   return (
     <>
       <div className="flex  w-full justify-between py-4">
-        {/* */}
-        {/* <div className=" "> */}
-
-        <SetNewQuizModal
+              <SetNewQuizModal
           toggleModal={toggleModal}
           openModal={openModal}
           setOpenModal={setOpenModal}
         />
-        {/* </div> */}
-
-        <div className="flex w-1/3 justify-center ">
-          {" "}
-          <QuizzesBox toggleModal={toggleModal} />
+       <div className="flex w-1/3 justify-center ">
+                  <QuizzesBox toggleModal={toggleModal} />
         </div>
         <div className="w-full">
           <QuizzesCards />
@@ -124,6 +121,7 @@ export const QuizzesCards = () => {
   const moveToEdit = (quizId) => {
     navigate(`/dashboard/quiz/edit/${quizId}`, { state: { itemId: quizId } });
   };
+  const [hoveredCardId, setHoveredCardId] = React.useState(null);
 
   return (
     <>
@@ -131,7 +129,10 @@ export const QuizzesCards = () => {
         <h2 className="font-medium text-xl capitalize">Upcoming quizzes</h2>
         {!loading ? (
           incomingQuizzes?.slice(0, 2).map((item) => (
-            <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden">
+            <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden hover:bg-gray-100"style={{
+              transition: "background-color 0.5s ease-in-out",
+            }} onMouseEnter={() => setHoveredCardId(_id)}
+            onMouseLeave={() => setHoveredCardId(null)}>
               <div className="card-img bg-orange-100 px-2">
                 <img className="studentCarImg w-full" src={allquizzes} alt="" />
               </div>
@@ -142,12 +143,17 @@ export const QuizzesCards = () => {
                 </div>
                 <div className="flex justify-between items-center gap-2 cursor-pointer ">
                   No. of student’s enrolled: {item?.participants}
-                  <span>
-                    <FaRegEdit
-                      className="text-black ms-auto studentIconCard"
-                      size={22}
+                  <span className="flex">
+                  <div className="p-4 bg-gray-200 rounded-full shadow-md flex justify-center items-center studentIconCard">
+
+ <FaRegEdit
+className="text-gray-600  hover:text-gray-900"                       size={20}
                       onClick={() => moveToEdit(item?._id)}
                     />
+</div>
+
+                   
+                                      <ViewQuizzesDetails id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600 hover:text-gray-900"/>   )} />
 
                   </span>
                 </div>
@@ -157,47 +163,17 @@ export const QuizzesCards = () => {
         ) : (
           <div className="flex items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
             <div className="card-img bg-orange-100 px-2 w-1/4">
-              {/* Placeholder for image */}
               <div className="animate-pulse w-full h-32"></div>
             </div>
             <div className="card-des w-full p-3">
-              {/* Placeholder for title */}
-              {/* Placeholder for date and time */}
+        
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
             </div>
           </div>
         )}
-        {/* {incomingQuizzes?.length >= 0 &&
-          incomingQuizzes?.slice(0, 2).map((item) => {
-            return (
-              <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden">
-                <div className="card-img bg-orange-100 px-2">
-                  <img
-                    className="studentCarImg w-full"
-                    src={allquizzes}
-                    alt=""
-                  />
-                </div>
-                <div className="card-des w-full p-3">
-                  <h3 className="font-bold capitalize">{item.title}</h3>
-                  <div className="text-[#777]">
-                    <span>12 / 03 / 2023</span> | <span>09:00 AM</span>
-                  </div>
-                  <div className="flex justify-between items-center gap-2 cursor-pointer studentIconCard">
-                    No. of student’s enrolled: 32
-                    <span>
-                      <FaArrowAltCircleRight
-                        className="text-black ms-auto "
-                        onClick={() => moveToEdit(item?._id)}
-                      />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })} */}
+       
       </div>
     </>
   );
@@ -247,7 +223,9 @@ const CompletedQuizzes = () => {
             </Table.Head>
             <Table.Body className="divide-y">
               {compQuizzes?.length >= 0 ? (
-                compQuizzes.map((item) => (
+                compQuizzes?.map((item) => (
+                  <>
+
                   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-blue-50">
                     {/* Title Cell */}
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
@@ -269,9 +247,10 @@ const CompletedQuizzes = () => {
                       {item?.closed_at.split("T")[0]}
                     </Table.Cell>
                   </Table.Row>
+                  </>
                 ))
               ) : (
-                // Skeleton for no data
+                // Skeleton 
                 <>
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
                     Loading...
