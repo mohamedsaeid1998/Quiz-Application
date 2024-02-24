@@ -12,7 +12,8 @@ export interface Props {
 
 export const editQuizzes = createAsyncThunk<any, void>(
   "editQuizzesSlice/editQuizzes",
-  async (quizId, data) => {
+  async ({quizId, data}) => {
+    console.log(quizId, data)
     const dataCollection = {
       title: data?.title,
       description: data?.description,

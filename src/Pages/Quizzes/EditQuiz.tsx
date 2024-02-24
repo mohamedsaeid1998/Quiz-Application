@@ -1,4 +1,5 @@
 /** @format */
+
 import { LoadingSpinner } from "@/Components";
 import FormComponents from "@/Components/Instructor/FormInput";
 import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
@@ -11,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
 const { FormInput, FormSelect, FormDate, FromSelectInput } = FormComponents;
 const EditQuiz = (props) => {
   const { handleSubmit, register, setValue } = useForm();
@@ -81,7 +81,7 @@ const EditQuiz = (props) => {
   // console.log(groups);
   return (
     <>
-      {loading && quizData?.length > 0 ? (
+      {loading && quizData?.length >= 0 ? (
         "loading"
       ) : (
         <form onSubmit={handleSubmit(submitData)}>
@@ -118,7 +118,7 @@ const EditQuiz = (props) => {
                   {...register("duration", {
                     required: "Enter your duration",
                   })}
-                // defaultValues={quizData?.duration || ""}
+                  // defaultValues={quizData?.duration || ""}
                 />
                 {/** score_per_question*/}
                 <FromSelectInput

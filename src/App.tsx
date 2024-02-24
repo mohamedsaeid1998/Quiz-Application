@@ -15,6 +15,7 @@ import {
   ResultFinal,
   Results,
   Students,
+  StudentModal
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";
@@ -52,6 +53,7 @@ function App() {
         { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
+        {path:"editModal", element :<StudentModal/>},
         { path: "student", element: <Students /> },
         { path: "results-final", element: <ResultFinal /> },
         { path: "help", element: <Help /> },
