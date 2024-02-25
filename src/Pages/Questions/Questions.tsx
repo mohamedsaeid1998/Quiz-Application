@@ -26,7 +26,11 @@ export default function Questions() {
   return (
     <>
       <div className=" border-2 p-[20px] h-[100%]">
-        <QuestionsAdd openModal={openModal} setOpenModal={setOpenModal} getData={getData}/>
+        <QuestionsAdd
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          getData={getData}
+        />
 
         <div className="flex flex-col md:flex-row justify-between my-3">
           <h2 className="text-[20px] font-bold">{t("BankOfQuestions")}</h2>
@@ -38,7 +42,7 @@ export default function Questions() {
             {t("AddQuestion")}
           </button>
         </div>
-        <QuestionsList {...{data,getData}} />
+        <QuestionsList {...{ data, getData }} />
       </div>
     </>
   );

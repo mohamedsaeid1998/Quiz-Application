@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import { Button, Modal } from "flowbite-react";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import FormInput from "@/Components/Shared/FormInput/FormInput";

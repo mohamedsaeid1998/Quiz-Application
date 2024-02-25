@@ -1,5 +1,3 @@
-/** @format */
-
 import baseUrl from "@/Utils/Custom/Custom";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
@@ -14,7 +12,7 @@ export const getQuestions: any = createAsyncThunk(
   async (__, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await baseUrl.get(`/api/question`, {
+      const data = await baseUrl.get(`/api/question`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("UserToken")}`,
         },
@@ -23,11 +21,7 @@ export const getQuestions: any = createAsyncThunk(
           pageNumber: 1,
         },
       });
-      const serializedHeaders = {
-        contentLength: response.headers["content-length"],
-        contentType: response.headers["content-type"],
-      };
-      return { data: response.data, headers: serializedHeaders };
+      return data;
     } catch (error) {
       return rejectWithValue("Error from server");
     }

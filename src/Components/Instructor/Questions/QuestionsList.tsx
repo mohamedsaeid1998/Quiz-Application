@@ -1,13 +1,15 @@
+/** @format */
+
 import { getQuestions } from "@/Redux/Featuers/Questions/GetAllQuestionsSlice";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import QuestionsDelete from "./QuestionsDelete";
 import QuestionsEdit from "./QuestionsEdit";
 
-export default function QuestionsList({data,getData}:any) {
+export default function QuestionsList({ data, getData }: any) {
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [getId, setGetId] = useState("");
@@ -15,7 +17,18 @@ export default function QuestionsList({data,getData}:any) {
   console.log(getAllData);
 
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
 
+  const getData = async () => {
+    const res = await dispatch(getQuestions());
+    console.log(res);
+
+    setData(res.payload.data);
+  };
+  useEffect(() => {
+    getData();
+  }, [dispatch]);
   const list = data?.map((question: any) => (
     <tr key={question._id} className="border-b dark:border-neutral-500 ">
       <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500 ">

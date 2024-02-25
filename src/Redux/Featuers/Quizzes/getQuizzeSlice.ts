@@ -1,12 +1,10 @@
 /** @format */
-
 import {
   createAsyncThunk,
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import baseUrl from "@/Utils/Custom/Custom";
-
 // Thunk to fetch a single quiz by ID
 export const getQuizById = createAsyncThunk(
   "getQuizzeSlice/getQuizById",
@@ -24,21 +22,23 @@ export const getQuizById = createAsyncThunk(
 );
 export const getAllQuizzesData = createAsyncThunk(
   "getQuizzeSlice/getAllQuizzesData",
-  async (quizId, { rejectWithValue }) => {
+  async () => {
+    const token = localStorage.getItem("UserToken");
+
     try {
-      const token = localStorage.getItem("UserToken");
-      const response = await baseUrl.get(`/api/quiz/${quizId}`, {
+      const response = await baseUrl.get(`/api/quiz`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      return response.data;
+      const serializedHeaders = {
+        contentLength: response.headers["content-length"],
+        contentType: response.headers["content-type"],
+      };
+      return { data: response.data, headers: serializedHeaders };
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return error;
     }
   }
 );
-
-// Selector to extract quiz data from the Redux store
-export const selectQuizData = (state) => state.getQuizzeSlice.data;
 
 const initialState = { data: {}, isLoading: false, error: null };
 
@@ -50,27 +50,18 @@ const getQuizzeSlice = createSlice({
     builder.addCase(getAllQuizzesData.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllQuizzesData.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload.data;
-    });
-    builder.addCase(getAllQuizzesData.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
-    // Add extra reducers for getQuizById
-    builder.addCase(getQuizById.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getQuizById.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    });
-    builder.addCase(getQuizById.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
+    builder.addCase(
+      getAllQuizzesData.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        (state.isLoading = false), (state.data = action.payload);
+      }
+    );
+    builder.addCase(
+      getAllQuizzesData.rejected,
+      (state, action: PayloadAction<any>) => {
+        (state.isLoading = false), (state.error = action.payload.message);
+      }
+    );
   },
 });
-
 export default getQuizzeSlice.reducer;

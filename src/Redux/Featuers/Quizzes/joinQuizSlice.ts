@@ -6,6 +6,7 @@ export const getAllJoinData = createAsyncThunk(
   "getJoinSlice/getAllJoinData",
   async (data) => {
     const token = localStorage.getItem("UserToken");
+
     try {
       const response = await baseUrl.post(`/api/quiz/join`,data, {
         headers: { Authorization: `Bearer ${token}` },

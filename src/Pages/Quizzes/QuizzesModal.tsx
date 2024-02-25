@@ -1,5 +1,7 @@
 
 // SetNewQuizModal.jsx
+import React, { useRef } from "react";
+import { Button, Modal } from "flowbite-react";
 import FormComponents from "@/Components/Instructor/FormInput";
 import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
@@ -20,12 +22,12 @@ const {
   FormInputTextAria,
   FormSelectGroups,
 } = FormComponents;
-
-const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
+const SetNewQuizModal = ({ openModal, setOpenModal }) => {
   const [groups, setGroups] = React.useState([]);
   const [loading, setLoading] = React.useState(null);
   const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
+  const Role=localStorage.getItem("UserRole");
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -68,6 +70,9 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
     const currentTimeModal = `${hours}:${minutes}`;
   
     try {
+      // @ts-ignore
+      const element = await dispatch(getAllData());
+      // @ts-ignore
       const element = await dispatch(getQuizzesData());
       setGroups(element.payload?.data);
       setValue("schadule", currentDate);
@@ -77,6 +82,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
     } finally {
       setLoading(false);
     }
+  }, [dispatch]);
   };
   React.useEffect(() => {
     getAllgroups();

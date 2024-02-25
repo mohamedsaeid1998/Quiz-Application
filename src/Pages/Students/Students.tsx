@@ -19,9 +19,6 @@ import { getStudentDataDetails } from "@/Redux/Featuers/Student/StudentDetailsSl
 import { Table } from "flowbite-react";
 import { LiaEyeSolid } from "react-icons/lia";
 
-
-
-
 const Students = () => {
   const { register, handleSubmit } = useForm();
   // const { t, i18n } = useTranslation();
@@ -71,7 +68,7 @@ const Students = () => {
     return setGroups(uniqueGroups);
   };
   const [openModal, setOpenModal] = React.useState(false);
-  const [studentId,setStudentId]=React.useState(null);
+  const [studentId, setStudentId] = React.useState(null);
   const toggleModal = (itemId) => {
     setStudentId(itemId); // Set the id to state or use it as needed
     setOpenModal(!openModal);
@@ -116,23 +113,29 @@ const Students = () => {
             </button>
           )}
         </div>
-         
-           {!isLoading ?( studentData?.map((item) => (
-             <div className="	flex flex-wrap justify-start "  onMouseEnter={() => setHoveredCardId(item?._id)}
-             onMouseLeave={() => setHoveredCardId(null)}>
-             <div
+
+        {!isLoading ? (
+          studentData?.map((item) => (
+            <div
+              className="	flex flex-wrap justify-start "
+              onMouseEnter={() => setHoveredCardId(item?._id)}
+              onMouseLeave={() => setHoveredCardId(null)}
+            >
+              <div
                 key={item._id}
                 className={`cards-list px-4 max-md:w-full w-1/2 panel ${checkActiveClass(
                   item?.group?.name,
                   "active"
                 )}`}
               >
-                <div className="card my-2 hover:bg-gray-100 border border-1 border-[#ddd] rounded-[10px]  w-full flex " style={{
-    transition: "background-color 0.5s ease-in-out",
-  }} >
+                <div
+                  className="card my-2 hover:bg-gray-100 border border-1 border-[#ddd] rounded-[10px]  w-full flex "
+                  style={{
+                    transition: "background-color 0.5s ease-in-out",
+                  }}
+                >
                   <div className="card-img">
                     <img className="studentCarImg" src={image} alt="" />
-                    
                   </div>
                   <div className="card-des w-[100%]  p-3">
                     <h3 className="font-bold capitalize">
@@ -144,38 +147,46 @@ const Students = () => {
                     <div className="flex justify-end	 items-center gap-2 cursor-pointer studentIconCard ">
                       <form onSubmit={handleSubmit()}>
                         {/* <Delete id={item._id} getData={fetchStudentData} /> */}
-                      <span >
-                      <ViewDetails  id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600"/>   )} />
-                      </span>
-                       </form>
-
+                        <span>
+                          <ViewDetails
+                            id={item._id}
+                            rest={
+                              item._id === hoveredCardId ? (
+                                <span>View</span>
+                              ) : (
+                                <LiaEyeSolid
+                                  size={25}
+                                  className="text-gray-600"
+                                />
+                              )
+                            }
+                          />
+                        </span>
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
-              </div>
-
-            ))): (
-              <div className="flex   w-1/2 items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
-                <div className="card-img bg-orange-100 px-2 w-1/4">
-                  <div className="animate-pulse w-full h-32"></div>
-                </div>
-                <div className="card-des w-full p-3">
-            
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-                </div>
-              </div>
-            )
-      }
+            </div>
+          ))
+        ) : (
+          <div className="flex   w-1/2 items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
+            <div className="card-img bg-orange-100 px-2 w-1/4">
+              <div className="animate-pulse w-full h-32"></div>
+            </div>
+            <div className="card-des w-full p-3">
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 };
 export default Students;
 export const Delete = ({ id, getData }) => {
-
   const [isLoading, setIsLoading] = React.useState(false);
   const [openModalDelete, setOpenModalDelete] = React.useState(false);
   const toggleModal = () => {
@@ -205,59 +216,50 @@ export const Delete = ({ id, getData }) => {
         textBtn="Delete"
         modalTitle="Delete Student"
         handleFunction={handleDelete}
-        
-      >
-       
-      </ModalDeleteSection>
+      ></ModalDeleteSection>
     </span>
   );
 };
 
-export  const ViewDetails = ({ id ,isHovered,rest}) => {
-
+export const ViewDetails = ({ id, isHovered, rest }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [openViewModal, setOpenViewModal] = React.useState(false);
-  const [studentData,setStudentData]=React.useState([])
+  const [studentData, setStudentData] = React.useState([]);
   const toggleModal = () => {
     setOpenViewModal(!openViewModal);
   };
   const dispatch = useDispatch();
 
-  const handelView  = React.useCallback(async () => {
-
+  const handelView = React.useCallback(async () => {
     setIsLoading(true);
     try {
-
       const element = await dispatch(getStudentDataDetails(id));
-      setStudentData(element?.payload?.data)
+      setStudentData(element?.payload?.data);
     } finally {
       setIsLoading(false);
     }
-  }, [dispatch,  id]);
+  }, [dispatch, id]);
   React.useEffect(() => {
     if (openViewModal) {
       handelView();
     }
-  }, [openViewModal, handelView ]);
-  const headers = ['Student Name', 'Email', 'Status', 'Group Name'];
+  }, [openViewModal, handelView]);
+  const headers = ["Student Name", "Email", "Status", "Group Name"];
 
   const studentDataTable = [
     `${studentData?.first_name} ${studentData?.last_name}`,
     studentData?.email,
     studentData?.status,
-    studentData?.groupName
+    studentData?.groupName,
   ];
- 
 
   return (
-   <>
- <div  className="rounded-2xl  p-2" onClick={toggleModal} > 
- <div className="p-2 inset-0 bg-gray-200 rounded-full shadow-md">
-
-   {rest}
-   </div>
-
- </div>
+    <>
+      <div className="rounded-2xl  p-2" onClick={toggleModal}>
+        <div className="p-2 inset-0 bg-gray-200 rounded-full shadow-md">
+          {rest}
+        </div>
+      </div>
       <ModalViewSection
         openViewModal={openViewModal}
         setOpenViewModal={setOpenViewModal}
@@ -266,36 +268,38 @@ export  const ViewDetails = ({ id ,isHovered,rest}) => {
         modalTitle="Student"
       >
         <div className="relative overflow-x-auto">
-    <Table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            {headers.map((header, index) => (
-              <tr key={index}>
-                
-       <th className="px-4 py-2 text-left  border-2">{     isLoading?(                    <div className="h-3 border-2 bg-gray-200 rounded-full dark:bg-gray-700  w-1/2 mb-2.5"></div>
-):header}</th>
+          <Table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              {headers.map((header, index) => (
+                <tr key={index}>
+                  <th className="px-4 py-2 text-left  border-2">
+                    {isLoading ? (
+                      <div className="h-3 border-2 bg-gray-200 rounded-full dark:bg-gray-700  w-1/2 mb-2.5"></div>
+                    ) : (
+                      header
+                    )}
+                  </th>
 
-
-            <td className="border px-4 py-2">
-                  {isLoading ? (
-                    <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-1/2 mb-2.5"></div>
-                  ) : (
-                    <p>
-                      {header === 'Student Name'
-                        ? `${studentData?.first_name} ${studentData?.last_name}`
-                        : header === 'Email'
-                        ? studentData?.email
-                        : header === 'Status'
-                        ? studentData?.status
-                        : studentData?.group?.name}
-                    </p>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </thead>
-        </Table>
+                  <td className="border px-4 py-2">
+                    {isLoading ? (
+                      <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-1/2 mb-2.5"></div>
+                    ) : (
+                      <p>
+                        {header === "Student Name"
+                          ? `${studentData?.first_name} ${studentData?.last_name}`
+                          : header === "Email"
+                          ? studentData?.email
+                          : header === "Status"
+                          ? studentData?.status
+                          : studentData?.group?.name}
+                      </p>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </thead>
+          </Table>
         </div>
-       
       </ModalViewSection>
     </>
   );

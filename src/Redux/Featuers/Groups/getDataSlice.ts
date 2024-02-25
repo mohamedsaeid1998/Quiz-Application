@@ -2,8 +2,8 @@
 
 import baseUrl from "@/Utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-export const getQuizzesData = createAsyncThunk(
-  "getDataSLice/getQuizzesData",
+export const getAllData = createAsyncThunk(
+  "getDataSLice/getAllData",
   async () => {
     const token = localStorage.getItem("UserToken");
 
@@ -29,17 +29,17 @@ const getDataSLice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getQuizzesData.pending, (state) => {
+    builder.addCase(getAllData.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
-      getQuizzesData.fulfilled,
+      getAllData.fulfilled,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.data = action.payload);
       }
     );
     builder.addCase(
-      getQuizzesData.rejected,
+      getAllData.rejected,
       (state, action: PayloadAction<any>) => {
         (state.isLoading = false), (state.error = action.payload.message);
       }
