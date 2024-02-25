@@ -1,6 +1,5 @@
 /** @format */
 import { useEffect, useState } from "react";
-import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -13,7 +12,10 @@ import { Select } from "flowbite-react";
 import useAction from "@/Utils/Hooks/UseAction";
 import { createNewGroup } from "@/Redux/Featuers/Groups/addNewGroupSlice";
 import { deleteGroup } from "@/Redux/Featuers/Groups/deleteGroupSlice";
+
+import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
+
 import { toast } from "react-toastify";
 
 const Groups = () => {
