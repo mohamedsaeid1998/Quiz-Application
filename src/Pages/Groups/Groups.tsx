@@ -204,41 +204,7 @@ const Groups = () => {
   return (
     <>
       <main>
-        {/* <ModalSection textBtn="Submit" modalTitle="Edit Group" handleSubmit={handleSubmit(UpdateGroupData)} {...{ openModal, setOpenModal, isLoading }} >
-          <FormInput
-            label="Set up a new Group"
-            // ref={titleRef}
-            default
-            deign=""
-            {...register("name", { required: "Enter your group name" })}
-          />
-          <div
-          // className="flex items-center  m-2"
-          >
-
-
-            <Select
-              multiple
-
-              // className="m-auto text-center bg-white border-white rounded-xl pr-2 md:w-40 "
-              {...register("students", {
-                required: "Enter your students",
-              })}
-
-            >
-              <option value={""} className="text-muted">Select Students</option>
-              {studentsData?.length > 0 &&
-                studentsData?.map(({ _id, first_name, last_name }) => (
-                  <option key={_id} value={_id}>{first_name + " " + last_name}</option>
-
-                ))}
-            </Select>
-
-          </div>
-
-
-        </ModalSection> */}
-        <Modal
+                <Modal
           show={openModalEdit}
           onClose={() => setOpenModalEdit(false)}
           size="4xl"
@@ -257,7 +223,6 @@ const Groups = () => {
                 />
               </div>
               <div
-              // className="flex items-center  m-2"
               >
 
 
@@ -338,7 +303,6 @@ const Groups = () => {
             on delete it
           </p>
         </ModalDeleteSection>
-        <div className="container">
 
           <div className=" my-4 flex justify-end">
             <button
@@ -374,7 +338,6 @@ const Groups = () => {
 
             </div>
           </div>
-        </div>
       </main>
     </>
   );
