@@ -35,6 +35,7 @@ const Login = () => {
     setIsLoading(true);
     await loginData(data)
       .then((res) => {
+        console.log(res);
         if (res?.data?.data?.accessToken) {
           localStorage.setItem("UserToken", res?.data.data.accessToken);
           localStorage.setItem("UserRole", res?.data.data.profile.role);

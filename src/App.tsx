@@ -15,14 +15,17 @@ import {
   ResultFinal,
   Results,
   Students,
+  StudentModal
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
 import EditQuiz from "./Pages/Quizzes/EditQuiz";
-import QuizQuestions from "./Pages/QuizQuestions/QuizQuestions";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
+  const here = localStorage.getItem("UserRole")
+  console.log(here);
+
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -53,9 +56,9 @@ function App() {
         { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
+        { path: "editModal", element: <StudentModal /> },
         { path: "student", element: <Students /> },
         { path: "results-final", element: <ResultFinal /> },
-        { path: "quiz-questions/:id", element: <QuizQuestions/> },
         { path: "help", element: <Help /> },
       ],
     },

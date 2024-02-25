@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import QuestionsDelete from "./QuestionsDelete";
 import QuestionsEdit from "./QuestionsEdit";
 
-export default function QuestionsList() {
+export default function QuestionsList({data,getData}:any) {
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [getId, setGetId] = useState("");
@@ -15,18 +15,7 @@ export default function QuestionsList() {
   console.log(getAllData);
 
   const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
-  const [data, setData] = useState([]);
 
-  const getData = async () => {
-    const res = await dispatch(getQuestions());
-    console.log(res);
-
-    setData(res.payload.data);
-  };
-  useEffect(() => {
-    getData();
-  }, [dispatch]);
   const list = data?.map((question: any) => (
     <tr key={question._id} className="border-b dark:border-neutral-500 ">
       <td className="whitespace-nowrap border-r px-6  font-medium dark:border-neutral-500 ">
@@ -67,11 +56,13 @@ export default function QuestionsList() {
           openModalDelete={openModalDelete}
           setOpenModalDelete={setOpenModalDelete}
           id={getId}
+          getData={getData}
         />
         <QuestionsEdit
           openModalEdit={openModalEdit}
           setOpenModalEdit={setOpenModalEdit}
           getAllData={getAllData}
+          getData={getData}
         />
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">

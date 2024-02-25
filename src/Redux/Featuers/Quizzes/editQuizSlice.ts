@@ -12,7 +12,8 @@ export interface Props {
 
 export const editQuizzes = createAsyncThunk<any, void>(
   "editQuizzesSlice/editQuizzes",
-  async (data) => {
+  async ({quizId, data}) => {
+    console.log(quizId, data)
     const dataCollection = {
       title: data?.title,
       description: data?.description,
@@ -24,7 +25,7 @@ export const editQuizzes = createAsyncThunk<any, void>(
 
     try {
       const response = await baseUrl.put(
-        `/api/quiz/65d54c08ef9b2594e368948c`,
+        `/api/quiz/${quizId}`,
         dataCollection,
         {
           headers: {

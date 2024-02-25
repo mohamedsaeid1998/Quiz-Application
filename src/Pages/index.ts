@@ -16,4 +16,5 @@ export { default as Questions } from "./Questions/Questions";
 export { default as Results } from "./Results/Results";
 export { default as ResultFinal } from "./ResultFinal/ResultFinal";
 export { default as Students } from "./Students/Students";
+export {default as StudentModal} from "./Students/StudentModal"
 

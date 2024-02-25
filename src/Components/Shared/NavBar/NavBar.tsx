@@ -1,8 +1,15 @@
 import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const { t, i18n } = useTranslation();
+
+
+  const { data } = useSelector((state) => state.LoginReducer)
+  const userName = data?.data?.data?.profile?.first_name + ' ' + data?.data?.data?.profile?.last_name
+  const email = data?.data?.data?.profile?.email
 
   return (
     <>
@@ -40,26 +47,12 @@ export default function NavBar() {
               Ar
             </Button>
           )}
-
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
-                className="w-[50px]"
-              />
-            }
-          >
-            <Dropdown.Header className="bg-[#fff]">
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">
-                name@flowbite.com
-              </span>
-            </Dropdown.Header>
-          </Dropdown>
+          <div className="flex flex-col mx-2 ">
+            <span className="block text-sm">{userName}</span>
+            <span className="block truncate text-sm font-medium">
+              {email}
+            </span>
+          </div>
         </div>
       </Navbar>
     </>

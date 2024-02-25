@@ -34,15 +34,15 @@ const ModalComponent = (modalData) => {
       >
         <Modal.Header className="p-4">{modalTitle}</Modal.Header>
         <Modal.Body>
-          <FormInput label={labelName} />
+          {/* <FormInput label={labelName} />
 
-          <FormInput label={labelPhone} />
-          <Button
+          <FormInput label={labelPhone} /> */}
+          {/* <Button
             className="hover:text-black hover:bg-gray-200 bg-black text-white border-2 border-[#000] transition-colors duration-300 ms-auto"
             color=""
           >
             Submit
-          </Button>
+          </Button> */}
         </Modal.Body>
         {/* <Modal.Footer></Modal.Footer> */}
       </Modal>

@@ -1,10 +1,12 @@
 /** @format */
+
 import {
   createAsyncThunk,
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import baseUrl from "@/Utils/Custom/Custom";
+
 // Thunk to fetch a single quiz by ID
 export const getQuizById = createAsyncThunk(
   "getQuizzeSlice/getQuizById",
