@@ -129,7 +129,7 @@ export default function QuizQuestions() {
                    {...register("answer")}
                    name={`question_${question?._id}`}
                    onChange={() =>
-                    handleSubmit(question?._id, "A")
+                    handleSubmit(question?._id, "A") 
                 }
                  />
                  <label htmlFor={`${index}A`}>{question?.options?.A}</label >
