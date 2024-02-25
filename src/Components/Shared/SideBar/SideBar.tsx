@@ -151,6 +151,7 @@ export default function SideBar() {
             }}
           />
           <label className="text-orange-200" htmlFor="passType">
+            
             {showPass ? "hide password" : "show password "}
           </label>
         </div>
