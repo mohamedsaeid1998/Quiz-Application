@@ -1,12 +1,11 @@
+/** @format */
 
-// SetNewQuizModal.jsx
 import React, { useRef } from "react";
 import { Button, Modal } from "flowbite-react";
 import FormComponents from "@/Components/Instructor/FormInput";
 import ModalSection from "@/Components/Shared/ModalSection/ModalSection";
 import { getQuizzesData } from "@/Redux/Featuers/Groups/getDataSlice";
 import { addQuizzesData } from "@/Redux/Featuers/Quizzes/addQuizzesSlice";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import "../Students/Students.scss";
@@ -27,7 +26,7 @@ const SetNewQuizModal = ({ openModal, setOpenModal }) => {
   const [loading, setLoading] = React.useState(null);
   const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
-  const Role=localStorage.getItem("UserRole");
+  const Role = localStorage.getItem("UserRole");
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -60,20 +59,19 @@ const SetNewQuizModal = ({ openModal, setOpenModal }) => {
     }
   };
 
-  
   const getAllgroups = async () => {
     setLoading(true);
-    const currentDate = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split("T")[0];
     const currentTime = new Date();
-    const hours = String(currentTime.getHours()).padStart(2, '0');
-    const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+    const hours = String(currentTime.getHours()).padStart(2, "0");
+    const minutes = String(currentTime.getMinutes()).padStart(2, "0");
     const currentTimeModal = `${hours}:${minutes}`;
-  
+
     try {
       // @ts-ignore
       const element = await dispatch(getAllData());
       // @ts-ignore
-      const element = await dispatch(getQuizzesData());
+      // const element = await dispatch(getQuizzesData());
       setGroups(element.payload?.data);
       setValue("schadule", currentDate);
       setValue("time", currentTimeModal);
@@ -82,11 +80,12 @@ const SetNewQuizModal = ({ openModal, setOpenModal }) => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch]);
   };
+
   React.useEffect(() => {
     getAllgroups();
   }, []);
+
   return (
     <>
       {!showCode ? (
@@ -185,12 +184,7 @@ const SetNewQuizModal = ({ openModal, setOpenModal }) => {
               categories={["FE", "BE"]}
               {...register("type", { required: "Enter your group name" })}
             />
-            {/* <FormSelectGroups
-              label="Group name"
-              //   ref={typeRef}
-              groupsCollection={groups}
-              {...register("group", { required: "Enter your group name" })}
-            /> */}
+
             <div className="py-1">
               <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
                 <div
@@ -216,18 +210,19 @@ const SetNewQuizModal = ({ openModal, setOpenModal }) => {
           </div>
         </ModalSection>
       ) : (
-       
         <CopyModal
-        showCode={showCode}
-        setShowCode={setShowCode}
-        toggleModal={toggleModal}
-        handleSubmitData={handleSubmitData}
-        quizCode={quizCode}
-        setOpenModal={setOpenModal}
-      />      )}
+          showCode={showCode}
+          setShowCode={setShowCode}
+          toggleModal={toggleModal}
+          handleSubmitData={handleSubmitData}
+          quizCode={quizCode}
+          setOpenModal={setOpenModal}
+        />
+      )}
     </>
   );
 };
+
 const CopyModal = ({
   showCode,
   setShowCode,

@@ -18,16 +18,16 @@ export default function QuestionsList({ data, getData }: any) {
 
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
+  const [questionsData, setQuestionsData] = useState([]);
 
-  const getData = async () => {
+  const getAllQuestions = async () => {
     const res = await dispatch(getQuestions());
     console.log(res);
 
-    setData(res.payload.data);
+    setQuestionsData(res.payload.data);
   };
   useEffect(() => {
-    getData();
+    getAllQuestions();
   }, [dispatch]);
   const list = data?.map((question: any) => (
     <tr key={question._id} className="border-b dark:border-neutral-500 ">

@@ -1,3 +1,5 @@
+/** @format */
+
 import baseUrl from "@/Utils/Custom/Custom";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";

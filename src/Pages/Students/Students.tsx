@@ -4,21 +4,18 @@ import image from "@/Assets/Images/quiz-img.png";
 import useAction from "@/Utils/Hooks/UseAction";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import "./Students.scss";
 
-import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
+import { ModalDeleteSection } from "@/Components";
 import ModalViewSection from "@/Components/Shared/ModalSection/ModalViewSection";
 import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
-import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
-import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
-import { TbFidgetSpinner } from "react-icons/tb";
-import { useDispatch } from "react-redux";
 import { getStudentDataDetails } from "@/Redux/Featuers/Student/StudentDetailsSlice";
+import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { Table } from "flowbite-react";
 import { LiaEyeSolid } from "react-icons/lia";
-
+import { useDispatch } from "react-redux";
+import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 const Students = () => {
   const { register, handleSubmit } = useForm();
   // const { t, i18n } = useTranslation();
@@ -26,8 +23,7 @@ const Students = () => {
   const [studentData, setStudentData] = React.useState(null);
   const [showMore, setShowMore] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [groups, setGroups] = React.useState([]);
-
+  const [groups, setGroups] = React.useState(null);
   const handleActiveSection = (id) => {
     setIsActive(id);
   };
@@ -44,8 +40,7 @@ const Students = () => {
     setIsLoading(true);
     try {
       const data = await fetchData();
-      setStudentData(data.data);
-      removeDuplicated(data.data);
+      setStudentData(data?.data);
     } catch (error) {
       console.error("Error fetching student data:", error);
     } finally {
@@ -78,21 +73,23 @@ const Students = () => {
   return (
     <>
       <div className="border p-4 border-[#ddd] rounded-[10px]">
-        <h1 className="font-medium text-xl capitalize ">Students list</h1>
+        <div>
+          <h1 className="font-medium text-xl capitalize ">Students list</h1>
+        </div>
         <div className="py-4 gap-3 flex-initial justify-between  md:space-x-6  max-sm:text-[.8em] base:text-[1rem] max-sm:space-y-2  ">
           {visibleStudents?.map((item) => (
-            <div key={item} className="py-2 inline-block	">
+            <div key={item._id} className="py-2 inline-block	">
               <button
-                onClick={() => handleActiveSection(item)}
+                onClick={() => handleActiveSection(item.group.name)}
                 type="button"
                 className={`border  border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-500 hover:text-gray-100	   p-2 space-y-6 
                  ${checkActiveClass(
-                   item,
-                   "bg-slate-950	text-gray-100		font-medium"
+                   item?.group?.name,
+                   "bg-slate-950	text-gray-100		font-medium		"
                  )}
                 `}
               >
-                {item}
+                {item?.group?.name}
               </button>
             </div>
           ))}
@@ -188,10 +185,7 @@ const Students = () => {
 export default Students;
 export const Delete = ({ id, getData }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [openModalDelete, setOpenModalDelete] = React.useState(false);
-  const toggleModal = () => {
-    setOpenModalDelete(!openModalDelete);
-  };
+
   const currentUrl = useCurrentUrl();
   const dispatch = useDispatch();
 
@@ -208,11 +202,11 @@ export const Delete = ({ id, getData }) => {
   }, [dispatch, getData, id, currentUrl]);
   return (
     <span>
-      <MdOutlineDeleteOutline size={25} className="" onClick={toggleModal} />
+      {/* <MdOutlineDeleteOutline size={25} className="" onClick={toggleModal} /> */}
       <ModalDeleteSection
-        openModalDelete={openModalDelete}
-        setOpenModalDelete={setOpenModalDelete}
-        toggleModal={toggleModal}
+        // openModalDelete={openModalDelete}
+        // setOpenModalDelete={setOpenModalDelete}
+        // toggleModal={toggleModal}
         textBtn="Delete"
         modalTitle="Delete Student"
         handleFunction={handleDelete}
@@ -233,12 +227,12 @@ export const ViewDetails = ({ id, isHovered, rest }) => {
   const handelView = React.useCallback(async () => {
     setIsLoading(true);
     try {
-      const element = await dispatch(getStudentDataDetails(id));
-      setStudentData(element?.payload?.data);
+      // const element = await dispatch(getStudentDataDetails(id));
+      // setStudentData(element?.payload?.data);
     } finally {
       setIsLoading(false);
     }
-  }, [dispatch, id]);
+  }, []);
   React.useEffect(() => {
     if (openViewModal) {
       handelView();
@@ -246,12 +240,12 @@ export const ViewDetails = ({ id, isHovered, rest }) => {
   }, [openViewModal, handelView]);
   const headers = ["Student Name", "Email", "Status", "Group Name"];
 
-  const studentDataTable = [
-    `${studentData?.first_name} ${studentData?.last_name}`,
-    studentData?.email,
-    studentData?.status,
-    studentData?.groupName,
-  ];
+  // const studentDataTable = [
+  //   `${studentData?.first_name} ${studentData?.last_name}`,
+  //   studentData?.email,
+  //   studentData?.status,
+  //   studentData?.groupName,
+  // ];
 
   return (
     <>
@@ -261,9 +255,9 @@ export const ViewDetails = ({ id, isHovered, rest }) => {
         </div>
       </div>
       <ModalViewSection
-        openViewModal={openViewModal}
+        // openViewModal={openViewModal}
         setOpenViewModal={setOpenViewModal}
-        toggleModal={toggleModal}
+        // toggleModal={toggleModal}
         textBtn="Student Details"
         modalTitle="Student"
       >

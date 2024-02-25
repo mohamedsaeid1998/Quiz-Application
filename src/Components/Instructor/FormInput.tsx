@@ -54,7 +54,7 @@ const FormSelect = forwardRef(({ label, maxNum, ...rest }, ref) => {
       <div className="flex  rounded-xl border border-gray-300 overflow-hidden   m-2">
         <div
           className={`text-sm font-medium bg-orange-100 md:w-56 text-center overflow-hidden p-1 rounded-xl border pl-5 border-orange-100 font-medium ps-0 capitalize `}
-        // style={{ fontWeight: 700 }}
+          // style={{ fontWeight: 700 }}
         >
           {label}
         </div>
