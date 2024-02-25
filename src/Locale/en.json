@@ -40,7 +40,12 @@
   "SetUpAnewQuiz": "Set up a new quiz",
   "QuestionBank": "Question Bank",
   "Upcomingquizzes": "Upcoming Quizzes",
-  "CompletedQuizzes": "الاختبارات المكتملة"
+  "CompletedQuizzes": "Completed Quizzes",
+  "title": "Title",
+  "Status": "Status",
+  "Enrolled": "Enrolled",
+  "Schedule": "Schedule",
+  "Closed": "Closed"
 
   
 }

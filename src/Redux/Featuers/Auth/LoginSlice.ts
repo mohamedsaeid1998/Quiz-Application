@@ -15,21 +15,24 @@ export const LoginData = createAsyncThunk(
 
 const initialState = { data: {}, isLoading: false, error: null };
 
-export const LoginSlice = createSlice({
+const LoginSlice = createSlice({
   name: "LoginSlice",
   initialState,
   reducers: {},
-  extraReducers:(builder)=> {
-     builder.addCase(LoginData.pending,(state)=>{
-        state.isLoading=true
-     })
-     builder.addCase(LoginData.fulfilled,(state,action:PayloadAction<any>)=>{
-        state.isLoading=false,
-        state.data=action.payload;
-     })
-     builder.addCase(LoginData.rejected,(state,action:PayloadAction<any>)=>{
-        state.isLoading=false,
-        state.error=action.payload.message
-     })
+  extraReducers: (builder) => {
+    builder.addCase(LoginData.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(LoginData.fulfilled, (state, action: PayloadAction<any>) => {
+      state.isLoading = false,
+        state.data = action.payload;
+
+    })
+    builder.addCase(LoginData.rejected, (state, action: PayloadAction<any>) => {
+      state.isLoading = false,
+        state.error = action.payload.message
+    })
   },
 });
+
+export default LoginSlice.reducer;

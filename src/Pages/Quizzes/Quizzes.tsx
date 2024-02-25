@@ -25,13 +25,13 @@ const Quizzes = () => {
   return (
     <>
       <div className="flex  w-full justify-between py-4">
-              <SetNewQuizModal
+        <SetNewQuizModal
           toggleModal={toggleModal}
           openModal={openModal}
           setOpenModal={setOpenModal}
         />
-       <div className="flex w-1/3 justify-center ">
-                  <QuizzesBox toggleModal={toggleModal} />
+        <div className="flex w-1/3 justify-center ">
+          <QuizzesBox toggleModal={toggleModal} />
         </div>
         <div className="w-full">
           <QuizzesCards />
@@ -132,10 +132,10 @@ export const QuizzesCards = () => {
         <h2 className="font-medium text-xl capitalize">{t("Upcomingquizzes")}</h2>
         {!loading ? (
           incomingQuizzes?.slice(0, 2).map((item) => (
-            <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden hover:bg-gray-100"style={{
+            <div className="flex items-center cards-list ps-0  border border-[#ddd]  rounded-[10px] py-0 my-1 overflow-hidden hover:bg-gray-100" style={{
               transition: "background-color 0.5s ease-in-out",
             }} onMouseEnter={() => setHoveredCardId(_id)}
-            onMouseLeave={() => setHoveredCardId(null)}>
+              onMouseLeave={() => setHoveredCardId(null)}>
               <div className="card-img bg-orange-100 px-2">
                 <img className="studentCarImg w-full" src={allquizzes} alt="" />
               </div>
@@ -147,16 +147,16 @@ export const QuizzesCards = () => {
                 <div className="flex justify-between items-center gap-2 cursor-pointer ">
                   No. of student’s enrolled: {item?.participants}
                   <span className="flex">
-                  <div className="p-4 bg-gray-200 rounded-full shadow-md flex justify-center items-center studentIconCard">
+                    <div className="p-4 bg-gray-200 rounded-full shadow-md flex justify-center items-center studentIconCard">
 
- <FaRegEdit
-className="text-gray-600  hover:text-gray-900"                       size={20}
-                      onClick={() => moveToEdit(item?._id)}
-                    />
-</div>
+                      <FaRegEdit
+                        className="text-gray-600  hover:text-gray-900" size={20}
+                        onClick={() => moveToEdit(item?._id)}
+                      />
+                    </div>
 
-                   
-                                      <ViewQuizzesDetails id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600 hover:text-gray-900"/>   )} />
+
+                    <ViewQuizzesDetails id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600 hover:text-gray-900" />)} />
 
                   </span>
                 </div>
@@ -169,14 +169,14 @@ className="text-gray-600  hover:text-gray-900"                       size={20}
               <div className="animate-pulse w-full h-32"></div>
             </div>
             <div className="card-des w-full p-3">
-        
+
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
             </div>
           </div>
         )}
-       
+
       </div>
     </>
   );
@@ -210,19 +210,19 @@ const CompletedQuizzes = () => {
           <Table className="border-separate border border-slate-400 ...">
             <Table.Head className="text-center text-white">
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Title
+                {t("title")}
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Status
+                {t("Status")}
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Enrolled
+                {t("Enrolled")}
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Schedule
+                {t("Schedule")}
               </Table.HeadCell>
               <Table.HeadCell className=" bg-slate-800  px-2 font-semibold">
-                Closed
+                {t("Closed")}
               </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
@@ -230,27 +230,27 @@ const CompletedQuizzes = () => {
                 compQuizzes?.map((item) => (
                   <>
 
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-blue-50">
-                    {/* Title Cell */}
-                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
-                      {item?.title}
-                    </Table.Cell>
-                    {/* Status Cell */}
-                    <Table.Cell className="border border-slate-300 ...">
-                      {item?.status}
-                    </Table.Cell>
-                    {/* Enrolled Cell */}
-                    <Table.Cell className="border border-slate-300 ...">
-                      {item?.participants}
-                    </Table.Cell>
-                    {/* Schedule Cell */}
-                    <Table.Cell className="border border-slate-300 ...">
-                      {item?.schadule.split("T").join(" ").split(":00.000Z")}
-                    </Table.Cell>
-                    <Table.Cell className="border border-slate-300 ...">
-                      {item?.closed_at.split("T")[0]}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-blue-50">
+                      {/* Title Cell */}
+                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
+                        {item?.title}
+                      </Table.Cell>
+                      {/* Status Cell */}
+                      <Table.Cell className="border border-slate-300 ...">
+                        {item?.status}
+                      </Table.Cell>
+                      {/* Enrolled Cell */}
+                      <Table.Cell className="border border-slate-300 ...">
+                        {item?.participants}
+                      </Table.Cell>
+                      {/* Schedule Cell */}
+                      <Table.Cell className="border border-slate-300 ...">
+                        {item?.schadule.split("T").join(" ").split(":00.000Z")}
+                      </Table.Cell>
+                      <Table.Cell className="border border-slate-300 ...">
+                        {item?.closed_at.split("T")[0]}
+                      </Table.Cell>
+                    </Table.Row>
                   </>
                 ))
               ) : (

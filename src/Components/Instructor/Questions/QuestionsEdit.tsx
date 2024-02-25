@@ -11,7 +11,8 @@ export default function QuestionsEdit({
   openModalEdit,
   setOpenModalEdit,
   getAllData,
-}) {
+  getData
+}:any) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   console.log(getAllData);
@@ -36,8 +37,8 @@ export default function QuestionsEdit({
     delete data.D;
     dispatch(updateQuestions({ id: getAllData._id, data }))
       .then(() => {
-        dispatch(getQuestions());
         setOpenModalEdit(false);
+        getData()
         toast.success(t("updatedCategoriesSuccessfully"));
       })
       .catch((err) => {

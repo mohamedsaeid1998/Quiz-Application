@@ -9,7 +9,8 @@ export default function QuestionsDelete({
   openModalDelete,
   setOpenModalDelete,
   id,
-}) {
+  getData
+}:any) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ export default function QuestionsDelete({
     dispatch(deleteQuestion(id)).then(() => {
       setOpenModalDelete(false);
       toast.success(t("QuestionDeletedSuccessfully"));
-      dispatch(getQuestions())
+      getData()
     });
   };
 

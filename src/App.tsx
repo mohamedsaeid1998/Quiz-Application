@@ -23,6 +23,9 @@ import { ToastContainer } from "react-toastify";
 import EditQuiz from "./Pages/Quizzes/EditQuiz";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
+  const here = localStorage.getItem("UserRole")
+  console.log(here);
+
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -53,7 +56,7 @@ function App() {
         { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
-        {path:"editModal", element :<StudentModal/>},
+        { path: "editModal", element: <StudentModal /> },
         { path: "student", element: <Students /> },
         { path: "results-final", element: <ResultFinal /> },
         { path: "help", element: <Help /> },

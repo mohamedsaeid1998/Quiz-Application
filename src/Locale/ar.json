@@ -39,7 +39,13 @@
   "AddGroup":"اضافة مجموعه",
   "SetUpAnewQuiz": "انشي اختبار جديد",
   "QuestionBank": "الأسئلة",
-  "Upcomingquizzes": "الاختبارات القادمة"
+  "Upcomingquizzes": "الاختبارات القادمة",
+  "CompletedQuizzes": "الاختبارات المكتملة",
+  "title": "العنوان",
+  "Status": "الحاله",
+  "Enrolled": "المقيدين",
+  "Schedule": "مواعيد",
+  "Closed": "تاريخ الانتهاء"
 
   
 }

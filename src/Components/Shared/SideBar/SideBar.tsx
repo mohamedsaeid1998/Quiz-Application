@@ -167,17 +167,18 @@ export default function SideBar() {
                 onClick={handleToggle}
                 icon={<AiOutlineMenu className=" text-[30px]" />}
               ></MenuItem>
-              <MenuItem
-                className="border-b border-black hover:bg-secondColor"
-                icon={<AiOutlineHome className="bg-secondColor text-[30px]" />}
-                component={<Link to="home" />}
-              >
-                {t("dashboard")}
-              </MenuItem>
+
               {role === "Student" ? (
                 ""
               ) : (
                 <>
+                  <MenuItem
+                    className="border-b border-black hover:bg-secondColor"
+                    icon={<AiOutlineHome className="bg-secondColor text-[30px]" />}
+                    component={<Link to="home" />}
+                  >
+                    {t("dashboard")}
+                  </MenuItem>
                   <MenuItem
                     className="border-b border-black hover:bg-secondColor"
                     icon={

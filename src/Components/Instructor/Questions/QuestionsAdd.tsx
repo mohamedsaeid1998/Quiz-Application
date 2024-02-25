@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-export default function QuestionsAdd({ openModal, setOpenModal }) {
+export default function QuestionsAdd({ openModal, setOpenModal,getData }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
@@ -35,9 +35,10 @@ export default function QuestionsAdd({ openModal, setOpenModal }) {
     dispatch(addQuestion(data))
       .then(() => {
         setOpenModal(false);
+        getData()
         toast.success("Added Question successfully");
-        dispatch(getQuestions());
         reset();
+
       })
       .catch((err) => {
         toast.error(err);
