@@ -204,7 +204,40 @@ const Groups = () => {
   return (
     <>
       <main>
-       
+        {/* <ModalSection textBtn="Submit" modalTitle="Edit Group" handleSubmit={handleSubmit(UpdateGroupData)} {...{ openModal, setOpenModal, isLoading }} >
+          <FormInput
+            label="Set up a new Group"
+            // ref={titleRef}
+            default
+            deign=""
+            {...register("name", { required: "Enter your group name" })}
+          />
+          <div
+          // className="flex items-center  m-2"
+          >
+
+
+            <Select
+              multiple
+
+              // className="m-auto text-center bg-white border-white rounded-xl pr-2 md:w-40 "
+              {...register("students", {
+                required: "Enter your students",
+              })}
+
+            >
+              <option value={""} className="text-muted">Select Students</option>
+              {studentsData?.length > 0 &&
+                studentsData?.map(({ _id, first_name, last_name }) => (
+                  <option key={_id} value={_id}>{first_name + " " + last_name}</option>
+
+                ))}
+            </Select>
+
+          </div>
+
+
+        </ModalSection> */}
         <Modal
           show={openModalEdit}
           onClose={() => setOpenModalEdit(false)}
@@ -217,17 +250,21 @@ const Groups = () => {
               <div className="py-2 ">
                 <FormInput
                   label="Set up a new Group"
+                  // ref={titleRef}
                   deign=""
+                  // value={groupDetails?.name}
                   {...register("name", { required: "Enter your group name" })}
                 />
               </div>
               <div
+              // className="flex items-center  m-2"
               >
 
 
                 <Select
                   multiple
 
+                  // className="m-auto text-center bg-white border-white rounded-xl pr-2 md:w-40 "
                   {...register("students", {
                     required: "Enter your students",
                   })}
@@ -264,10 +301,13 @@ const Groups = () => {
         <ModalSection textBtn="Submit" modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal, isLoading }} >
           <FormInput
             label="Set up a new Group"
+            // ref={titleRef}
             deign=""
+            // value={groupDetails?.name}
             {...register("name", { required: "Enter your group name" })}
           />
           <div
+          // className="flex items-center  m-2"
           >
 
 
@@ -298,6 +338,8 @@ const Groups = () => {
             on delete it
           </p>
         </ModalDeleteSection>
+        <div className="container">
+
           <div className=" my-4 flex justify-end">
             <button
               onClick={toggleModal}
@@ -332,6 +374,7 @@ const Groups = () => {
 
             </div>
           </div>
+        </div>
       </main>
     </>
   );
