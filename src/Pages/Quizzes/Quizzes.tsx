@@ -13,7 +13,7 @@ import { Table } from "flowbite-react";
 import { getCompletedQuizzesData } from "@/Redux/Featuers/Quizzes/getCompletedQuizzes";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import { ViewQuizzesDetails } from "../Home/Home";
+// import { ViewQuizzesDetails } from "../Home/Home";
 import { LiaEyeSolid } from "react-icons/lia";
 const Quizzes = () => {
 
@@ -155,7 +155,7 @@ export const QuizzesCards = () => {
                     </div>
 
 
-                    <ViewQuizzesDetails id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600 hover:text-gray-900" />)} />
+                    {/* <ViewQuizzesDetails id={item._id} rest={item._id === hoveredCardId ? (<span>View</span>) : (<LiaEyeSolid size={25} className="text-gray-600 hover:text-gray-900" />)} /> */}
 
                   </span>
                 </div>
@@ -169,14 +169,12 @@ export const QuizzesCards = () => {
               <div className="animate-pulse w-full h-32"></div>
             </div>
             <div className="card-des w-full p-3">
-
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
             </div>
           </div>
         )}
-
       </div>
     </>
   );

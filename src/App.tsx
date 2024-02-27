@@ -55,7 +55,7 @@ function App() {
         { path: "quiz/edit/:id", element: <EditQuiz /> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
-        { path: "editModal", element: <StudentModal /> },
+        // { path: "editModal", element: <StudentModal /> },
         { path: "student", element: <Students /> },
         { path: "results-final", element: <ResultFinal /> },
         { path: "help", element: <Help /> },

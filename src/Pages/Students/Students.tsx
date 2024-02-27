@@ -1,19 +1,12 @@
 /** @format */
 
-import image from "@/Assets/Images/quiz-img.png";
 import useAction from "@/Utils/Hooks/UseAction";
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./Students.scss";
 
 // import ModalViewSection from "@/Components/Shared/ModalSection/ModalViewSection";
-import { deleteItem } from "@/Redux/Featuers/Student/DeleteSlice";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
-import { Table } from "flowbite-react";
-import { LiaEyeSolid } from "react-icons/lia";
-import { TbFidgetSpinner } from "react-icons/tb";
-import ModalDeleteSection from "@/Components/Shared/ModalSection/ModalDeleteSection";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const groupStudents = [
   { id: 1, title: "Group1", content: "student 1" },

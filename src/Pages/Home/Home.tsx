@@ -2,8 +2,10 @@ import { quizImg, userImage } from "@/Assets/Images";
 import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
 import { getTopFiveStudents } from "@/Redux/Featuers/Student/getTopFiveStudentsSlice";
 
+import { getQuizById } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
 import UseActionGet from "@/Utils/Hooks/UseActionGet";
 import moment from "moment";
+import { useEffect, useState } from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowAltCircleRight } from "react-icons/fa";
@@ -25,6 +27,7 @@ function Home() {
     setIsLoading(true);
     await topFiveQuizzesData()
       .then((res) => {
+        console.log(res);
         console.log(res);
         setFiveQuizzesData(res?.data)
       })
@@ -109,6 +112,7 @@ function Home() {
 
           </div>
         </div>
+        <div className=" border border-[#ddd] rounded-[10px]">
         <div className=" border border-[#ddd] rounded-[10px]">
           <div className="flex justify-between p-4  ">
             <h3>{t("Top5Students")} </h3>
