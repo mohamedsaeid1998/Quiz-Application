@@ -34,7 +34,6 @@ const ModalSection = ({
       onClose={() => setOpenModal(false)}
       size="4xl"
       popup
-      style={{background:"transparent"}}
     >
       <Modal.Header className="p-4 capitalize">{modalTitle}</Modal.Header>
       <Modal.Body>
@@ -45,8 +44,8 @@ const ModalSection = ({
               <button
                 disabled={isLoading}
                 type="button"
-                className={` ${design} block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}>
-
+                className="flex items-center justify-center m-auto w-40 p-2 space-y-6 border border-[#ddd] rounded-[2rem]  text-gray-100	"
+              >
                 <TbFidgetSpinner className="animate-spin" size={20} />
               </button> :
               <button

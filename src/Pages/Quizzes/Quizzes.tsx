@@ -124,7 +124,6 @@ export const QuizzesCards = () => {
   const moveToEdit = (quizId) => {
     navigate(`/dashboard/quiz/edit/${quizId}`, { state: { itemId: quizId } });
   };
-  const [hoveredCardId, setHoveredCardId] = React.useState(null);
 
   return (
     <>
@@ -166,6 +165,7 @@ export const QuizzesCards = () => {
         ) : (
           <div className="flex items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
             <div className="card-img bg-orange-100 px-2 w-1/4">
+              {/* Placeholder for image */}
               <div className="animate-pulse w-full h-32"></div>
             </div>
             <div className="card-des w-full p-3">
@@ -254,7 +254,7 @@ const CompletedQuizzes = () => {
                   </>
                 ))
               ) : (
-                // Skeleton 
+                // Skeleton for no data
                 <>
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
                     Loading...

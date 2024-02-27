@@ -15,7 +15,6 @@ import {
   ResultFinal,
   Results,
   Students,
-  StudentModal
 } from "./Pages";
 import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";

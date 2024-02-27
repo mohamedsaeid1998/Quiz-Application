@@ -1,17 +1,12 @@
 import { quizImg, userImage } from "@/Assets/Images";
-import ModalViewSection from "@/Components/Shared/ModalSection/ModalViewSection";
 import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
-import { getStudentDataDetails } from "@/Redux/Featuers/Student/StudentDetailsSlice";
 import { getTopFiveStudents } from "@/Redux/Featuers/Student/getTopFiveStudentsSlice";
 
 import UseActionGet from "@/Utils/Hooks/UseActionGet";
-import { Table } from "flowbite-react";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { LiaEyeSolid } from "react-icons/lia";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ViewDetails } from "../Students/Students";
 import { getQuizById } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
@@ -30,6 +25,7 @@ function Home() {
     setIsLoading(true);
     await topFiveQuizzesData()
       .then((res) => {
+        console.log(res);
         setFiveQuizzesData(res?.data)
       })
       .finally(() => {
@@ -53,6 +49,7 @@ function Home() {
     handleQuizzesData()
   }, [])
 
+  console.log(fiveQuizzesData);
 
   const [hoveredCardId, setHoveredCardId] = useState(null);
 
@@ -112,7 +109,7 @@ function Home() {
 
           </div>
         </div>
-        <div className=" border border-[#ddd] rounded-[10px]"  >
+        <div className=" border border-[#ddd] rounded-[10px]">
           <div className="flex justify-between p-4  ">
             <h3>{t("Top5Students")} </h3>
             <Link to={"/dashboard/student"} >{t("AllStudents")} </Link>
