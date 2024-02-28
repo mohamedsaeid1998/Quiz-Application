@@ -166,6 +166,7 @@ export const QuizzesCards = () => {
           <div className="flex items-center cards-list ps-0 border border-[#ddd] rounded-[10px] py-0 my-1 overflow-hidden">
             <div className="card-img bg-orange-100 px-2 w-1/4">
               {/* Placeholder for image */}
+              {/* Placeholder for image */}
               <div className="animate-pulse w-full h-32"></div>
             </div>
             <div className="card-des w-full p-3">
@@ -252,6 +253,7 @@ const CompletedQuizzes = () => {
                   </>
                 ))
               ) : (
+                // Skeleton for no data
                 // Skeleton for no data
                 <>
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white border border-slate-300 ...">
