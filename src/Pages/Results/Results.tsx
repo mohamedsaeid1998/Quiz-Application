@@ -29,7 +29,7 @@ export default function Results() {
 
   return (
     <>
-      {!loading ? (
+      
         <>
           <div className="p-5 rounded-lg   border-[#00000033] border-solid border-2">
             <div className="overflow-x-auto">
@@ -37,7 +37,9 @@ export default function Results() {
                 <caption className="py-3 text-lg font-semibold text-left  text-gray-900 bg-white">
                   {t("Completed Quizzes")}
                 </caption>
+                
                 <thead className="border-b   font-semibold bg-[#0D1321] text-white">
+
                   <tr>
                     <th
                       className="border-r px-2 py-2 dark:border-neutral-500"
@@ -76,7 +78,7 @@ export default function Results() {
                   </tr>
                 </thead>
                 <tbody>
-                  {arr?.map((res: any, index: any) => (
+                  {!loading ? arr?.map((res: any, index: any) => (
                     <tr key={index} className="border-b dark:border-neutral-500 ">
                       <td className="whitespace-nowrap border-r px-4  font-semibold dark:border-neutral-500">
                         {res?.title}
@@ -104,15 +106,23 @@ export default function Results() {
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                  )):(
+                   Array.from({ length: 4 }).map((_, rowIndex) => (
+  <tr key={rowIndex} className="border-b dark:border-neutral-500">
+    {Array.from({ length: 6 }).map((_, cellIndex) => (
+      <td key={cellIndex} role="status" className={`space-y-2.5 animate-pulse max-w-lg text-lg py-4 font-lg ${cellIndex === 5 ? 'bg-green-50' : ''}`}>
+        <div className="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 m-auto"></div>
+      </td>
+    ))}
+  </tr>
+))
+                    )}
                 </tbody>
               </table>
             </div>
           </div>
         </>
-      ) : (
-        <LoadingSpinner />
-      )}
+      
     </>
   );
 }

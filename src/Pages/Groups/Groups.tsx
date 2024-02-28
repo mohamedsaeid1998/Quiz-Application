@@ -154,7 +154,6 @@ const Groups = () => {
       });
 
   }
-  console.log(groupName);
 
   //! **************************  Edit Group   **************************
 
@@ -320,7 +319,21 @@ const Groups = () => {
             <h1 className="font-medium text-xl capitalize ">{t("GroupsList")}</h1>
 
             <div className="grid grid-cols-2 mt-8 gap-x-12 gap-y-3">
-              {groupsData?.map(({ _id, name, max_students }) => <div key={_id} className="border p-4 border-[#ddd] rounded-[10px] flex justify-between items-center">
+              {isLoading?
+              ( Array.from({ length: 2 }, (_, index) => (
+  <div key={index} className="border p-4 border-[#ddd] rounded-[10px] space-y-2.5 animate-pulse max-w-lg" role="status">
+    <div className="flex w-full">
+      <div className="w-1/2">
+        <div className="h-6 bg-gray-200 w-1/2 rounded mb-2"></div>
+        <div className="h-4 bg-gray-200 w-1/4 rounded"></div>
+      </div>
+      <div className="w-1/2 flex items-center">
+        <span className="h-6 bg-gray-200 w-8 ms-auto"></span>
+      </div>
+    </div>
+  </div>
+))              
+              ):(groupsData?.map(({ _id, name, max_students }) => <div key={_id} className="border p-4 border-[#ddd] rounded-[10px] flex justify-between items-center">
 
                 <div className="flex flex-col">
                   <h2 className="font-medium text-lg capitalize ">Group : {name}</h2>
@@ -332,7 +345,7 @@ const Groups = () => {
                   <button onClick={() => toggleModalDelete(_id)}><MdOutlineDeleteOutline size={25} /></button>
                 </div>
 
-              </div>
+              </div>)
 
               )}
 
