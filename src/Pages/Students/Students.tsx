@@ -86,112 +86,119 @@ export default Students;
 //   const currentUrl = useCurrentUrl();
 //   const dispatch = useDispatch();
 
-//   const handleDelete = React.useCallback(async () => {
-//     setIsLoading(true);
-//     try {
-//       await dispatch(deleteItem({ id, currentUrl }));
-//       if (getData) {
-//         await getData();
-//       }
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }, [dispatch, getData, id, currentUrl]);
-//   return (
-//     <span>
-//       {/* <MdOutlineDeleteOutline size={25} className="" onClick={toggleModal} /> */}
-//       <ModalDeleteSection
-//         // openModalDelete={openModalDelete}
-//         // setOpenModalDelete={setOpenModalDelete}
-//         // toggleModal={toggleModal}
-//         textBtn="Delete"
-//         modalTitle="Delete Student"
-//         handleFunction={handleDelete}
-//       ></ModalDeleteSection>
-//     </span>
-//   );
-// };
+  const handleDelete = React.useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await dispatch(deleteItem({ id, currentUrl }));
+      if (getData) {
+        await getData();
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, [dispatch, getData, id, currentUrl]);
+  return (
+    <span>
+      <MdOutlineDeleteOutline size={25} className="" onClick={toggleModal} />
+      <ModalDeleteSection
+        openModalDelete={openModalDelete}
+        setOpenModalDelete={setOpenModalDelete}
+        toggleModal={toggleModal}
+        textBtn="Delete"
+        modalTitle="Delete Student"
+        handleFunction={handleDelete}
+        
+      >
+       
+      </ModalDeleteSection>
+    </span>
+  );
+};
 
-// export const ViewDetails = ({ id, isHovered, rest }) => {
-//   const [isLoading, setIsLoading] = React.useState(false);
-//   const [openViewModal, setOpenViewModal] = React.useState(false);
-//   const [studentData, setStudentData] = React.useState([]);
-//   const toggleModal = () => {
-//     setOpenViewModal(!openViewModal);
-//   };
-//   const dispatch = useDispatch();
+export  const ViewDetails = ({ id ,isHovered,rest}) => {
 
-//   const handelView = React.useCallback(async () => {
-//     setIsLoading(true);
-//     try {
-//       // const element = await dispatch(getStudentDataDetails(id));
-//       // setStudentData(element?.payload?.data);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }, []);
-//   React.useEffect(() => {
-//     if (openViewModal) {
-//       handelView();
-//     }
-//   }, [openViewModal, handelView]);
-//   const headers = ["Student Name", "Email", "Status", "Group Name"];
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [openViewModal, setOpenViewModal] = React.useState(false);
+  const [studentData,setStudentData]=React.useState([])
+  const toggleModal = () => {
+    setOpenViewModal(!openViewModal);
+  };
+  const dispatch = useDispatch();
 
-//   // const studentDataTable = [
-//   //   `${studentData?.first_name} ${studentData?.last_name}`,
-//   //   studentData?.email,
-//   //   studentData?.status,
-//   //   studentData?.groupName,
-//   // ];
+  const handelView  = React.useCallback(async () => {
 
-//   return (
-//     <>
-//       <div className="rounded-2xl  p-2" onClick={toggleModal}>
-//         <div className="p-2 inset-0 bg-gray-200 rounded-full shadow-md">
-//           {rest}
-//         </div>
-//       </div>
-//       {/* <ModalViewSection
-//         // openViewModal={openViewModal}
-//         setOpenViewModal={setOpenViewModal}
-//         // toggleModal={toggleModal}
-//         textBtn="Student Details"
-//         modalTitle="Student"
-//       >
-//         <div className="relative overflow-x-auto">
-//           <Table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-//             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-//               {headers?.map((header, index) => (
-//                 <tr key={index}>
-//                   <th className="px-4 py-2 text-left  border-2">
-//                     {isLoading ? (
-//                       <div className="h-3 border-2 bg-gray-200 rounded-full dark:bg-gray-700  w-1/2 mb-2.5"></div>
-//                     ) : (
-//                       header
-//                     )}
-//                   </th>
+    setIsLoading(true);
+    try {
 
-//                   <td className="border px-4 py-2">
-//                     {isLoading ? (
-//                       <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-1/2 mb-2.5"></div>
-//                     ) : (
-//                       <p>
-//                         {header === "Student Name"
-//                           ? `${studentData?.first_name} ${studentData?.last_name}`
-//                           : header === "Email"
-//                           ? studentData?.email
-//                           : header === "Status"
-//                           ? studentData?.status
-//                           : studentData?.group?.name}
-//                       </p>
-//                     )}
-//                   </td>
-//                 </tr>
-//               ))}
-//             </thead>
-//           </Table>
-//         </div>
-//       </ModalViewSection> */}
-//     </>
-//   );
-// };
+      const element = await dispatch(getStudentDataDetails(id));
+      setStudentData(element?.payload?.data)
+    } finally {
+      setIsLoading(false);
+    }
+  }, [dispatch,  id]);
+  React.useEffect(() => {
+    if (openViewModal) {
+      handelView();
+    }
+  }, [openViewModal, handelView ]);
+  const headers = ['Student Name', 'Email', 'Status', 'Group Name'];
+
+  const studentDataTable = [
+    `${studentData?.first_name} ${studentData?.last_name}`,
+    studentData?.email,
+    studentData?.status,
+    studentData?.groupName
+  ];
+ 
+
+  return (
+   <>
+ <div  className="rounded-2xl  p-2" onClick={toggleModal} > 
+ <div className="p-2 inset-0 bg-gray-200 rounded-full shadow-md">
+
+   {rest}
+   </div>
+
+ </div>
+      <ModalViewSection
+        openViewModal={openViewModal}
+        setOpenViewModal={setOpenViewModal}
+        toggleModal={toggleModal}
+        textBtn="Student Details"
+        modalTitle="Student"
+      >
+        <div className="relative overflow-x-auto">
+    <Table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            {headers.map((header, index) => (
+              <tr key={index}>
+                
+       <th className="px-4 py-2 text-left  border-2">{     isLoading?(                    <div className="h-3 border-2 bg-gray-200 rounded-full dark:bg-gray-700  w-1/2 mb-2.5"></div>
+):header}</th>
+
+
+            <td className="border px-4 py-2">
+                  {isLoading ? (
+                    <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-1/2 mb-2.5"></div>
+                  ) : (
+                    <p>
+                      {header === 'Student Name'
+                        ? `${studentData?.first_name} ${studentData?.last_name}`
+                        : header === 'Email'
+                        ? studentData?.email
+                        : header === 'Status'
+                        ? studentData?.status
+                        : studentData?.group?.name}
+                    </p>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </thead>
+        </Table>
+        </div>
+       
+      </ModalViewSection>
+    </>
+  );
+};
