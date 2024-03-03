@@ -25,18 +25,19 @@ const toggleModal = () => {
   return (
     <>
       <div className="flex  w-full justify-between py-4">
-       
+      <SetNewQuizModal
+          role={role}
+          toggleModal={toggleModal}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+        />
         <div className="flex w-1/3 justify-center ">
           <QuizzesBox toggleModal={toggleModal} role={role}/>
         </div>
         <div className="w-full">
         {role == "Instructor" && (<> <QuizzesCards />
           <CompletedQuizzes />
-          <SetNewQuizModal
-          toggleModal={toggleModal}
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        /></>)} 
+         </>)} 
          
         </div>
       </div>

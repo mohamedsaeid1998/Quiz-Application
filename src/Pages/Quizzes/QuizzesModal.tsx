@@ -21,9 +21,9 @@ const {
   FormSelectGroups,
 } = FormComponents;
 
-const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
+const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
   const [groups, setGroups] = React.useState([]);
-  const [loading, setLoading] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(null);
   const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
   } = useForm();
 
   const handleSubmitData = async (data) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const element = await dispatch(addQuizzesData(data));
       if (element?.payload?.data) {
@@ -54,13 +54,13 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
     } catch (error) {
       setOpenModal(true);
 
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   
   const getAllgroups = async () => {
-    setLoading(true);
+    setIsLoading(true);
     const currentDate = new Date().toISOString().split('T')[0];
     const currentTime = new Date();
     const hours = String(currentTime.getHours()).padStart(2, '0');
@@ -75,15 +75,30 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
     } catch (error) {
       toast.error("Error get groups:", error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
   React.useEffect(() => {
     getAllgroups();
   }, []);
+  const handelFormData = async (data) => {    
+    const element = await dispatch(getAllJoinData(data));
+      console.log(element);
+     setOpenModal(openModal);
+     if(element?.payload?.data?.message=="Student joined successfully"){
+      toast.success(element?.payload?.data?.message)
+      console.log(element?.payload?.data.data?.quiz)
+      navigate(`/dashboard/quiz-questions/${element?.payload?.data.data?.quiz}`);
+    }else{
+      toast.error(element?.payload?.response?.data?.message)
+    }
+};
+
   return (
     <>
-      {!showCode ? (
+    {role ==="Instructor"? (
+      <>
+       {!showCode ? (
         <ModalSection
           openModal={openModal}
           setOpenModal={setOpenModal}
@@ -219,6 +234,42 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal }) => {
         quizCode={quizCode}
         setOpenModal={setOpenModal}
       />      )}
+      </>
+    ) :(<>
+      <ModalSection
+       openModal={openModal}
+       setOpenModal={setOpenModal}
+       toggleModal={toggleModal}
+       isLoading={isLoading}
+       design="modalBtn"
+       textBtn="submit"
+       handleSubmit={handleSubmit(handelFormData)}
+      >
+        <FormInput
+          label="Code"
+          deign="p-4"
+          placeholder="Enter the Code"
+          {...register("code", {
+            required: "Enter The Received Code PLZ",
+          })}
+          />
+          {/* {errors?.code ? (
+                      <p className="text-red-600 text-center">
+                        {errors?.code?.message}
+                      </p>
+                    ) : null} */}
+        {/* <button
+          type="submit" className={`border block ms-auto border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-800 hover:text-gray-100	 transition-all duration-500 ease-out  p-2 space-y-6  `}>
+          Submit
+        </button> */}
+        {/* <Modal.Body>
+        <form onSubmit={handleSubmit(handelFormData)}>
+      </form> 
+      </Modal.Body> */}
+      </ModalSection>
+      </>)}
+
+     
     </>
   );
 };
@@ -245,6 +296,7 @@ const CopyModal = ({
   };
 
   return (
+    
     <ModalSection
       openModal={showCode}
       setOpenModal={setShowCode}
