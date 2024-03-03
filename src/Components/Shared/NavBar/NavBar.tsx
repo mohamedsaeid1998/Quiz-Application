@@ -39,7 +39,7 @@ export default function NavBar() {
           ) : (
             <Button
               label="2"
-              className="mx-2"
+              className="mx-2 bg-gray-50"
               onClick={() => {
                 i18n.changeLanguage("ar");
               }}

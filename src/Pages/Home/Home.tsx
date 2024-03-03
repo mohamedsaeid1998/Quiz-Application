@@ -65,7 +65,7 @@ function Home() {
             <Link to={"/dashboard/quiz"}>{t("QuizDirectory")}</Link>
           </div>
           <div className="cards-list px-4">
-            {!isLoading && fiveQuizzesData?.length >= 0 ? fiveQuizzesData?.map(({ _id, title, difficulty, description, code, schadule, createdAt }) =>
+            {!isLoading && fiveStudentsData?.length && fiveQuizzesData?.length >= 0 ? fiveQuizzesData?.map(({ _id, title, difficulty, description, code, schadule, createdAt }) =>
               <div className="card my-2 border border-1 hover:bg-gray-100 border-[#ddd] rounded-[10px]  w-full flex " style={{
                 transition: "background-color 0.5s ease-in-out",
               }} onMouseEnter={() => setHoveredCardId(_id)}
@@ -119,7 +119,7 @@ function Home() {
           </div>
 
 
-          {!isLoading && fiveStudentsData?.length >= 0 ? fiveStudentsData?.map(({ _id, first_name, last_name, avg_score, group }) => <>
+          {!isLoading && fiveQuizzesData?.length && fiveStudentsData?.length >= 0 ? fiveStudentsData?.map(({ _id, first_name, last_name, avg_score, group }) => <>
             <div key={_id} className="cards-list px-4" onMouseEnter={() => setHoveredCardId(_id)}
               onMouseLeave={() => setHoveredCardId(null)}>
               <div className="card my-2 border border-1 hover:bg-gray-100 border-[#ddd] rounded-[10px]  w-full flex " style={{

@@ -254,7 +254,6 @@ export default function SideBar() {
                 icon={
                   <IoMdHelpCircleOutline className="bg-secondColor text-[30px]" />
                 }
-                component={<Link to="help" />}
               >
                 {t("help")}
               </MenuItem>
