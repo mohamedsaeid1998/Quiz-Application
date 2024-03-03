@@ -17,25 +17,27 @@ import { ViewQuizzesDetails } from "../Home/Home";
 import { LiaEyeSolid } from "react-icons/lia";
 const Quizzes = () => {
 
+  const role = localStorage.getItem("UserRole");
   const [openModal, setOpenModal] = React.useState(false);
-
-  const toggleModal = () => {
+const toggleModal = () => {
     setOpenModal(!openModal);
   };
   return (
     <>
       <div className="flex  w-full justify-between py-4">
-        <SetNewQuizModal
+       
+        <div className="flex w-1/3 justify-center ">
+          <QuizzesBox toggleModal={toggleModal} role={role}/>
+        </div>
+        <div className="w-full">
+        {role == "Instructor" && (<> <QuizzesCards />
+          <CompletedQuizzes />
+          <SetNewQuizModal
           toggleModal={toggleModal}
           openModal={openModal}
           setOpenModal={setOpenModal}
-        />
-        <div className="flex w-1/3 justify-center ">
-          <QuizzesBox toggleModal={toggleModal} />
-        </div>
-        <div className="w-full">
-          <QuizzesCards />
-          <CompletedQuizzes />
+        /></>)} 
+         
         </div>
       </div>
     </>
@@ -44,7 +46,8 @@ const Quizzes = () => {
 
 export default Quizzes;
 
-export const QuizzesBox = ({ toggleModal }) => {
+export const QuizzesBox = ({ toggleModal,role }) => {
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -54,7 +57,8 @@ export const QuizzesBox = ({ toggleModal }) => {
   };
   return (
     <div className="quizContainer flex flex-col  w-full  gap-y-px	py-2">
-      <div
+      {role == "Instructor" ? (<>
+        <div
         onClick={toggleModal}
         className="flex flex-col items-center justify-center quizBox border-2 cursor-pointer   border-gry-200  text-center rounded-lg  me-4 p-4"
       >
@@ -94,7 +98,25 @@ export const QuizzesBox = ({ toggleModal }) => {
         <div className="my-2 font-bold text-xl leading-tight capitalize">
           {t("students")}
         </div>
-      </div>
+      </div></>): 
+      <>
+          <div
+            onClick={toggleModal}
+            className="flex flex-col items-center justify-center quizBox border-2 cursor-pointer    border-gry-200  text-center rounded-lg  me-4 p-4"
+          >
+            <div className="">
+              <img
+                src={quizIcon}
+                className="m-auto my-2"
+                alt="quiz icon for set up a new quiz"
+              />
+            </div>
+            <div className="my-2 font-bold text-xl leading-tight capitalize">
+              join quiz
+            </div>
+          </div>
+        </>}
+     
     </div>
   );
 };
@@ -110,7 +132,7 @@ export const QuizzesCards = () => {
     try {
       const element = await dispatch(getIncomingQuizzesData());
       setIncomingQuizzes(element.payload?.data);
-      console.log(element.payload?.data);
+      // console.log(element.payload?.data);
     } catch (error) {
       console.error("Error get groups:", error);
     } finally {

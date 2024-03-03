@@ -1,5 +1,4 @@
-import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
-import { useEffect } from "react";
+import { Button, Navbar } from "flowbite-react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
@@ -7,13 +6,13 @@ export default function NavBar() {
   const { t, i18n } = useTranslation();
 
 
-  const { data } = useSelector((state) => state.LoginReducer)
+  const {data} = useSelector((state) => state.LoginReducer)
   const userName = data?.data?.data?.profile?.first_name + ' ' + data?.data?.data?.profile?.last_name
   const email = data?.data?.data?.profile?.email
 
   return (
     <>
-      <Navbar
+      <Navbar 
         fluid
         rounded
         className="border border-1"
