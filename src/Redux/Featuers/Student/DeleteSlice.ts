@@ -13,7 +13,11 @@ export const deleteItem = createAsyncThunk(
       const response = await baseUrl.delete(`/api/${currentUrl}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      return response;
+      const serializedHeaders = {
+        contentLength: response.headers["content-length"],
+        contentType: response.headers["content-type"],
+      };
+      return { data: response.data, headers: serializedHeaders };
     } catch (error) {
       return rejectWithValue(error?.message);
     }
