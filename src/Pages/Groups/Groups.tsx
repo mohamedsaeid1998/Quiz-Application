@@ -9,7 +9,7 @@ import UseActionGet from "@/Utils/Hooks/UseActionGet";
 import { getStudentData } from "@/Redux/Featuers/Student/getStudentSlice";
 import { useForm } from "react-hook-form";
 import { FormInput, FormSelect } from "@/Components/Instructor/FormInput";
-import { Modal, Select } from 'flowbite-react';
+import { Button, Modal, Select } from 'flowbite-react';
 import useAction from "@/Utils/Hooks/UseAction";
 import { createNewGroup } from "@/Redux/Featuers/Groups/addNewGroupSlice";
 import { deleteGroup } from "@/Redux/Featuers/Groups/deleteGroupSlice";
@@ -215,15 +215,12 @@ const Groups = () => {
               <div className="py-2 ">
                 <FormInput
                   label="Set up a new Group"
-                  // ref={titleRef}
                   deign=""
-                  // value={groupDetails?.name}
                   {...register("name", { required: "Enter your group name" })}
                 />
               </div>
               <div
               >
-
 
                 <Select
                   multiple
@@ -262,27 +259,18 @@ const Groups = () => {
           </Modal.Body>
         </Modal>
 
-        <ModalSection textBtn="Submit" modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal, isLoading }} >
+        <ModalSection textBtn="add group"  modalTitle="Add Group" handleSubmit={handleSubmit(handleSendData)} {...{ openModal, setOpenModal, isLoading }} >
           <FormInput
             label="Set up a new Group"
-            // ref={titleRef}
             deign=""
-            // value={groupDetails?.name}
             {...register("name", { required: "Enter your group name" })}
           />
-          <div
-          // className="flex items-center  m-2"
-          >
-
-
+        
             <Select
               multiple
-
-              // className="m-auto text-center bg-white border-white rounded-xl pr-2 md:w-40 "
               {...register("students", {
                 required: "Enter your students",
               })}
-
             >
               <option value={""} className="text-muted">Select Students</option>
               {studentsData?.length > 0 &&
@@ -291,11 +279,8 @@ const Groups = () => {
 
                 ))}
             </Select>
-
-          </div>
-
-
         </ModalSection>
+
         <ModalDeleteSection textBtn="Submit" modalTitle="Delete Group" handleFunction={() => deleteGroupData(itemId)}  {...{ openModalDelete, setOpenModalDelete, isLoading }}>
           <p className="font-medium my-3 text-base pt-2 capitalize">
             are you sure you want to delete this Group ? if you are sure just click
@@ -304,15 +289,16 @@ const Groups = () => {
         </ModalDeleteSection>
 
           <div className=" my-4 flex justify-end">
-            <button
+            <Button
+            color="gray"
               onClick={toggleModal}
-              className="border-2 p-1 rounded-full flex  justify-center items-center gap-2  "
+              className="border-2 p-1  flex  justify-center items-center gap-2  "
             >
               <span className="text-2xl">
                 <FaCirclePlus />
               </span>
               {t("AddGroup")}
-            </button>
+            </Button>
           </div>
 
           <div className="border p-4 border-[#ddd] rounded-[10px]">
@@ -321,9 +307,9 @@ const Groups = () => {
             <div className="grid grid-cols-2 mt-8 gap-x-12 gap-y-3">
               {isLoading?
               ( Array.from({ length: 2 }, (_, index) => (
-  <div key={index} className="border p-4 border-[#ddd] rounded-[10px] space-y-2.5 animate-pulse max-w-lg" role="status">
+  <div key={index} className="border p-4 border-[#ddd] rounded-[10px] space-y-2.5 animate-pulse " role="status">
     <div className="flex w-full">
-      <div className="w-1/2">
+      <div className="w-full">
         <div className="h-6 bg-gray-200 w-1/2 rounded mb-2"></div>
         <div className="h-4 bg-gray-200 w-1/4 rounded"></div>
       </div>

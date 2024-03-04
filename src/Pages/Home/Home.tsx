@@ -1,21 +1,19 @@
 import { quizImg, userImage } from "@/Assets/Images";
 import ModalViewSection from "@/Components/Shared/ModalSection/ModalViewSection";
 import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
-import { getStudentDataDetails } from "@/Redux/Featuers/Student/StudentDetailsSlice";
 import { getTopFiveStudents } from "@/Redux/Featuers/Student/getTopFiveStudentsSlice";
 
+import { getQuizById } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
 import UseActionGet from "@/Utils/Hooks/UseActionGet";
 import { Table } from "flowbite-react";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 import { LiaEyeSolid } from "react-icons/lia";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import "../../Styles/global.scss";
 import { ViewDetails } from "../Students/Students";
-import { getQuizById } from "@/Redux/Featuers/Quizzes/getQuizzeSlice";
-import "../../Styles/global.scss"
 function Home() {
   const { t, i18n } = useTranslation();
   const [fiveStudentsData, setFiveStudentsData] = useState([])
@@ -70,8 +68,8 @@ function Home() {
                 transition: "background-color 0.5s ease-in-out",
               }} onMouseEnter={() => setHoveredCardId(_id)}
                 onMouseLeave={() => setHoveredCardId(null)}>
-                <div className="card-img">
-                  <img src={quizImg} alt="quizImg" />
+                <div className="card-img w-44">
+                  <img src={quizImg} alt="quizImg" className="w-full origin-left hover:rotate-2 hover:translate-x-1 hover:scale-95 hover:shadow-lg transition-all duration-500" />
                 </div>
                 <div className="card-des w-[100%]  p-3">
                   <h1 className="font-bold">
@@ -81,10 +79,7 @@ function Home() {
                     <span>{moment(createdAt).format("Do MMM YY")}</span> | <span>{moment(schadule).format("HH:mmA")}</span>
                   </div>
                   <div className="flex justify-between">
-                    {/* // <h2>No. of student’s enrolled: {participants}</h2>
-                    // <div className="flex items-center gap-2 cursor-pointer ">
-                    //   <h6>Open</h6>
-                    //   <FaArrowAltCircleRight className="text-mainColor " /> */}
+                   
                     <h2>No. of student’s enrolled: 32</h2>
                     <div className="flex items-center gap-2 cursor-pointer studentIconCard">
                       <div>
@@ -126,7 +121,7 @@ function Home() {
                 transition: "background-color 0.5s ease-in-out",
               }} >
                 <div className="card-img  w-24 ">
-                  <img src={userImage} className="object-cover" alt="userImage" />
+                  <img src={userImage} className="object-cover w-full origin-left  hover:rotate-2 hover:translate-x-1 hover:scale-95 hover:shadow-lg transition-all duration-500" alt="userImage" />
                 </div>
                 <div className="card-des w-[100%] flex items-center justify-between  p-3">
                   <div>

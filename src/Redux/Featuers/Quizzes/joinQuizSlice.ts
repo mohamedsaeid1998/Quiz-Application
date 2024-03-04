@@ -5,6 +5,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const getAllJoinData = createAsyncThunk(
   "getJoinSlice/getAllJoinData",
   async (data) => {
+    console.log(data)
     const token = localStorage.getItem("UserToken");
     try {
       const response = await baseUrl.post(`/api/quiz/join`,data, {

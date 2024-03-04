@@ -1,7 +1,6 @@
 /** @format */
 
 import { BankIcon, allquizzes, quizIcon } from "@/Assets/Images";
-// import useCurrentUrl from "@/Utils/Hooks/useCurrentUrl";
 import { getIncomingQuizzesData } from "@/Redux/Featuers/Quizzes/getIncomingQuizzes";
 import React from "react";
 import { FaArrowAltCircleRight, FaRegEdit } from "react-icons/fa";
@@ -15,6 +14,7 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { ViewQuizzesDetails } from "../Home/Home";
 import { LiaEyeSolid } from "react-icons/lia";
+import "../../Styles/global.scss"
 const Quizzes = () => {
 
   const role = localStorage.getItem("UserRole");
@@ -66,7 +66,7 @@ export const QuizzesBox = ({ toggleModal,role }) => {
         <div className=" ">
           <img
             src={quizIcon}
-            className="m-auto my-2"
+            className="m-auto my-2 "
             alt="quiz icon for set up a new quiz"
           />
         </div>
@@ -81,7 +81,7 @@ export const QuizzesBox = ({ toggleModal,role }) => {
         <div className="">
           <img
             src={BankIcon}
-            className="m-auto my-1"
+            className="m-auto my-1 "
             alt="BankIcon icon for Question Bank"
           />
         </div>
@@ -108,8 +108,8 @@ export const QuizzesBox = ({ toggleModal,role }) => {
             <div className="">
               <img
                 src={quizIcon}
-                className="m-auto my-2"
-                alt="quiz icon for set up a new quiz"
+                className="m-auto my-2 "
+                alt="quiz icon for set up a new quiz "
               />
             </div>
             <div className="my-2 font-bold text-xl leading-tight capitalize">
@@ -159,8 +159,8 @@ export const QuizzesCards = () => {
               transition: "background-color 0.5s ease-in-out",
             }} onMouseEnter={() => setHoveredCardId(_id)}
               onMouseLeave={() => setHoveredCardId(null)}>
-              <div className="card-img bg-orange-100 px-2">
-                <img className="studentCarImg w-full" src={allquizzes} alt="" />
+              <div className="card-img  w-40 hover:bg-orange-100">
+                <img className=" w-full bg-orange-100 origin-left hover:bg-gray-900 hover:rotate-1 hover:rounded-lg hover:translate-x-3 hover:scale-75 hover:shadow-lg transition-all duration-500" src={allquizzes} alt="" />
               </div>
               <div className="card-des w-full p-3">
                 <h3 className="font-bold capitalize">{item?.title}</h3>

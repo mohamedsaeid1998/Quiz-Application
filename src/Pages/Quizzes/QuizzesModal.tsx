@@ -12,6 +12,7 @@ import { ImPower } from "react-icons/im";
 
 import { toast } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
+import { getAllJoinData } from "@/Redux/Featuers/Quizzes/joinQuizSlice";
 const {
   FormInput,
   FormSelect,
@@ -43,7 +44,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
         setShowCode(true);
         setQuizCode(element?.payload?.data?.data.code);
       } else {
-        console.log("false submit ");
         setOpenModal(true);
       }
 
@@ -52,9 +52,9 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
       }
       reset();
     } catch (error) {
+      setIsLoading(false);
       setOpenModal(true);
 
-      setIsLoading(false);
     }
   };
 
@@ -73,17 +73,22 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
       setValue("schadule", currentDate);
       setValue("time", currentTimeModal);
     } catch (error) {
+      setIsLoading(false);
       toast.error("Error get groups:", error);
+
     } finally {
       setIsLoading(false);
     }
   };
   React.useEffect(() => {
-    getAllgroups();
+    if(role === "Instructor"){
+
+      getAllgroups();
+    }
   }, []);
   const handelFormData = async (data) => {    
+    console.log(data)
     const element = await dispatch(getAllJoinData(data));
-      console.log(element);
      setOpenModal(openModal);
      if(element?.payload?.data?.message=="Student joined successfully"){
       toast.success(element?.payload?.data?.message)
@@ -100,12 +105,12 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
       <>
        {!showCode ? (
         <ModalSection
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          toggleModal={toggleModal}
+       
           design="modalBtn"
           textBtn="submit"
           handleSubmit={handleSubmit(handleSubmitData)}
+          {...{isLoading,openModal,setOpenModal,toggleModal}}
+
         >
           <FormInput
             label="Title"
@@ -194,12 +199,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
               categories={["FE", "BE"]}
               {...register("type", { required: "Enter your group name" })}
             />
-            {/* <FormSelectGroups
-              label="Group name"
-              //   ref={typeRef}
-              groupsCollection={groups}
-              {...register("group", { required: "Enter your group name" })}
-            /> */}
+          
             <div className="py-1">
               <div className="flex items-center text-sm justify-center rounded-xl border border-gray-300 tex-center m-2">
                 <div
@@ -213,10 +213,10 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
                     required: "Enter your group name",
                   })}
                 >
-                  {groups.length >= 0 &&
-                    groups.map((group) => (
-                      <option key={group._id} value={group._id}>
-                        {group.name}
+                  {groups?.length >= 0 &&
+                    groups?.map((group) => (
+                      <option key={group?._id} value={group?._id}>
+                        {group?.name}
                       </option>
                     ))}
                 </select>
@@ -253,19 +253,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
             required: "Enter The Received Code PLZ",
           })}
           />
-          {/* {errors?.code ? (
-                      <p className="text-red-600 text-center">
-                        {errors?.code?.message}
-                      </p>
-                    ) : null} */}
-        {/* <button
-          type="submit" className={`border block ms-auto border-[#ddd] rounded-[2rem] px-5 studentGroupBtn hover:bg-slate-800 hover:text-gray-100	 transition-all duration-500 ease-out  p-2 space-y-6  `}>
-          Submit
-        </button> */}
-        {/* <Modal.Body>
-        <form onSubmit={handleSubmit(handelFormData)}>
-      </form> 
-      </Modal.Body> */}
+        
       </ModalSection>
       </>)}
 
@@ -303,7 +291,6 @@ const CopyModal = ({
       toggleModal={toggleModal}
       design="modalBtn hidden"
       textBtn="close"
-
       // handleSubmit={handleSubmit(handleSubmitData)}
     >
       <div className="flex justify-center items-center flex-col py-2">
