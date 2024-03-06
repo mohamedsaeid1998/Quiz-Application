@@ -9,9 +9,10 @@ import { Link } from 'react-router-dom';
 import { LoadingSpinner } from '@/Components';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { FaCheckCircle } from 'react-icons/fa';
-
+import TimerQuiz from "./TimerQuiz.tsx"
 export default function QuizQuestions() {
     const [loading, setLoading] = React.useState(null);
+    const [timeDuration,setTimeDuration]=React.useState(0)
     const [quizQuestions, setQuizQuestions] = React.useState([]);
     const dispatch = useDispatch();
     const quizId = useCurrentUrl();
@@ -28,11 +29,13 @@ export default function QuizQuestions() {
     const getAllQuizQuesData = React.useCallback(async () => {
       setLoading(true);
       try{
+
         const element = await dispatch(getAllQuestionsData(quizId));
-        console.log(element?.payload?.data?.data?.questions);
         setQuizQuestions(element?.payload?.data?.data?.questions);
         setFinalGrade(element?.payload?.data?.data?.score_per_question * element?.payload?.data?.data?.questions_number)
         setQuizName(element?.payload?.data?.data?.title);
+        setTimeDuration(element?.payload?.data?.data?.duration)
+        console.log(element?.payload?.data?.data?.duration)
       }catch(error){
         console.error(error);
       } finally {
@@ -42,7 +45,6 @@ export default function QuizQuestions() {
 
     const token = localStorage.getItem("UserToken");
     const submitAnswers = () => {
-        console.log(answers);
         setIsLoading(true)
         axios
           .post(`https://upskilling-egypt.com:3005/api/quiz/submit/${quizId}`, { answers },{
@@ -56,7 +58,6 @@ export default function QuizQuestions() {
             toast.success(response?.data?.message);
           })
           .catch((error) => {
-            console.log(error);
             toast.error(error.response.data.message);
             setIsLoading(false)
           });
@@ -88,12 +89,12 @@ export default function QuizQuestions() {
     <>
  {correctAnswers?
  <>
- <div className="flex my-10 p-4 w-full justify-center">
-    <div>
+ <div className="flex my-10 p-5 w-full justify-center">
+    <div className="w-1/2 ">
       <h3 className="font-semibold text-4xl bg-orange-100   px-3 py-1  mb-2 text-center">score : {`${score}/${finalGrade}`}</h3>
       {correctAnswers?.map((el:any,idx:number)=><div className="mt-3">
         <div className='flex items-center'>
-        <p className='bg-orange-100 w-fit my-3 p-1 rounded-lg'>QuestionNo:{idx+1}</p>
+        <p className='bg-orange-100 w-fit my-3 p-2 rounded-lg'>QuestionNo:{idx+1}</p>
   <span className="px-2 py-1 rounded-xl font-semibold border-l-2 border-y-2">{el.title} </span>
         </div>
   <div className='flex items-center'>
@@ -107,8 +108,10 @@ export default function QuizQuestions() {
  </>
 :
 <>
-       <div className="pt-3 mt-5 border rounded-xl">
+       <div className="mt-5 border rounded-xl flex justify-between items-center">
         <div className="m-3 font-bold">QUIZ Name: {quizName || ""}</div>
+        <TimerQuiz submitAnswers={submitAnswers} timeDuration={timeDuration}/>
+
         </div>
     {(
         quizQuestions.map((question,index)=>(

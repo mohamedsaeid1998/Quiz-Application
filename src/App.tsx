@@ -21,10 +21,9 @@ import ChangePassword from "./Pages/Auth/ChangePassword/ChangePassword";
 import Help from "./Pages/Help/Help";
 import { ToastContainer } from "react-toastify";
 import EditQuiz from "./Pages/Quizzes/EditQuiz";
+import QuizQuestions from "./Pages/QuizQuestions/QuizQuestions";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
-  const here = localStorage.getItem("UserRole")
-  console.log(here);
 
   const routes = createBrowserRouter([
     {
@@ -54,6 +53,7 @@ function App() {
         { path: "groups", element: <Groups /> },
         { path: "quiz", element: <Quizzes /> },
         { path: "quiz/edit/:id", element: <EditQuiz /> },
+        { path: "quiz-questions/:id", element: <QuizQuestions/> },
         { path: "questions", element: <Questions /> },
         { path: "results", element: <Results /> },
         { path: "editModal", element: <StudentModal /> },

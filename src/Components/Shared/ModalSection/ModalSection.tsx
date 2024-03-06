@@ -51,8 +51,6 @@ const ModalSection = ({
                 <TbFidgetSpinner className="animate-spin  " size={20} />
               </button>  : 
               <button
-              onClick={() => setOpenModal(false)}
-
                 type="submit"
                 className={` ${design} block m-auto w-1/4 p-2 space-y-6 border border-[#ddd] rounded-[2rem] px-5 text-gray-100   `}
               >

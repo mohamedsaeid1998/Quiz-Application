@@ -13,6 +13,7 @@ import { ImPower } from "react-icons/im";
 import { toast } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
 import { getAllJoinData } from "@/Redux/Featuers/Quizzes/joinQuizSlice";
+import { useNavigate } from "react-router-dom";
 const {
   FormInput,
   FormSelect,
@@ -27,6 +28,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
   const [isLoading, setIsLoading] = React.useState(null);
   const [showCode, setShowCode] = React.useState(false);
   const [quizCode, setQuizCode] = React.useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -87,7 +89,6 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
     }
   }, []);
   const handelFormData = async (data) => {    
-    console.log(data)
     const element = await dispatch(getAllJoinData(data));
      setOpenModal(openModal);
      if(element?.payload?.data?.message=="Student joined successfully"){
@@ -121,15 +122,14 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
           <div className="flex justify-between">
             <FormSelect
               label="Duration"
-              //   ref={durationRef}
-              maxNum={15}
+              maxNum={5}
               design="w-full"
               {...register("duration", { required: "Enter your group name" })}
             />
             <FormSelect
               label="questions"
               //   ref={questionsRef}
-              maxNum={15}
+              maxNum={10}
               {...register("questions_number", {
                 required: "Enter your group name",
               })}
@@ -137,7 +137,7 @@ const SetNewQuizModal = ({ toggleModal, openModal, setOpenModal,role }) => {
             <FormSelect
               label="Score"
               //   ref={scoreRef}
-              maxNum={15}
+              maxNum={10}
               {...register("score_per_question", {
                 required: "Enter your group name",
               })}
